@@ -10,7 +10,7 @@ class KorisnikController {
         this.prijavaNaSistem = (req, res) => {
             let korisnickoIme = req.body.korisnickoIme;
             let lozinka = req.body.lozinka;
-            korisnik_1.default.findOneAndUpdate({ 'korisnickoIme': korisnickoIme, 'lozinka': lozinka }, (err, korisnik) => {
+            korisnik_1.default.findOne({ 'korisnickoIme': korisnickoIme, 'lozinka': lozinka }, (err, korisnik) => {
                 if (err)
                     console.log(err);
                 else

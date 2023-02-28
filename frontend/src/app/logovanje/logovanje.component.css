@@ -1,0 +1,26 @@
+.buttonsPosition{
+    padding-left: 10px;
+    padding-right: 10px;
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+
+}
+
+.spacer{
+    flex: 1 1 auto;
+}
+
+.centerItem{
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    padding-top: 30px;
+}
+ 
+.dugme{
+    height: fit-content;
+    width: fit-content;
+    background-color: rgb(63, 81, 181);
+    color: #fff;
+}

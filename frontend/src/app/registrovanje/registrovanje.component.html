@@ -1,0 +1,77 @@
+<body>
+    <mat-toolbar color = "primary">
+        <span >
+            Turisticka agencija
+        </span>
+        <div class="spacer"></div>
+        <div class="buttonsPosition" *ngIf="ulogovanKorisnik">
+            <label >{{ulogovanKorisnik.korisnickoIme}} : {{ulogovanKorisnik.privilegija}} </label>
+        </div>
+        <button mat-icon-button (click)="pretraga()">
+            <mat-icon>home</mat-icon>
+        </button>
+        <div class="buttonsPosition" *ngIf="ulogovanKorisnik">
+            <button mat-button  >Odjavi se </button> 
+        </div>
+    </mat-toolbar>
+
+    <mat-toolbar color="primary" *ngIf="ulogovanKorisnik">
+        <div class="buttonTabsPosition">
+            <button mat-raised-button color="primary" (click)="rezervacije()">Rezervacije</button>
+        </div>
+        <div class="buttonTabsPosition">
+            <button mat-raised-button color="primary" (click)="dodajAranzman()">Dodaj aranzman</button>
+        </div>
+        <div class="buttonTabsPosition" *ngIf="this.ulogovanKorisnik.privilegija == 'admin'" > 
+            <button mat-raised-button color="primary"  (click)="registrovanje()">Dodaj zaposlenog</button>
+        </div>
+    </mat-toolbar>
+
+
+    <div class="centerItem">
+        <mat-form-field appearance="fill">
+            <mat-label>Korisnicko ime</mat-label>
+            <input name="korisnickoIme" type="text" matInput  placeholder="Unesite korisnicko ime" 
+            [(ngModel)]="korisnickoIme" required #greskaKorisnickoIme="ngModel" >
+            <mat-error *ngIf="greskaKorisnickoIme.invalid">
+                Korisnicko ime je obavezno polje
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="fill"     >
+            <mat-label>Lozinka</mat-label>
+            <input name="lozinka" type="password"  matInput placeholder="Unesite lozinku" 
+            [(ngModel)]="lozinka" required #greskaLozinka="ngModel"
+            pattern="^[A-Za-z]((?=.*\d)(?=.*[A-Za-z])(?=.*?[#\?!@\$%\^&\*\-\]\[\{\}])).*" minlength="8" maxlength="12">
+                <mat-error *ngIf="greskaLozinka.errors?.['required']" >
+                    Lozinka je obavezno polje
+                </mat-error>
+                <mat-error class="napraviProstor" *ngIf="greskaLozinka.errors?.['minlength'] || greskaLozinka.errors?.['maxlength'] ||
+                    greskaLozinka.errors?.['pattern']">
+                    Lozinka mora da pocinje slovom, da bude duzine od 8 do 12 karaktera, da sadrzi bar jedno veliko slovo, jedan broj i jedan specijalan karakter
+                </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+            <mat-label>Potvrda lozinke</mat-label>
+            <input name="potvrdaLozinke" type="password"  matInput placeholder="Unesite lozinku" 
+            [(ngModel)]="potvrdaLozinke" required #greskaPotvrdaLozinke="ngModel">
+            <mat-error *ngIf="greskaPotvrdaLozinke.invalid">
+                Potvrda lozinka je obavezno polje
+            </mat-error>
+        </mat-form-field>
+        
+        <div > 
+            <mat-label>Privilegija novog korisnika:</mat-label>
+        <mat-radio-group aria-label="Select an option" class="vrsta" [(ngModel)]="this.privilegija" >
+            <mat-radio-button value="staff" padding="10px">staff</mat-radio-button>
+            <mat-radio-button value="admin">admin</mat-radio-button>
+          </mat-radio-group>
+        </div>
+        <button mat-flat-button class="dugme" (click)="registracija()"
+         [disabled]="greskaKorisnickoIme.invalid || greskaLozinka.invalid || greskaPotvrdaLozinke.invalid "  
+         
+         >Registruj korisnika</button>
+        <div *ngIf="message != ''">
+            <mat-label style="color: red" >{{message}}</mat-label>
+        </div>
+    </div>
+</body>

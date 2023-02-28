@@ -1,0 +1,60 @@
+<body>
+    <mat-toolbar color = "primary">
+        <span >
+            Turisticka agencija
+        </span>
+        <div class="spacer"></div>
+        <div class="buttonsPosition" *ngIf="ulogovanKorisnik">
+            <label >{{ulogovanKorisnik.korisnickoIme}} : {{ulogovanKorisnik.privilegija}} </label>
+        </div>
+        <button mat-icon-button (click)="pretraga()">
+            <mat-icon>home</mat-icon>
+        </button>
+        <div class="buttonsPosition" *ngIf="ulogovanKorisnik">
+            <button mat-button  >Odjavi se </button> 
+        </div>
+    </mat-toolbar>
+
+    <mat-toolbar color="primary" *ngIf="ulogovanKorisnik">
+        <div class="buttonTabsPosition">
+            <button mat-raised-button color="primary" (click)="rezervacije()">Rezervacije</button>
+        </div>
+        <div class="buttonTabsPosition">
+            <button mat-raised-button color="primary" (click)="dodajAranzman()">Dodaj aranzman</button>
+        </div>
+        <div class="buttonTabsPosition" *ngIf="this.ulogovanKorisnik.privilegija == 'admin'" > 
+            <button mat-raised-button color="primary"  (click)="registrovanje()">Dodaj zaposlenog</button>
+        </div>
+    </mat-toolbar>
+
+    <div class="centerItem">
+    <div class="polozaj">
+        <div class="centerItem" >
+            <img width="300" height="480" class="image" src="{{aranzman.slika}}" >
+        </div>
+        <div class="divInList">
+            <mat-label>Naziv aranzmana: </mat-label>
+            <mat-label>{{aranzman.naziv}}</mat-label>
+        </div>
+        <div class="divInList">
+            <mat-label>Lokacije: </mat-label>
+            <div *ngFor="let lokacija of aranzman.lokacije">
+                <mat-label>{{lokacija}} </mat-label>
+            </div>
+        </div>
+        <div class="divInList">
+            <mat-label>Cena: </mat-label>
+            <mat-label>{{aranzman.cena}}</mat-label>
+        </div>
+        <div class="divInList">
+            <mat-label>Prevoz: </mat-label>
+            <mat-label>{{aranzman.prevoz}}</mat-label>
+        </div>  
+        <div class="divInList">
+            <mat-label>Smestaj: </mat-label>
+            <mat-label></mat-label>
+        </div>
+    </div>
+</div>
+
+</body>

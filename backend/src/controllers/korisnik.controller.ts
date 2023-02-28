@@ -7,8 +7,7 @@ export class KorisnikController{
         
         let korisnickoIme = req.body.korisnickoIme;
         let lozinka = req.body.lozinka;
-
-        Korisnik.findOneAndUpdate({'korisnickoIme': korisnickoIme, 'lozinka': lozinka},(err, korisnik)=>{
+        Korisnik.findOne({'korisnickoIme': korisnickoIme, 'lozinka': lozinka},(err, korisnik)=>{
             if(err) console.log(err);
             else res.json(korisnik)
         })

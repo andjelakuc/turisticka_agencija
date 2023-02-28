@@ -1,0 +1,132 @@
+<body >
+    <mat-toolbar color = "primary">
+        <span >
+            Turisticka agencija
+        </span>
+        <div class="spacer"></div>
+        <div class="buttonsPosition" *ngIf="ulogovanKorisnik">
+            <label >{{ulogovanKorisnik.korisnickoIme}} : {{ulogovanKorisnik.privilegija}} </label>
+        </div>
+        <button mat-icon-button >
+            <mat-icon>home</mat-icon>
+        </button>
+        <div class="buttonsPosition" *ngIf="ulogovanKorisnik">
+            <button mat-button  >Odjavi se </button> 
+        </div>
+        <div class="buttonsPosition" *ngIf="!ulogovanKorisnik"  >
+            <button mat-button (click)="prijava()" >  Prijavi se</button>
+        </div>
+    </mat-toolbar>
+
+    <mat-toolbar color="primary" *ngIf="ulogovanKorisnik">
+        <div class="buttonTabsPosition">
+            <button mat-raised-button color="primary" (click)="rezervacije()">Rezervacije</button>
+        </div>
+        <div class="buttonTabsPosition">
+            <button mat-raised-button color="primary" (click)="dodajAranzman()">Dodaj aranzman</button>
+        </div>
+        <div class="buttonTabsPosition" *ngIf="this.ulogovanKorisnik.privilegija == 'admin'" > 
+            <button mat-raised-button color="primary"  (click)="registrovanje()">Dodaj zaposlenog</button>
+        </div>
+    </mat-toolbar>
+    
+    <div class="centerItem">
+    <div class="pretragaBar">
+        <mat-form-field >
+            <mat-label>Naziv Aranzmana </mat-label>
+            <input name="naziv" type="text" matInput placeholder="Unesite naziv aranzmana" 
+            [(ngModel)]="naziv">
+        </mat-form-field>
+        <mat-form-field >
+            <mat-label>Lokacija</mat-label>
+            <input name="lokacija" type="text" matInput placeholder="Unesite lokaciju" 
+            [(ngModel)]="lokacija">
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label >Kontinent</mat-label>
+            <input name="kontinent" type="text" matInput placeholder="Unesite kontinent" 
+            [(ngModel)]="kontinent">
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label >Drzava</mat-label>
+            <input name="drzava" type="text" matInput placeholder="Unesite drzavu" 
+            [(ngModel)]="drzava">
+        </mat-form-field>
+        <mat-form-field >
+            <mat-label>Prevozi</mat-label>
+            <mat-select [formControl]="prevozi" multiple>
+              <mat-select-trigger>
+                {{prevozi.value?.[0] || ''}}
+                <span *ngIf="(prevozi.value?.length || 0) > 1" class="example-additional-selection">
+                  (+{{(prevozi.value?.length || 0) - 1}} {{prevozi.value?.length === 2 ? 'other' : 'others'}})
+                </span>
+              </mat-select-trigger>
+              <mat-option *ngFor="let prevoz of prevozList" [value]="prevoz">{{prevoz}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+        
+        
+        
+        
+    </div>
+    <div  class="pretragaBar">
+        <mat-form-field>
+            <mat-label>Datum polaska</mat-label>
+            <input matInput [matDatepicker]="picker">
+            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Datum povratka</mat-label>
+            <input matInput [matDatepicker]="picker">
+            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+
+        <div class="buttonTabsPosition">
+            <button mat-raised-button color="primary" >Pretrazi</button>
+        </div><div class="buttonTabsPosition">
+            <button mat-raised-button color="primary">Ukloni filtere</button>
+        </div>
+        
+    </div>
+    
+    <div *ngFor="let aranzman of filtriraniAranzmani" class="prikazPretrage"  >
+        <div class="rowDiv">
+            
+            <div class="centerItem"  (click)="stranicaAranzmana(aranzman)" >
+                <img  height="100" src="{{aranzman.slika}}" >
+                Klik za detalje
+            </div>
+            <div>
+                <div class="divInList">
+                    <mat-label>Naziv ponude: </mat-label>
+                    <mat-label>{{aranzman.naziv}}</mat-label>
+                </div>
+                <div class="divInList">
+                    <mat-label>Destinacija: </mat-label>
+                    <mat-label>{{aranzman.lokacije[0]}}</mat-label>
+                </div>
+                <div class="divInList">
+                    <mat-label>Datum pocetka: </mat-label>
+                    <mat-label>{{aranzman.datumPolaska|  date:'MM/dd/yyyy' }}</mat-label>
+                </div>  
+            </div>
+            <div>
+                <div class="divInList">
+                    <mat-label>Trajanje (u danima): </mat-label>
+                    <mat-label>{{aranzman.trajanje}}</mat-label>
+                </div>
+                <div class="divInList">
+                    <mat-label>Cena: </mat-label>
+                    <mat-label>{{aranzman.cena}} €</mat-label>
+                </div>
+                <div class="divInList">
+                    <mat-label>Tip prevoza: </mat-label>
+                    <mat-label>{{aranzman.prevoz}}</mat-label>
+                </div>  
+            </div>
+        </div>
+    </div>
+</div>
+</body>

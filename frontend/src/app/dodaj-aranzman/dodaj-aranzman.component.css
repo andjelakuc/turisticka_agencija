@@ -1,0 +1,43 @@
+.spacer{
+    flex: 1 1 auto;
+}
+
+.centerItem{
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+}
+
+.centerSearch{
+    padding-left: 30%;
+    font-size: medium;
+}
+.buttonsPosition{
+    padding-left: 10px;
+    padding-right: 10px;
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+
+}
+.buttonTabsPosition{
+    padding-left: 1px;
+    padding-right: 1px;
+    padding-bottom: 0px;
+    display: flex;
+    flex-direction: row;
+    gap: 0px;
+}
+
+.vrsta{
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    padding-bottom: 10px;
+}
+.dugme{
+    height: fit-content;
+    width: fit-content;
+    background-color: rgb(63, 81, 181);
+    color: #fff;
+}

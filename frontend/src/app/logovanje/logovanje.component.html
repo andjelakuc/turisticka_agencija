@@ -1,0 +1,41 @@
+
+<html>
+
+<body>
+    <mat-toolbar color = "primary">
+        <span>
+            Bibilioteka
+        </span>
+        <div class="spacer"></div>
+        <div class="buttonsPosition">
+            <button mat-button >Nazad </button> 
+        </div>
+    </mat-toolbar>
+
+    <div class="centerItem">
+        <mat-form-field appearance="fill">
+            <mat-label>Korisnicko ime</mat-label>
+            <input name="korisnickoIme" type="text" matInput required placeholder="Unesite korisnicko ime" 
+            [(ngModel)]="korisnickoIme" #greskaKorisnickoIme="ngModel" >
+            <mat-error *ngIf="greskaKorisnickoIme.invalid">
+                Korisnicko ime je obavezno polje
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+            <mat-label>Lozinka</mat-label>
+            <input name="lozinka" type="password" required matInput placeholder="Unesite lozinku" 
+            [(ngModel)]="lozinka" #greskaLozinka="ngModel">
+            <mat-error *ngIf="greskaLozinka.invalid">
+                Lozinka je obavezno polje
+            </mat-error>
+        </mat-form-field>
+        <button mat-flat-button class="dugme" (click)="prijava()" >Prijavi se</button>
+        <div *ngIf="message != ''">
+            <mat-label style="color: red" >{{message}}</mat-label>
+        </div>
+    </div>
+
+
+    
+</body>
+</html>
