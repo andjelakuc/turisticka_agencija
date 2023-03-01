@@ -7,7 +7,7 @@ lokacijaRouter.route('/dohvatiLokaciju').get(
     (req, res)=> new LokacijaController().dohvatiLokaciju(req, res)
 )
 
-lokacijaRouter.route('/dodajAranzman').get(
+lokacijaRouter.route('/dodajLokaciju').get(
     (req, res)=> new LokacijaController().dodajLokaciju(req, res)
 )
 

@@ -3,6 +3,8 @@ import cors from 'cors';
 import mongoose from 'mongoose';
 import aranzmanRouter from './routes/aranzman.routes';
 import korisnikRouter from './routes/korisnik.routes';
+import smestajRouter from './routes/smestaj.router';
+import lokacijaRouter from './routes/lokacija.routes';
 
 const app = express();
 app.use(cors())
@@ -20,6 +22,8 @@ const router = express.Router();
 
 router.use('/aranzman', aranzmanRouter );
 router.use('/korisnici', korisnikRouter );
+router.use('/smestaj', smestajRouter );
+router.use('/lokacija', lokacijaRouter );
 
 app.use('/', router);
 app.listen(4000, () => console.log(`Express server running on port 4000`));
