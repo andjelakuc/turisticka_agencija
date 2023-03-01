@@ -1,19 +1,21 @@
-#version: '2.15.1'
+version: '2.15.1'
 
 services:
   angular:
-    build: frontend
+    build: ./frontend
     ports:
       - "4200:4200"
   
-  express:
-    build: backend
-    ports: 
-      - "3000:3000"
-    links:
-      - database
-
   database:
     image: mongo
     ports:
       - "27017:27017"
+      
+  express:
+    build: ./backend
+    environment:
+      - MONGO_URL=mongodb://127.0.0.1:27017/turisticka_agencija
+    ports: 
+      - "3000:3000"
+    links:
+      - database
