@@ -3,11 +3,11 @@ import { SmestajController } from '../controllers/smestaj.controller';
 
 const smestajRouter = express.Router();
 
-smestajRouter.route('/dohvatiSmestaj').get(
+smestajRouter.route('/dohvatiSmestaj').post(
     (req, res)=> new SmestajController().dohvatiSmestaj(req, res)
 )
 
-smestajRouter.route('/dodajAranzman').get(
+smestajRouter.route('/dodajSmestaj').post(
     (req, res)=> new SmestajController().dodajSmestaj(req, res)
 )
 

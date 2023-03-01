@@ -7,6 +7,6 @@ const express_1 = __importDefault(require("express"));
 const lokacija_controller_1 = require("../controllers/lokacija.controller");
 const lokacijaRouter = express_1.default.Router();
 lokacijaRouter.route('/dohvatiLokaciju').get((req, res) => new lokacija_controller_1.LokacijaController().dohvatiLokaciju(req, res));
-lokacijaRouter.route('/dodajAranzman').get((req, res) => new lokacija_controller_1.LokacijaController().dodajLokaciju(req, res));
+lokacijaRouter.route('/dodajLokaciju').get((req, res) => new lokacija_controller_1.LokacijaController().dodajLokaciju(req, res));
 exports.default = lokacijaRouter;
 //# sourceMappingURL=lokacija.routes.js.map
