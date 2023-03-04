@@ -1,7 +1,9 @@
 import express, { Application, Request, Response } from 'express';
+import cors from 'cors';
 import { MongoClient } from 'mongodb';
 
 const app: Application = express();
+app.use(cors());
 
 const url: string = process.env.MONGODB_URI || 'mongodb://localhost:27017';
 const dbName: string = 'turisticka_agencija';
