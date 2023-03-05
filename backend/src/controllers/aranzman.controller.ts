@@ -1,15 +1,14 @@
 import express from 'express'
+import { db } from '../server';
 import Aranzman from '../models/aranzman';
 
 export class AranzmanController {
 
     //povratna vrednost je lista aranzmana
     dohvatiSveAranzmane = (req: express.Request, res: express.Response) => {
-        
-        Aranzman.find({}, (err, aranzmani) => {
-            if (err) console.log(err);
-            else res.json(aranzmani);
-        })
+        db.collection('Aranzmani').find().limit(10).toArray(function(err, results) {
+            res.send(results);
+          });
     }
 
 

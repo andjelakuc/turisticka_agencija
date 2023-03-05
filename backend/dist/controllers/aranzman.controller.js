@@ -4,16 +4,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AranzmanController = void 0;
+const server_1 = require("../server");
 const aranzman_1 = __importDefault(require("../models/aranzman"));
 class AranzmanController {
     constructor() {
         //povratna vrednost je lista aranzmana
         this.dohvatiSveAranzmane = (req, res) => {
-            aranzman_1.default.find({}, (err, aranzmani) => {
-                if (err)
-                    console.log(err);
-                else
-                    res.json(aranzmani);
+            server_1.db.collection('Aranzmani').find().limit(10).toArray(function (err, results) {
+                res.send(results);
             });
         };
         this.dodajAranzman = (req, res) => {
