@@ -315,4 +315,12 @@ for (let index = 0; index < 10000; index++) {
     
 }
 
+db.Korisnici.insertOne(
+    {
+        korisnickoIme: "andjelakuc",
+        lozinka: "pass111",
+        privilegija: "admin"
+    }
+)
+
 console.log(db.getMongo());
