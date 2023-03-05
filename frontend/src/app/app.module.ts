@@ -26,6 +26,8 @@ import { RegistrovanjeComponent } from './registrovanje/registrovanje.component'
 import { RezervacijeComponent } from './rezervacije/rezervacije.component';
 import { DodajAranzmanComponent } from './dodaj-aranzman/dodaj-aranzman.component';
 import { AranzmanComponent } from './aranzman/aranzman.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { RezervacijaComponent } from './rezervacija/rezervacija.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +37,8 @@ import { AranzmanComponent } from './aranzman/aranzman.component';
     RegistrovanjeComponent,
     RezervacijeComponent,
     DodajAranzmanComponent,
-    AranzmanComponent
+    AranzmanComponent,
+    RezervacijaComponent
   ],
   imports: [
     BrowserModule,
@@ -57,7 +60,8 @@ import { AranzmanComponent } from './aranzman/aranzman.component';
     MatSnackBarModule,
     MatRadioModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    NgbModule
   ],
   providers: [],
   bootstrap: [AppComponent]
