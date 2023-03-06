@@ -5,11 +5,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.LokacijaController = void 0;
 const lokacija_1 = __importDefault(require("../models/lokacija"));
+const server_1 = require("../server");
 class LokacijaController {
     constructor() {
         this.dohvatiLokaciju = (req, res) => {
             let id = req.body.id;
-            lokacija_1.default.findOne({ 'id': id }, (err, smestaj) => {
+            server_1.db.collection('Lokacije').findOne({ 'id': id }, (err, smestaj) => {
                 if (err)
                     console.log(err);
                 else

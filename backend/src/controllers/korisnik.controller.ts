@@ -1,5 +1,6 @@
 import express from 'express'
 import Korisnik from '../models/korisnik';
+import { db } from '../server';
 
 export class KorisnikController{
 
@@ -7,10 +8,10 @@ export class KorisnikController{
         
         let korisnickoIme = req.body.korisnickoIme;
         let lozinka = req.body.lozinka;
-        Korisnik.findOne({'korisnickoIme': korisnickoIme, 'lozinka': lozinka},(err, korisnik)=>{
+        db.collection('Korisnici').findOne({'korisnickoIme': korisnickoIme, 'lozinka': lozinka},(err, korisnik)=>{
             if(err) console.log(err);
             else res.json(korisnik)
-        })
+        });
     }
 
 
@@ -20,7 +21,7 @@ export class KorisnikController{
         let lozinka= req.body.lozinka;
         let privilegija = req.body.privilegija
 
-        Korisnik.findOne({'korisnickoIme': korisnickoIme}, (err, resp)=>{
+        db.collection('Korisnici').findOne({'korisnickoIme': korisnickoIme}, (err, resp)=>{
             if (err) console.log(err)
             else if (resp){
                 res.json({'message':'Korisnicko ime je zauzeto.'});
@@ -30,7 +31,7 @@ export class KorisnikController{
                         lozinka: lozinka,
                         privilegija: privilegija
                     })
-                    data.save((err,resp)=>{
+                    db.collection('Korisnici').insertOne({data}, (err,resp)=>{
                         if (err) console.log(err)
                         else res.json({'message': 'ok'})
                     })

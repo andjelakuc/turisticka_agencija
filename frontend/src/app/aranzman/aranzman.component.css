@@ -19,6 +19,12 @@
     gap: 10px;
 
 }
+.rezervisi{
+    background-color:red;
+    color: white;
+}
+
+
 .buttonTabsPosition{
     padding-left: 1px;
     padding-right: 1px;
@@ -36,6 +42,17 @@
     align-items: center;
     
 }
+.slikeSmestaja{
+    width: 400px;;
+}
+.checkIcon{
+    font-size: 15px;
+}
+
+.columnDiv{
+    display: flex;
+    flex-direction: column;
+}
 
 .divInList{
     background-color: rgb(238, 238, 248);
@@ -44,7 +61,7 @@
     padding: 10px;
     border-radius: 10px;
     gap: 10px;
-    width: 70%;
+    width: 90%;
 }
 
 .polje{
@@ -56,7 +73,8 @@
 
 .polozaj{
     background-color: rgb(63, 81, 181,1);
-    
+    width: 70%;
+    min-width: 750px;
     align-items: center;
     flex-direction: column;
     gap: 10px;

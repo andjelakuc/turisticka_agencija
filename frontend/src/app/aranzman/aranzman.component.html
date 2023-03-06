@@ -13,6 +13,9 @@
         <div class="buttonsPosition" *ngIf="ulogovanKorisnik">
             <button mat-button  >Odjavi se </button> 
         </div>
+        <div class="buttonsPosition" *ngIf="!ulogovanKorisnik"  >
+            <button mat-button (click)="prijava()" >  Prijavi se</button>
+        </div>
     </mat-toolbar>
 
     <mat-toolbar color="primary" *ngIf="ulogovanKorisnik">
@@ -52,8 +55,91 @@
         </div>  
         <div class="divInList">
             <mat-label>Smestaj: </mat-label>
-            <mat-label></mat-label>
+            <div class="columnDiv">   
+                <mat-label> {{smestaj.ime}}</mat-label>
+                <mat-label>
+                    <mat-icon *ngIf="smestaj.kategorija >= 1">star</mat-icon>
+                    <mat-icon *ngIf="smestaj.kategorija >= 2">star</mat-icon>
+                    <mat-icon *ngIf="smestaj.kategorija >= 3">star</mat-icon>
+                    <mat-icon *ngIf="smestaj.kategorija >= 4">star</mat-icon>
+                    <mat-icon *ngIf="smestaj.kategorija >= 5">star</mat-icon>
+                    <mat-icon *ngIf="smestaj.kategorija < 2">star_border</mat-icon>
+                    <mat-icon *ngIf="smestaj.kategorija < 3">star_border</mat-icon>
+                    <mat-icon *ngIf="smestaj.kategorija < 4">star_border</mat-icon>
+                    <mat-icon *ngIf="smestaj.kategorija < 5">star_border</mat-icon>
+                </mat-label>
+                <mat-label>Tip: {{smestaj.tip}}</mat-label>
+                <mat-label>Internet: <mat-icon *ngIf="smestaj.internet" class="checkIcon">check</mat-icon></mat-label>
+                <mat-label>TV: <mat-icon *ngIf="smestaj.tv" class="checkIcon">check</mat-icon></mat-label>
+                <mat-label>AC: <mat-icon *ngIf="smestaj.ac" class="checkIcon">check</mat-icon></mat-label>
+                <mat-label>Frizider: <mat-icon *ngIf="smestaj.frizider" class="checkIcon">check</mat-icon></mat-label>
+                <mat-label>Sef: <mat-icon *ngIf="smestaj.sef" class="checkIcon">check</mat-icon></mat-label>
+            </div>
+            
+            <div class="spacer"></div>
+            <div class="slikeSmestaja">
+                <ngb-carousel>
+                    <ng-template ngbSlide *ngIf="smestaj.fotografije[0]">
+                      <div class="picsum-img-wrapper">
+                        <img [src]="smestaj.fotografije[0]" alt="Random first slide" height="250px">
+                      </div>
+                    </ng-template>
+                    <ng-template ngbSlide *ngIf="smestaj.fotografije[1]">
+                      <div class="picsum-img-wrapper">
+                        <img [src]="smestaj.fotografije[1]" alt="Random first slide" height="250px">
+                      </div>
+                    </ng-template>
+                    <ng-template ngbSlide *ngIf="smestaj.fotografije[2]">
+                        <div class="picsum-img-wrapper">
+                          <img [src]="smestaj.fotografije[2]" alt="Random first slide" height="250px">
+                        </div>
+                      </ng-template>
+                      <ng-template ngbSlide *ngIf="smestaj.fotografije[3]">
+                        <div class="picsum-img-wrapper">
+                          <img [src]="smestaj.fotografije[3]" alt="Random first slide" height="250px">
+                        </div>
+                      </ng-template>
+                      <ng-template ngbSlide *ngIf="smestaj.fotografije[4]">
+                        <div class="picsum-img-wrapper">
+                          <img [src]="smestaj.fotografije[4]" alt="Random first slide" height="250px">
+                        </div>
+                      </ng-template>
+                      <ng-template ngbSlide *ngIf="smestaj.fotografije[5]">
+                        <div class="picsum-img-wrapper">
+                          <img [src]="smestaj.fotografije[5]" alt="Random first slide" height="250px">
+                        </div>
+                      </ng-template>
+                </ngb-carousel>
+            </div>
         </div>
+
+        <div class="divInList">
+            <mat-label>Datum polaska: </mat-label>
+            <mat-label>{{aranzman.datumPolaska|  date:'MM/dd/yyyy' }}</mat-label>
+        </div>
+        <div class="divInList">
+            <mat-label>Datum povratka: </mat-label>
+            <mat-label>{{aranzman.datumPovratka|  date:'MM/dd/yyyy' }}</mat-label>
+        </div>
+
+        <div class="divInList">
+            <mat-label>Opis aranzmana: </mat-label>
+
+            <mat-label>Polazak sa  {{aranzman.mestoPolaska}} u {{aranzman.datumPovratka|  date:'hh/mm'}}. 
+                {{aranzman.opis}}.
+                Povratak u {{aranzman.vremePovratka}}.
+            </mat-label>
+        </div> 
+
+        <div class="divInList">
+            <mat-label>Prevoz: </mat-label>
+            <mat-label>{{aranzman.prevoz}}</mat-label>
+        </div> 
+
+        
+        <button mat-button class="rezervisi" (click)="rezervisi()" *ngIf="aranzman.datumPolaska<danasnjiDatum">Rezervisi ovaj aranzman </button> 
+        <button mat-button class="rezervisi" (click)="azuriraj()" *ngIf="ulogovanKorisnik">Azuriraj ovaj aranzman </button> 
+        
     </div>
 </div>
 
