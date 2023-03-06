@@ -18,16 +18,23 @@ export class AranzmanComponent implements OnInit {
   ulogovanKorisnik: Korisnik;
   aranzman: Aranzman;
   smestaj: Smestaj;
-  danasnjiDatum: Date = new Date;
+  danasnjiDatum: Date = new Date();
+  prikaziRezervacija: boolean;
 
   ngOnInit(): void { 
     this.ulogovanKorisnik = JSON.parse(sessionStorage.getItem('ulogovan'));
     this.aranzman = JSON.parse(sessionStorage.getItem('aranzman'));
 
-    this.SmestajService.dohvatiSmestaj(this.aranzman.smestaj).subscribe((data: Smestaj)=>{
+    this.SmestajService.dohvatiSmestaj(this.aranzman.smestaj[0]).subscribe((data: Smestaj)=>{
       this.smestaj = data;
       console.log(data);
     })
+    var datumPolaska = new Date(this.aranzman.datumPolaska);
+    if(this.danasnjiDatum > datumPolaska){
+      this.prikaziRezervacija= false;
+    } else{
+      this.prikaziRezervacija= true;
+    }
   }
 
 

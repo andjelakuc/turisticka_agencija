@@ -6,13 +6,9 @@ export class SmestajController {
     dohvatiSmestaj = (req: express.Request, res: express.Response)=>{
         
         let id = req.body.id;
-        console.log("id=" + id);
         db.collection('Smestaji').findOne({'id': id},(err, smestaj)=>{
             if(err) console.log(err);
-            else{
-                console.log(smestaj);
-                res.json(smestaj);
-            } 
+            else res.json(smestaj)
         });
     }
 
