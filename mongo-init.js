@@ -4,6 +4,7 @@ db.createCollection('Aranzmani');
 db.createCollection('Smestaji');
 db.createCollection('Lokacije');
 db.createCollection('Korisnici');
+db.createCollection('Rezervacija')
 
 prevoz = ['Autobus', 'Avion', 'Krstarenje', 'Voz', 'Samostalni prevoz'];
 
