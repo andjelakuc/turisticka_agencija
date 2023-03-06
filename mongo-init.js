@@ -4,7 +4,6 @@ db.createCollection('Aranzmani');
 db.createCollection('Smestaji');
 db.createCollection('Lokacije');
 db.createCollection('Korisnici');
-db.createCollection('Rezervacija')
 
 prevoz = ['Autobus', 'Avion', 'Krstarenje', 'Voz', 'Samostalni prevoz'];
 
@@ -25922,7 +25921,7 @@ for (let index = 0; index < 50000; index++) {
     locationIndex = generateRandom(lokacije.length);
     prevozIndex = generateRandom(prevoz.length);
     lokacija = lokacije[locationIndex];
-    smestajIndex = locationIndex;
+    smestajIndex = smestajIndex = generateRandom(2) == 1 ? locationIndex : locationIndex + lokacije.length;;
     naziv = lokacija.naziv + ", "+lokacija.drzava + " " + index;
     polazakDatum = randomDate(new Date(), new Date(2024,12,31));
     trajanje = generateRandom(9) + 3;
@@ -25967,7 +25966,7 @@ for (let index = 50000; index < 60000; index++) {
     locationIndex = generateRandom(lokacije.length);
     prevozIndex = generateRandom(prevoz.length);
     lokacija = lokacije[locationIndex];
-    smestajIndex = locationIndex;
+    smestajIndex = generateRandom(2) == 1 ? locationIndex : locationIndex + lokacije.length;
     naziv = lokacija.naziv + ", "+lokacija.drzava + " " + index;
     polazakDatum = randomDate(new Date(2020,12,31), new Date());
     trajanje = generateRandom(9) + 3;
