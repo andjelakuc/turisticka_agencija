@@ -3,14 +3,17 @@ import Smestaj from '../models/smestaj';
 import { db } from '../server';
 
 export class SmestajController {
-    dohvatiSmestaj = (req: express.Request, res: express.Response) => {
+    dohvatiSmestaj = (req: express.Request, res: express.Response)=>{
         
         let id = req.body.id;
-
-        db.collection('Smestaji').findOne({ 'id': id }, (err, smestaj) => {
-            if (err) console.log(err);
-            else res.json(smestaj);
-        })
+        console.log("id=" + id);
+        db.collection('Smestaji').findOne({'id': id},(err, smestaj)=>{
+            if(err) console.log(err);
+            else{
+                console.log(smestaj);
+                res.json(smestaj);
+            } 
+        });
     }
 
     dodajSmestaj = (req: express.Request, res: express.Response) => {

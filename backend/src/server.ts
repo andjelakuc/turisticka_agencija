@@ -28,12 +28,12 @@ MongoClient.connect(url, function(err, client) {
 
     db = client.db(dbName);
 
-    // Here you can define your Express routes that use the database connection
-    // app.get('/aranzman/dohvatiSveAranzmane', function(req: Request, res: Response) {
-    //   db.collection('Aranzmani').find().toArray(function(err, results) {
-    //     res.send(results);
-    //   });
-    // });
+    //Here you can define your Express routes that use the database connection
+    app.get('/', function(req: Request, res: Response) {
+      db.collection('Smestaji').find().toArray(function(err, results) {
+        res.send(results);
+      });
+    });
 
     // Start the Express app
     app.listen(4000, function() {

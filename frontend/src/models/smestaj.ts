@@ -1,5 +1,6 @@
 export class Smestaj{
     id: number;
+    idLokacije:number;
     ime:  string;
     tip:  string;
     kategorija: number;

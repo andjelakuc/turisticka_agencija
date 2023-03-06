@@ -21,7 +21,7 @@ export class PretragaComponent implements OnInit {
   filtriraniAranzmani: Array<Aranzman>;
   ulogovanKorisnik: Korisnik;
 
-  ngOnInit(): void {
+  ngOnInit(): void {  
 
     this.ulogovanKorisnik = JSON.parse(sessionStorage.getItem('ulogovan'));
 

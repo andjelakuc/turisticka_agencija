@@ -26,6 +26,7 @@ export class AranzmanComponent implements OnInit {
 
     this.SmestajService.dohvatiSmestaj(this.aranzman.smestaj).subscribe((data: Smestaj)=>{
       this.smestaj = data;
+      console.log(data);
     })
   }
 

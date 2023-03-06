@@ -10,11 +10,14 @@ class SmestajController {
     constructor() {
         this.dohvatiSmestaj = (req, res) => {
             let id = req.body.id;
+            console.log("id=" + id);
             server_1.db.collection('Smestaji').findOne({ 'id': id }, (err, smestaj) => {
                 if (err)
                     console.log(err);
-                else
+                else {
+                    console.log(smestaj);
                     res.json(smestaj);
+                }
             });
         };
         this.dodajSmestaj = (req, res) => {

@@ -7,6 +7,9 @@ let Smestaj = new Schema(
         id: {
             type:Number
         },
+        idLokacije: {
+            type:Number
+        },
         ime: {
             type: String
         },

@@ -26,12 +26,12 @@ mongodb_1.MongoClient.connect(url, function (err, client) {
     else {
         console.log('Connected to MongoDB successfully');
         exports.db = client.db(dbName);
-        // Here you can define your Express routes that use the database connection
-        // app.get('/aranzman/dohvatiSveAranzmane', function(req: Request, res: Response) {
-        //   db.collection('Aranzmani').find().toArray(function(err, results) {
-        //     res.send(results);
-        //   });
-        // });
+        //Here you can define your Express routes that use the database connection
+        app.get('/', function (req, res) {
+            exports.db.collection('Smestaji').find().toArray(function (err, results) {
+                res.send(results);
+            });
+        });
         // Start the Express app
         app.listen(4000, function () {
             console.log('Express app listening on port 4000');
