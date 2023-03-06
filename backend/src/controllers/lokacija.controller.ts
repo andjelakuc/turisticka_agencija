@@ -1,12 +1,13 @@
 import express from 'express'
 import Lokacija from '../models/lokacija';
+import { db } from '../server';
 
 export class LokacijaController {
     dohvatiLokaciju = (req: express.Request, res: express.Response) => {
         
         let id = req.body.id;
 
-        Lokacija.findOne({ 'id': id }, (err, smestaj) => {
+        db.collection('Lokacije').findOne({ 'id': id }, (err, smestaj) => {
             if (err) console.log(err);
             else res.json(smestaj);
         })

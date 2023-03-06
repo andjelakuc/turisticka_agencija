@@ -3,6 +3,9 @@ import cors from 'cors';
 import { MongoClient } from 'mongodb';
 
 import aranzmanRouter from './routes/aranzman.routes';
+import korisnikRouter from './routes/korisnik.routes';
+import smestajRouter from './routes/smestaj.router';
+import lokacijaRouter from './routes/lokacija.routes';
 
 const app: Application = express();
 app.use(cors())
@@ -39,6 +42,9 @@ MongoClient.connect(url, function(err, client) {
 
     const router = express.Router();
     router.use('/aranzman', aranzmanRouter );
+    router.use('/korisnici', korisnikRouter );
+    router.use('/smestaj', smestajRouter );
+    router.use('/lokacija', lokacijaRouter );
     app.use('/', router);
   }
 

@@ -1,12 +1,13 @@
 import express from 'express'
 import Smestaj from '../models/smestaj';
+import { db } from '../server';
 
 export class SmestajController {
     dohvatiSmestaj = (req: express.Request, res: express.Response) => {
         
         let id = req.body.id;
 
-        Smestaj.findOne({ 'id': id }, (err, smestaj) => {
+        db.collection('Smestaji').findOne({ 'id': id }, (err, smestaj) => {
             if (err) console.log(err);
             else res.json(smestaj);
         })

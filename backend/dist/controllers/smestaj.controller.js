@@ -5,11 +5,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.SmestajController = void 0;
 const smestaj_1 = __importDefault(require("../models/smestaj"));
+const server_1 = require("../server");
 class SmestajController {
     constructor() {
         this.dohvatiSmestaj = (req, res) => {
             let id = req.body.id;
-            smestaj_1.default.findOne({ 'id': id }, (err, smestaj) => {
+            server_1.db.collection('Smestaji').findOne({ 'id': id }, (err, smestaj) => {
                 if (err)
                     console.log(err);
                 else
