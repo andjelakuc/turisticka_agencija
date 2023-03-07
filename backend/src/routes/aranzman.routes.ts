@@ -7,6 +7,10 @@ aranzmanRouter.route('/dohvatiSveAranzmane').post(
     (req, res)=> new AranzmanController().dohvatiSveAranzmane(req, res)
 )
 
+aranzmanRouter.route('/dohvatiAranzmanePretraga').post(
+    (req, res)=> new AranzmanController().dohvatiAranzmanePretraga(req, res)
+)
+
 aranzmanRouter.route('/dohvatiBrojAranzmana').get(
     (req, res)=> new AranzmanController().dohvatiVelicinu(req, res)
 )

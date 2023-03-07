@@ -18,6 +18,24 @@ class LokacijaController {
                 res.send(results);
             });
         };
+        this.dohvatiLokacijePretraga = (req, res) => {
+            let naziv = req.body.naziv;
+            let drzava = req.body.drzava;
+            let kontinent = req.body.kontinent;
+            let bezNaziva = naziv == null ? true : false;
+            let bezDrzave = drzava == null ? true : false;
+            let bezKontinenta = kontinent == null ? true : false;
+            server_1.db.collection('Lokacije').findOne({
+                'naziv': { $cond: { if: bezNaziva, then: { $exists: true }, else: { regex: '(?i)' + naziv + '(?-i)' } } },
+                'drzava': { $cond: { if: bezDrzave, then: { $exists: true }, else: { regex: '(?i)' + drzava + '(?-i)' } } },
+                'kontinent': { $cond: { if: bezKontinenta, then: { $exists: true }, else: { regex: '(?i)' + kontinent + '(?-i)' } } }
+            }, (err, smestaj) => {
+                if (err)
+                    console.log(err);
+                else
+                    res.json(smestaj);
+            });
+        };
         // (б) naziv, претрагу по континенту, држави
         this.dodajLokaciju = (req, res) => {
             let naziv = req.body.naziv;

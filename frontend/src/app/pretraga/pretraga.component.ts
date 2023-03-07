@@ -60,10 +60,19 @@ export class PretragaComponent implements OnInit {
       this.sveLokacije  = data;
     })
 
-
     
   }
 
+  pretraga(){
+    console.log("zapoceo pretragu")
+    console.log("prevoz je "+this.prevoz);
+    console.log("datum polaska: "+this.datumPolaska);
+    this.AranzmanService.dohvatiAranzmanePretraga(this.skip, this.limit, this.naziv, this.prevoz, this.datumPolaska, this.datumPovratka, this.lokacijeZaPretragu).subscribe((data: Aranzman[])=>{
+      console.log("zavrsio pretragu")
+      this.filtriraniAranzmani  = data;
+    })
+    console.log("ode ispod")
+  }
  
 
   naziv: string = '';
@@ -71,6 +80,9 @@ export class PretragaComponent implements OnInit {
   kontinent: string = '';
   drzava: string = '';
   prevoz: string = ''
+  datumPolaska: Date;
+  datumPovratka: Date;
+  lokacijeZaPretragu: Array<number> = [];
 
 
   prijava(){
@@ -95,7 +107,7 @@ export class PretragaComponent implements OnInit {
 
   prevozi = new FormControl('');
 
-  prevozList: string[] = ['Autobusom', 'Avionom', 'Krstarenje', 'Vozom', 'Samostalni Prevoz'];
+  prevozList: string[] = ['Autobus', 'Avion', 'Krstarenje', 'Voz', 'Samostalni Prevoz'];
 
 
 
