@@ -18,6 +18,7 @@ export class LokacijaController {
             res.send(results);
           });
     }
+    // (б) naziv, претрагу по континенту, држави
 
     dodajLokaciju = (req: express.Request, res: express.Response) => {
 
