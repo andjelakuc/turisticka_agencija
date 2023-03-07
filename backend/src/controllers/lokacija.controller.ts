@@ -1,5 +1,4 @@
 import express from 'express'
-import Lokacija from '../models/lokacija';
 import { db } from '../server';
 
 export class LokacijaController {
@@ -21,23 +20,33 @@ export class LokacijaController {
     }
 
     dodajLokaciju = (req: express.Request, res: express.Response) => {
-        
+
         let naziv = req.body.naziv;
         let drzava = req.body.drzava;
         let kontinent = req.body.kontinent;
         let  fotografija= req.body.fotografija;
 
-        let data = new Lokacija({
-            naziv: naziv,
-            drzava: drzava,
-            kontinent: kontinent,
-            fotografija: fotografija
-        })
-
-        data.save((err, resp) => {
-            if (err) console.log(err)
-            else res.json({ 'message': 'ok' })
-        })
+        db.collection('Lokacije').find({}, (err, maxLok)=>{
+            if(err) console.log(err);
+            else{
+                let id = 0
+                if(maxLok != null){
+                    id = maxLok[0].id + 1;
+                }
+                db.collection('Lokacije').insertOne(
+                    {
+                        id: id,
+                        naziv: naziv,
+                        drzava: drzava,
+                        kontinent: kontinent,
+                        fotografija: fotografija
+                    }, (err, resp) => {
+                        if (err) console.log(err)
+                        else if (resp) res.json({ 'message': 'ok' })
+                    }
+                );
+            }
+        }).sort({'id': -1}).limit(1)
     }
 
 }
