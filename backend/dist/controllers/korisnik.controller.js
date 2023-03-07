@@ -1,10 +1,6 @@
 "use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.KorisnikController = void 0;
-const korisnik_1 = __importDefault(require("../models/korisnik"));
 const server_1 = require("../server");
 class KorisnikController {
     constructor() {
@@ -29,12 +25,11 @@ class KorisnikController {
                     res.json({ 'message': 'Korisnicko ime je zauzeto.' });
                 }
                 else {
-                    let data = new korisnik_1.default({
+                    server_1.db.collection('Korisnici').insertOne({
                         korisnickoIme: korisnickoIme,
                         lozinka: lozinka,
                         privilegija: privilegija
-                    });
-                    server_1.db.collection('Korisnici').insertOne({ data }, (err, resp) => {
+                    }, (err, resp) => {
                         if (err)
                             console.log(err);
                         else

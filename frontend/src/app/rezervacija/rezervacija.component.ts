@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Aranzman } from 'src/models/aranzman';
+import { Rezervaija as Rezervacija } from 'src/models/rezervacija';
+import { RezervacijaService } from '../services/rezervacija.service';
 
 @Component({
   selector: 'app-rezervacija',
@@ -8,21 +11,43 @@ import { Router } from '@angular/router';
 })
 export class RezervacijaComponent implements OnInit {
 
-  constructor(private ruter : Router) { }
+  constructor(private ruter : Router, private rezervacijaService: RezervacijaService) { }
 
+  naziv: string;
   ime:string;
-  prezime:string;
+  prezime: string;
   telefon: string;
   email: string;
-  brojOsoba: string;
+  nacinPlacanja: string;
+  brojOdraslih: string;
+  brojDece: string;
   komentar: string;
-  placanje: string;
+  status: string;
+  aranzman: Aranzman;
   message: string;
+
   ngOnInit(): void {
+    this.aranzman = JSON.parse(sessionStorage.getItem('aranzman'));
   }
 
   dodajRezervaciju(){
+    var novaRezervacija : Rezervacija = new Rezervacija();
+    novaRezervacija.ime= this.ime;
+    novaRezervacija.prezime = this.prezime;
+    novaRezervacija.telefon = this.telefon;
+    novaRezervacija.email = this.email;
+    novaRezervacija.nacinPlacanja = this.nacinPlacanja
+    novaRezervacija.brojOdraslih = this.brojOdraslih;
+    novaRezervacija.brojDece = this.brojDece;;
+    novaRezervacija.komentar =this.komentar;
+    novaRezervacija.status = this.status;
+    novaRezervacija.aranzman = this.aranzman.naziv;
 
+    this.rezervacijaService.dodajRezervaciju(novaRezervacija).subscribe((resp)=>{
+      if ( resp['message'] === 'ok') {
+          alert("Uspesno ste dodali rezervaciju");
+          this.ruter.navigate(['/aranzman']);
+      }});
   }
 
 

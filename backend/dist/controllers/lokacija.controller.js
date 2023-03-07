@@ -1,10 +1,6 @@
 "use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.LokacijaController = void 0;
-const lokacija_1 = __importDefault(require("../models/lokacija"));
 const server_1 = require("../server");
 class LokacijaController {
     constructor() {
@@ -27,18 +23,28 @@ class LokacijaController {
             let drzava = req.body.drzava;
             let kontinent = req.body.kontinent;
             let fotografija = req.body.fotografija;
-            let data = new lokacija_1.default({
-                naziv: naziv,
-                drzava: drzava,
-                kontinent: kontinent,
-                fotografija: fotografija
-            });
-            data.save((err, resp) => {
+            server_1.db.collection('Lokacije').find({}, (err, maxLok) => {
                 if (err)
                     console.log(err);
-                else
-                    res.json({ 'message': 'ok' });
-            });
+                else {
+                    let id = 0;
+                    if (maxLok != null) {
+                        id = maxLok[0].id + 1;
+                    }
+                    server_1.db.collection('Lokacije').insertOne({
+                        id: id,
+                        naziv: naziv,
+                        drzava: drzava,
+                        kontinent: kontinent,
+                        fotografija: fotografija
+                    }, (err, resp) => {
+                        if (err)
+                            console.log(err);
+                        else if (resp)
+                            res.json({ 'message': 'ok' });
+                    });
+                }
+            }).sort({ 'id': -1 }).limit(1);
         };
     }
 }

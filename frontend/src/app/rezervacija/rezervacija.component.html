@@ -49,11 +49,20 @@
         </mat-form-field>
 
         <mat-form-field appearance="fill">
-            <mat-label>Broj osoba</mat-label>
-            <input name="brojOsoba" type="text" matInput  placeholder="Unesite broj osoba" 
-            [(ngModel)]="brojOsoba" required #greskabrojOsoba="ngModel" >
-            <mat-error *ngIf="greskabrojOsoba.invalid">
-                Broj osoba je obavezno polje
+            <mat-label>Broj pdraslih osoba</mat-label>
+            <input name="brojOdraslih" type="text" matInput  placeholder="Unesite broj odraslihosoba" 
+            [(ngModel)]="brojOdraslih" required #greskabrojOdraslihOsoba="ngModel" >
+            <mat-error *ngIf="greskabrojOdraslihOsoba.invalid">
+                Broj odraslih osoba je obavezno polje
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label>Broj dece</mat-label>
+            <input name="brojDece" type="text" matInput  placeholder="Unesite broj dece" 
+            [(ngModel)]="brojDece" required #greskaBrojDece="ngModel" >
+            <mat-error *ngIf="greskaBrojDece.invalid">
+                Broj Dece je obavezno polje
             </mat-error>
         </mat-form-field>
 
@@ -69,7 +78,7 @@
         
         <div > 
             <mat-label>Nacin placanja:</mat-label>
-        <mat-radio-group aria-label="Select an option" class="vrsta" [(ngModel)]="this.placanje" >
+        <mat-radio-group aria-label="Select an option" class="vrsta" [(ngModel)]="nacinPlacanja" >
             <mat-radio-button value="gotovina" padding="10px">gotovina</mat-radio-button>
             <mat-radio-button value="kartica">kartica</mat-radio-button>
           </mat-radio-group>
@@ -77,7 +86,7 @@
 
 
         <button mat-flat-button class="dugme" (click)="dodajRezervaciju()"
-         [disabled]="greskaKorisnickoIme.invalid || greskaPrezime.invalid || greskaBrojTelefona.invalid || greskaEmail.invalid || greskabrojOsoba.invalid"  
+         [disabled]="greskaKorisnickoIme.invalid || greskaPrezime.invalid || greskaBrojTelefona.invalid || greskaEmail.invalid || greskabrojOdraslihOsoba.invalid || greskaBrojDece.invalid"  
          
          >Rezervisi aranzman</button>
         <div *ngIf="message != ''">

@@ -11,6 +11,7 @@ const aranzman_routes_1 = __importDefault(require("./routes/aranzman.routes"));
 const korisnik_routes_1 = __importDefault(require("./routes/korisnik.routes"));
 const smestaj_router_1 = __importDefault(require("./routes/smestaj.router"));
 const lokacija_routes_1 = __importDefault(require("./routes/lokacija.routes"));
+const rezervacija_routes_1 = __importDefault(require("./routes/rezervacija.routes"));
 const app = (0, express_1.default)();
 app.use((0, cors_1.default)());
 app.use((0, cors_1.default)({
@@ -28,7 +29,7 @@ mongodb_1.MongoClient.connect(url, function (err, client) {
         exports.db = client.db(dbName);
         //Here you can define your Express routes that use the database connection
         app.get('/', function (req, res) {
-            exports.db.collection('Korisnici').find().toArray(function (err, results) {
+            exports.db.collection('Rezervacije').find().toArray(function (err, results) {
                 res.send(results);
             });
         });
@@ -41,6 +42,7 @@ mongodb_1.MongoClient.connect(url, function (err, client) {
         router.use('/korisnici', korisnik_routes_1.default);
         router.use('/smestaj', smestaj_router_1.default);
         router.use('/lokacija', lokacija_routes_1.default);
+        router.use('/rezervacija', rezervacija_routes_1.default);
         app.use('/', router);
     }
 });

@@ -17,7 +17,7 @@ class AranzmanController {
             });
         };
         this.dohvatiVelicinu = (req, res) => {
-            server_1.db.collection('Aranzmani').count((err, resp) => {
+            server_1.db.collection('Aranzmani').find().count((err, resp) => {
                 if (err)
                     console.log(err);
                 else

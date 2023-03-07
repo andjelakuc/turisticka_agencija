@@ -1,14 +1,10 @@
 "use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.RezervacijaController = void 0;
-const rezervacija_1 = __importDefault(require("../models/rezervacija"));
+const server_1 = require("../server");
 class RezervacijaController {
     constructor() {
         this.dodajRezervaciju = (req, res) => {
-            let id = req.body.id;
             let ime = req.body.ime;
             let prezime = req.body.prezime;
             let telefon = req.body.telefon;
@@ -18,66 +14,48 @@ class RezervacijaController {
             let brojDece = req.body.brojDece;
             let komentar = req.body.komentar;
             let status = req.body.status;
-            let data = new rezervacija_1.default({
-                id: id,
-                ime: ime,
-                prezime: prezime,
-                telefon: telefon,
-                email: email,
-                nacinPlacanja: nacinPlacanja,
-                brojOdraslih: brojOdraslih,
-                brojDece: brojDece,
-                komentar: komentar,
-                status: status
-            });
-            data.save((err, resp) => {
+            server_1.db.collection('Rezervacije').find({}, (err, maxRez) => {
                 if (err)
                     console.log(err);
-                else
-                    res.json({ 'message': 'ok' });
-            });
+                else {
+                    let id = 0;
+                    if (maxRez != null) {
+                        id = maxRez[0].id + 1;
+                    }
+                    server_1.db.collection('Rezervacije').insertOne({
+                        id: id,
+                        ime: ime,
+                        prezime: prezime,
+                        telefon: telefon,
+                        email: email,
+                        nacinPlacanja: nacinPlacanja,
+                        brojOdraslih: brojOdraslih,
+                        brojDece: brojDece,
+                        komentar: komentar,
+                        status: status
+                    }, (err, resp) => {
+                        if (err)
+                            console.log(err);
+                        else if (resp)
+                            res.json({ 'message': 'ok' });
+                    });
+                }
+            }).sort({ 'id': -1 }).limit(1);
         };
         this.dohvatiSveRezervacije = (req, res) => {
-            rezervacija_1.default.find({}, (err, aranzmani) => {
+            server_1.db.collection('Rezervacije').find({}, (err, rezervacije) => {
                 if (err)
                     console.log(err);
                 else
-                    res.json(aranzmani);
+                    res.json(rezervacije);
             });
         };
         this.azurirajRezervaciju = (req, res) => {
             let id = req.body.id;
-            let naziv = req.body.naziv;
-            let lokacije = req.body.lokacije;
-            let prevoz = req.body.prevoz;
-            let datumPolaska = req.body.datumPolaska;
-            let datumPovratka = req.body.datumPovratka;
-            let trajanje = req.body.trajanje;
-            let opis = req.body.opis;
-            let cena = req.body.cena;
-            let smestaj = req.body.smestaj;
-            let napomena = req.body.napomena;
-            let slika = req.body.slika;
-            let vremePolaska = req.body.vremePolaska;
-            let mestoPolaska = req.body.mestoPolaska;
-            let vremePovratka = req.body.vremePovratka;
-            rezervacija_1.default.updateOne({ 'id': id }, {
+            let status = req.body.status;
+            server_1.db.collection('Rezervacije').updateOne({ 'id': id }, {
                 $set: {
-                    id: id,
-                    naziv: naziv,
-                    lokacije: lokacije,
-                    prevoz: prevoz,
-                    datumPolaska: datumPolaska,
-                    datumPovratka: datumPovratka,
-                    trajanje: trajanje,
-                    opis: opis,
-                    cena: cena,
-                    smestaj: smestaj,
-                    napomena: napomena,
-                    slika: slika,
-                    vremePolaska: vremePolaska,
-                    mestoPolaska: mestoPolaska,
-                    vremePovratka: vremePovratka
+                    status: status
                 }
             }, (err, resp) => {
                 if (err)
