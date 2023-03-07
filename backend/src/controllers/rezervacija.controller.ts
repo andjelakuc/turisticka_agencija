@@ -4,6 +4,7 @@ import { db } from '../server';
 export class RezervacijaController {
 
     dodajRezervaciju = (req: express.Request, res: express.Response) => {
+        let idAranzmana = req.body.idAranzmana;
         let ime = req.body.ime;
         let prezime = req.body.prezime;
         let telefon = req.body.telefon;
@@ -24,6 +25,7 @@ export class RezervacijaController {
                 db.collection('Rezervacije').insertOne(
                     {
                         id: id,
+                        idAranzmana : idAranzmana,
                         ime: ime,
                         prezime: prezime,
                         telefon: telefon,
