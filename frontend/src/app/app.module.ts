@@ -28,6 +28,8 @@ import { DodajAranzmanComponent } from './dodaj-aranzman/dodaj-aranzman.componen
 import { AranzmanComponent } from './aranzman/aranzman.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { RezervacijaComponent } from './rezervacija/rezervacija.component';
+import { AzurirajAranzmanComponent } from './azuriraj-aranzman/azuriraj-aranzman.component';
+import {MatPaginatorModule} from '@angular/material/paginator';
 
 @NgModule({
   declarations: [
@@ -38,7 +40,8 @@ import { RezervacijaComponent } from './rezervacija/rezervacija.component';
     RezervacijeComponent,
     DodajAranzmanComponent,
     AranzmanComponent,
-    RezervacijaComponent
+    RezervacijaComponent,
+    AzurirajAranzmanComponent
   ],
   imports: [
     BrowserModule,
@@ -61,7 +64,8 @@ import { RezervacijaComponent } from './rezervacija/rezervacija.component';
     MatRadioModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    NgbModule
+    NgbModule,
+    MatPaginatorModule
   ],
   providers: [],
   bootstrap: [AppComponent]

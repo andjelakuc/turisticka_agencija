@@ -10,7 +10,15 @@ export class AranzmanService {
 
   uri = 'http://localhost:4000'
 
-  dohvatiSveAranzmane(){
-    return this.http.get(`${this.uri}/aranzman/dohvatiSveAranzmane`)
+  dohvatiSveAranzmane(skip, limit){
+    const podaci={
+      skip: skip,
+      limit: limit
+    }
+    return this.http.post(`${this.uri}/aranzman/dohvatiSveAranzmane`, podaci)
+  }
+
+  dohvaiBrojAranzmana(){
+    return this.http.get(`${this.uri}/aranzman/dohvatiBrojAranzmana`)
   }
 }

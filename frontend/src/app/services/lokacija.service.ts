@@ -18,6 +18,10 @@ export class LokacijaService {
     return this.http.post(`${this.uri}/lokacija/dohvatiLokaciju`, podaci);
   }
 
+  dohvatiSveLokacije(){
+    return this.http.get(`${this.uri}/lokacija/dohvatiSveLokacije`)
+  }
+
 
   dodajSmestaj(lokacija){
     const data={

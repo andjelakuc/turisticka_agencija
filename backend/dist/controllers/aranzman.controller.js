@@ -10,9 +10,14 @@ class AranzmanController {
     constructor() {
         //povratna vrednost je lista aranzmana
         this.dohvatiSveAranzmane = (req, res) => {
-            server_1.db.collection('Aranzmani').find().limit(10).toArray(function (err, results) {
+            let skip = req.body.skip;
+            let limit = req.body.limit;
+            server_1.db.collection('Aranzmani').find().toArray(function (err, results) {
                 res.send(results);
             });
+        };
+        this.dohvatiVelicinu = (req, res) => {
+            // res.send(db.collection('Aranzmani').count();
         };
         this.dodajAranzman = (req, res) => {
             let id = req.body.id;

@@ -5,6 +5,8 @@ import { Korisnik } from 'src/models/korisnik';
 import { AranzmanService } from '../services/aranzman.service';
 import { Smestaj } from 'src/models/smestaj';
 import { SmestajService } from '../services/smestaj.service';
+import { Lokacija } from 'src/models/lokacija';
+import { LokacijaService } from '../services/lokacija.service';
 
 
 @Component({
@@ -14,12 +16,13 @@ import { SmestajService } from '../services/smestaj.service';
 })
 export class AranzmanComponent implements OnInit {
 
-  constructor(private ruter : Router, private AranzmanService:AranzmanService, private SmestajService:SmestajService) { }
+  constructor(private ruter : Router, private AranzmanService:AranzmanService, private SmestajService:SmestajService, private LokacijaService:LokacijaService) { }
   ulogovanKorisnik: Korisnik;
   aranzman: Aranzman;
   smestaj: Smestaj;
   danasnjiDatum: Date = new Date();
   prikaziRezervacija: boolean;
+  sveLokacije: Array<Lokacija>
 
   ngOnInit(): void { 
     this.ulogovanKorisnik = JSON.parse(sessionStorage.getItem('ulogovan'));
@@ -35,6 +38,10 @@ export class AranzmanComponent implements OnInit {
     } else{
       this.prikaziRezervacija= true;
     }
+
+    this.LokacijaService.dohvatiSveLokacije().subscribe((data: Lokacija[])=>{
+      this.sveLokacije  = data;
+    })
   }
 
 
@@ -61,6 +68,6 @@ export class AranzmanComponent implements OnInit {
   }
 
   azuriraj(){
-
+    this.ruter.navigate(['azurirajAranzman']);
   }
 }

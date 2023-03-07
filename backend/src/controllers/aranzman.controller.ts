@@ -6,11 +6,18 @@ export class AranzmanController {
 
     //povratna vrednost je lista aranzmana
     dohvatiSveAranzmane = (req: express.Request, res: express.Response) => {
-        db.collection('Aranzmani').find().limit(10).toArray(function(err, results) {
+        let skip =req.body.skip; 
+        let limit = req.body.limit; 
+        db.collection('Aranzmani').find().toArray(function(err, results) {
             res.send(results);
           });
     }
 
+    dohvatiVelicinu =(req: express.Request, res: express.Response) => {
+       // res.send(db.collection('Aranzmani').count();
+    }
+
+    
 
     dodajAranzman = (req: express.Request, res: express.Response) => {
         

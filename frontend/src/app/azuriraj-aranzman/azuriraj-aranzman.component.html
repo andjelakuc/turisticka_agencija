@@ -1,0 +1,33 @@
+<body>
+    <mat-toolbar color = "primary">
+        <span >
+            Turisticka agencija
+        </span>
+        <div class="spacer"></div>
+        <div class="buttonsPosition" *ngIf="ulogovanKorisnik">
+            <label >{{ulogovanKorisnik.korisnickoIme}} : {{ulogovanKorisnik.privilegija}} </label>
+        </div>
+        <button mat-icon-button (click)="pretraga()">
+            <mat-icon>home</mat-icon>
+        </button>
+        <div class="buttonsPosition" *ngIf="ulogovanKorisnik">
+            <button mat-button  >Odjavi se </button> 
+        </div>
+    </mat-toolbar>
+
+    <mat-toolbar color="primary" *ngIf="ulogovanKorisnik">
+        <div class="buttonTabsPosition">
+            <button mat-raised-button color="primary" (click)="rezervacije()">Rezervacije</button>
+        </div>
+        <div class="buttonTabsPosition">
+            <button mat-raised-button color="primary" (click)="dodajAranzman()">Dodaj aranzman</button>
+        </div>
+        <div class="buttonTabsPosition" *ngIf="this.ulogovanKorisnik.privilegija == 'admin'" > 
+            <button mat-raised-button color="primary"  (click)="registrovanje()">Dodaj zaposlenog</button>
+        </div>
+    </mat-toolbar>
+
+
+
+
+</body>

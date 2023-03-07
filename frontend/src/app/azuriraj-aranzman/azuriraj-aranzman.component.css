@@ -1,0 +1,92 @@
+.spacer{
+    flex: 1 1 auto;
+}
+
+.centerItem{
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+}
+
+.centerSearch{
+    padding-left: 30%;
+    font-size: medium;
+}
+.buttonsPosition{
+    padding: 10px;
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+
+}
+.rezervisi{
+    background-color:red;
+    color: white;
+}
+
+
+.buttonTabsPosition{
+    padding-left: 1px;
+    padding-right: 1px;
+    padding-bottom: 0px;
+    display: flex;
+    flex-direction: row;
+    gap: 0px;
+}
+
+.rowDiv{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    align-items: center;
+    
+}
+.slikeSmestaja{
+    width: 400px;;
+}
+.checkIcon{
+    font-size: 15px;
+}
+
+.columnDiv{
+    display: flex;
+    flex-direction: column;
+}
+
+.divInList{
+    background-color: rgb(238, 238, 248);
+    flex-direction: row;
+    display: flex;
+    padding: 10px;
+    border-radius: 10px;
+    gap: 10px;
+    width: 90%;
+}
+
+.polje{
+    background-color: rgb(238, 238, 248);
+    flex-direction: row;
+    display: flex;
+    width: 100%;
+}
+
+.polozaj{
+    background-color: rgb(63, 81, 181,1);
+    width: 70%;
+    min-width: 750px;
+    align-items: center;
+    flex-direction: column;
+    gap: 10px;
+    padding: 20px;
+    border-radius: 10px;
+    margin:  20px;
+    display: flex;
+    
+}
+
+
+.image{
+    max-height: 240px;
+    max-width: 150px;
+}

@@ -13,6 +13,13 @@ export class LokacijaController {
         })
     }
 
+    
+    dohvatiSveLokacije = (req: express.Request, res: express.Response) => {
+        db.collection('Lokacije').find().toArray(function(err, results) {
+            res.send(results);
+          });
+    }
+
     dodajLokaciju = (req: express.Request, res: express.Response) => {
         
         let naziv = req.body.naziv;

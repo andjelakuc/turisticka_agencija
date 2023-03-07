@@ -1,1 +1,89 @@
-<p>rezervacija works!</p>
+<body>
+    <mat-toolbar color = "primary">
+        <span >
+            Turisticka agencija
+        </span>
+        <div class="spacer"></div>
+
+        <button mat-icon-button (click)="pretraga()">
+            <mat-icon>home</mat-icon>
+        </button>
+    </mat-toolbar>
+
+
+    <div class="centerItem">
+        <mat-form-field appearance="fill">
+            <mat-label>Ime</mat-label>
+            <input name="ime" type="text" matInput  placeholder="Unesite ime" 
+            [(ngModel)]="ime" required #greskaKorisnickoIme="ngModel" >
+            <mat-error *ngIf="greskaKorisnickoIme.invalid">
+                Ime je obavezno polje
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label>Prezime</mat-label>
+            <input name="prezime" type="text" matInput  placeholder="Unesite prezime" 
+            [(ngModel)]="prezime" required #greskaPrezime="ngModel" >
+            <mat-error *ngIf="greskaPrezime.invalid">
+                Prezime je obavezno polje
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label>Telefon</mat-label>
+            <input name="telefon" type="text" matInput  placeholder="Unesite broj telefona" 
+            [(ngModel)]="telefon" required #greskaBrojTelefona="ngModel" >
+            <mat-error *ngIf="greskaBrojTelefona.invalid">
+                Broj telefona je obavezno polje
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label>Email</mat-label>
+            <input name="email" type="text" matInput  placeholder="Unesite email" 
+            [(ngModel)]="email" required #greskaEmail="ngModel" >
+            <mat-error *ngIf="greskaEmail.invalid">
+                Email je obavezno polje
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label>Broj osoba</mat-label>
+            <input name="brojOsoba" type="text" matInput  placeholder="Unesite broj osoba" 
+            [(ngModel)]="brojOsoba" required #greskabrojOsoba="ngModel" >
+            <mat-error *ngIf="greskabrojOsoba.invalid">
+                Broj osoba je obavezno polje
+            </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label>Komentar</mat-label>
+            <input name="komentar" type="text" matInput  placeholder="Unesite komentar" 
+            [(ngModel)]="komentar"  >
+
+        </mat-form-field>
+
+
+        
+        
+        <div > 
+            <mat-label>Nacin placanja:</mat-label>
+        <mat-radio-group aria-label="Select an option" class="vrsta" [(ngModel)]="this.placanje" >
+            <mat-radio-button value="gotovina" padding="10px">gotovina</mat-radio-button>
+            <mat-radio-button value="kartica">kartica</mat-radio-button>
+          </mat-radio-group>
+        </div>
+
+
+        <button mat-flat-button class="dugme" (click)="dodajRezervaciju()"
+         [disabled]="greskaKorisnickoIme.invalid || greskaPrezime.invalid || greskaBrojTelefona.invalid || greskaEmail.invalid || greskabrojOsoba.invalid"  
+         
+         >Rezervisi aranzman</button>
+        <div *ngIf="message != ''">
+            <mat-label style="color: red" >{{message}}</mat-label>
+        </div>
+    </div>
+
+
+ <body>

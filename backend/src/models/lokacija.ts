@@ -4,6 +4,9 @@ const Schema = mongoose.Schema;
 
 let Lokacija = new Schema(
     {   
+        id: {
+            type: Number
+        },
         naziv: {
             type: String
         },

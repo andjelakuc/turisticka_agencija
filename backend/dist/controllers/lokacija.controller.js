@@ -17,6 +17,11 @@ class LokacijaController {
                     res.json(smestaj);
             });
         };
+        this.dohvatiSveLokacije = (req, res) => {
+            server_1.db.collection('Lokacije').find().toArray(function (err, results) {
+                res.send(results);
+            });
+        };
         this.dodajLokaciju = (req, res) => {
             let naziv = req.body.naziv;
             let drzava = req.body.drzava;

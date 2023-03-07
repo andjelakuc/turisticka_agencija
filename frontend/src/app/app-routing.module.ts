@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AranzmanComponent } from './aranzman/aranzman.component';
+import { AzurirajAranzmanComponent } from './azuriraj-aranzman/azuriraj-aranzman.component';
 import { DodajAranzmanComponent } from './dodaj-aranzman/dodaj-aranzman.component';
 import { LogovanjeComponent } from './logovanje/logovanje.component';
 import { PretragaComponent } from './pretraga/pretraga.component';
@@ -15,7 +16,8 @@ const routes: Routes = [
   {path: 'rezervacija', component:RezervacijaComponent},
   {path: 'registrovanje', component:RegistrovanjeComponent},
   {path: 'dodajAranzman', component:DodajAranzmanComponent},
-  {path: 'aranzman', component:AranzmanComponent}
+  {path: 'aranzman', component:AranzmanComponent},
+  {path: 'azurirajAranzman', component:AzurirajAranzmanComponent}
 ];
 
 @NgModule({

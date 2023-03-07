@@ -63,12 +63,11 @@
               </mat-select-trigger>
               <mat-option *ngFor="let prevoz of prevozList" [value]="prevoz">{{prevoz}}</mat-option>
             </mat-select>
-        </mat-form-field>
-        
-        
-        
-        
+        </mat-form-field>    
     </div>
+
+    
+
     <div  class="pretragaBar">
         <mat-form-field>
             <mat-label>Datum polaska</mat-label>
@@ -90,43 +89,79 @@
         </div>
         
     </div>
+
     
-    <div *ngFor="let aranzman of filtriraniAranzmani" class="prikazPretrage"  >
-        <div class="rowDiv">
+    
+
+
+
+    <div>
+        <mat-card *ngFor="let aranzman of filtriraniAranzmani" class="prikazPretrage"  >
+            <div class="rowDiv">
+                
+                <div class="centerItem"  (click)="stranicaAranzmana(aranzman)" >
+                    <img  height="100" src="{{aranzman.slika}}" >
+                    Klik za detalje
+                </div>
+                <div>
+                    <div class="divInList">
+                        <mat-label>Naziv ponude: </mat-label>
+                        <mat-label>{{aranzman.naziv}}</mat-label>
+                    </div>
+                    <div class="divInList">
+                        <mat-label>Destinacija: </mat-label>
+                        <!-- <div *ngFor="let lokacija of aranzman.lokacije">
+                            <mat-label>{{sveLokacije[lokacija].naziv}} </mat-label>
+                        </div> -->
+                    </div>
+                    <div class="divInList">
+                        <mat-label>Datum pocetka: </mat-label>
+                        <mat-label>{{aranzman.datumPolaska|  date:'MM/dd/yyyy' }}</mat-label>
+                    </div>  
+                </div>
+                <div>
+                    <div class="divInList">
+                        <mat-label>Trajanje (u danima): </mat-label>
+                        <mat-label>{{aranzman.trajanje}}</mat-label>
+                    </div>
+                    <div class="divInList">
+                        <mat-label>Cena: </mat-label>
+                        <mat-label>{{aranzman.cena}} €</mat-label>
+                    </div>
+                    <div class="divInList">
+                        <mat-label>Tip prevoza: </mat-label>
+                        <mat-label>{{aranzman.prevoz}}</mat-label>
+                    </div>  
+                </div>
+            </div>
+        </mat-card>
+        <mat-paginator [length]="100"
+              [pageSize]="50"
+              [pageSizeOptions]="[5, 10, 25, 100]"
+              aria-label="Select page">
+        </mat-paginator>
+   </div>
+
+
+    <div class="centerItem">
+        <div class="pretragaBar">
+            Items per page:
+            <mat-form-field appearance="fill">
+                <mat-select [(value)]="limit">
+                    <mat-option>None</mat-option>
+                    <mat-option value=25  (click)="promeniPrikaz(25)">25</mat-option>
+                    <mat-option value=50  (click)="promeniPrikaz(50)">50</mat-option>
+                    <mat-option value=100 (click)="promeniPrikaz(100)">100</mat-option>
+                    <mat-option value=200 (click)="promeniPrikaz(200)">200</mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            Page {{skip}} od 5
+            <mat-icon>keyboard_arrow_left</mat-icon>
+            <mat-icon>keyboard_arrow_right</mat-icon>
             
-            <div class="centerItem"  (click)="stranicaAranzmana(aranzman)" >
-                <img  height="100" src="{{aranzman.slika}}" >
-                Klik za detalje
-            </div>
-            <div>
-                <div class="divInList">
-                    <mat-label>Naziv ponude: </mat-label>
-                    <mat-label>{{aranzman.naziv}}</mat-label>
-                </div>
-                <div class="divInList">
-                    <mat-label>Destinacija: </mat-label>
-                    <mat-label>{{aranzman.lokacije[0]}}</mat-label>
-                </div>
-                <div class="divInList">
-                    <mat-label>Datum pocetka: </mat-label>
-                    <mat-label>{{aranzman.datumPolaska|  date:'MM/dd/yyyy' }}</mat-label>
-                </div>  
-            </div>
-            <div>
-                <div class="divInList">
-                    <mat-label>Trajanje (u danima): </mat-label>
-                    <mat-label>{{aranzman.trajanje}}</mat-label>
-                </div>
-                <div class="divInList">
-                    <mat-label>Cena: </mat-label>
-                    <mat-label>{{aranzman.cena}} €</mat-label>
-                </div>
-                <div class="divInList">
-                    <mat-label>Tip prevoza: </mat-label>
-                    <mat-label>{{aranzman.prevoz}}</mat-label>
-                </div>  
-            </div>
         </div>
     </div>
+    
 </div>
 </body>
