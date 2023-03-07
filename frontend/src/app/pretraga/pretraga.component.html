@@ -71,15 +71,15 @@
     <div  class="pretragaBar">
         <mat-form-field>
             <mat-label>Datum polaska</mat-label>
-            <input matInput [matDatepicker]="picker">
-            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-            <mat-datepicker #picker></mat-datepicker>
+            <input matInput [matDatepicker]="picker1">
+            <mat-datepicker-toggle matIconSuffix [for]="picker1"></mat-datepicker-toggle>
+            <mat-datepicker #picker1></mat-datepicker>
         </mat-form-field>
         <mat-form-field>
             <mat-label>Datum povratka</mat-label>
-            <input matInput [matDatepicker]="picker">
-            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-            <mat-datepicker #picker></mat-datepicker>
+            <input matInput [matDatepicker]="picker2">
+            <mat-datepicker-toggle matIconSuffix [for]="picker2"></mat-datepicker-toggle>
+            <mat-datepicker #picker2></mat-datepicker>
         </mat-form-field>
 
         <div class="buttonTabsPosition">
@@ -96,7 +96,7 @@
 
 
     <div>
-        <mat-card *ngFor="let aranzman of filtriraniAranzmani" class="prikazPretrage"  >
+        <div *ngFor="let aranzman of filtriraniAranzmani" class="prikazPretrage"  >
             <div class="rowDiv">
                 
                 <div class="centerItem"  (click)="stranicaAranzmana(aranzman)" >
@@ -134,21 +134,15 @@
                     </div>  
                 </div>
             </div>
-        </mat-card>
-        <mat-paginator [length]="100"
-              [pageSize]="50"
-              [pageSizeOptions]="[5, 10, 25, 100]"
-              aria-label="Select page">
-        </mat-paginator>
+        </div>
    </div>
 
 
     <div class="centerItem">
         <div class="pretragaBar">
-            Items per page:
-            <mat-form-field appearance="fill">
-                <mat-select [(value)]="limit">
-                    <mat-option>None</mat-option>
+            Items per page:       
+            <mat-form-field  >
+                <mat-select [(value)]="selected">
                     <mat-option value=25  (click)="promeniPrikaz(25)">25</mat-option>
                     <mat-option value=50  (click)="promeniPrikaz(50)">50</mat-option>
                     <mat-option value=100 (click)="promeniPrikaz(100)">100</mat-option>
@@ -156,9 +150,9 @@
                 </mat-select>
             </mat-form-field>
 
-            Page {{skip}} od 5
-            <mat-icon>keyboard_arrow_left</mat-icon>
-            <mat-icon>keyboard_arrow_right</mat-icon>
+            Page {{stranica}} od {{brojStranica}}
+            <mat-icon (click)="prethodnaStranica()">keyboard_arrow_left</mat-icon>
+            <mat-icon (click)="sledecaStranica()">keyboard_arrow_right</mat-icon>
             
         </div>
     </div>

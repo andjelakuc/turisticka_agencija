@@ -28,7 +28,7 @@ mongodb_1.MongoClient.connect(url, function (err, client) {
         exports.db = client.db(dbName);
         //Here you can define your Express routes that use the database connection
         app.get('/', function (req, res) {
-            exports.db.collection('Smestaji').find().toArray(function (err, results) {
+            exports.db.collection('Korisnici').find().toArray(function (err, results) {
                 res.send(results);
             });
         });

@@ -8,13 +8,16 @@ export class AranzmanController {
     dohvatiSveAranzmane = (req: express.Request, res: express.Response) => {
         let skip =req.body.skip; 
         let limit = req.body.limit; 
-        db.collection('Aranzmani').find().toArray(function(err, results) {
+        db.collection('Aranzmani').find().skip(skip).limit(limit).toArray(function(err, results) {
             res.send(results);
           });
     }
 
     dohvatiVelicinu =(req: express.Request, res: express.Response) => {
-       // res.send(db.collection('Aranzmani').count();
+       db.collection('Aranzmani').find().count((err, resp) => {
+        if (err) console.log(err)
+        else res.json(resp)
+    });
     }
 
     

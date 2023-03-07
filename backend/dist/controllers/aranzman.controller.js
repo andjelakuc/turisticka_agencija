@@ -12,12 +12,17 @@ class AranzmanController {
         this.dohvatiSveAranzmane = (req, res) => {
             let skip = req.body.skip;
             let limit = req.body.limit;
-            server_1.db.collection('Aranzmani').find().toArray(function (err, results) {
+            server_1.db.collection('Aranzmani').find().skip(skip).limit(limit).toArray(function (err, results) {
                 res.send(results);
             });
         };
         this.dohvatiVelicinu = (req, res) => {
-            // res.send(db.collection('Aranzmani').count();
+            server_1.db.collection('Aranzmani').count((err, resp) => {
+                if (err)
+                    console.log(err);
+                else
+                    res.json(resp);
+            });
         };
         this.dodajAranzman = (req, res) => {
             let id = req.body.id;

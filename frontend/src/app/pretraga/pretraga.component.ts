@@ -25,31 +25,43 @@ export class PretragaComponent implements OnInit {
   ulogovanKorisnik: Korisnik;
   lokacije: Array<Number>;
   sveLokacije: Array<Lokacija>;
-  skip:number;
-  limit:number;
-  brojAranzmana: Number=0;
+  skip:number = 0 ;
+  limit:number = 50;
+  selected = '50';
+  brojStranica: number=0;
+  stranica:number;
 
 
   ngOnInit(): void {  
 
     this.ulogovanKorisnik = JSON.parse(sessionStorage.getItem('ulogovan'));
-    this.skip= 0;
-    this.limit=50
+
+    if ( JSON.parse(sessionStorage.getItem('skip')))
+      this.skip= JSON.parse(sessionStorage.getItem('skip'));
+    if ( JSON.parse(sessionStorage.getItem('limit'))){
+      this.limit= JSON.parse(sessionStorage.getItem('limit'));
+      this.selected = this.limit.toString();
+    }
+      
+
     this.AranzmanService.dohvatiSveAranzmane(this.skip, this.limit).subscribe((data: Aranzman[])=>{
-      this.sviAranzmani = this.filtriraniAranzmani = data;
+      this.sviAranzmani = this.filtriraniAranzmani = data
     })
 
+    this.AranzmanService.dohvaiBrojAranzmana().subscribe((broj: number)=>{
+      this.brojStranica = broj ;
+      this.brojStranica = this.brojStranica /  this.limit; 
+      if(this.brojStranica *  this.limit < broj) 
+      this.brojStranica = this.brojStranica +1;
+      this.stranica = this.skip/this.limit;
+    })
 
-    
     this.LokacijaService.dohvatiSveLokacije().subscribe((data: Lokacija[])=>{
       this.sveLokacije  = data;
     })
 
 
-    this.AranzmanService.dohvaiBrojAranzmana().subscribe((broj: Number)=>{
-      this.brojAranzmana=broj;
-      alert(this.brojAranzmana);
-    })
+    
   }
 
  
@@ -89,15 +101,32 @@ export class PretragaComponent implements OnInit {
   }
 
   sledecaStranica(){
-    this.skip = (this.skip+1)*this.limit; 
+    // if((this.skip+1)*this.limit < this.brojAranzmana ){
+
+    // }
+    if( this.skip+this.limit < this.brojStranica*this.limit)
+    this.skip = this.skip+this.limit; 
+    sessionStorage.setItem('limit', JSON.stringify(this.limit));
+    sessionStorage.setItem('skip', JSON.stringify(this.skip));
+    window.location.reload();
   }
 
   prethodnaStranica(){
-    if ( this.skip > 0 )
-      this.skip = (this.skip+1)*this.limit; 
+    if ( this.skip > 0 ){
+      this.skip = this.skip-this.limit; 
+      sessionStorage.setItem('limit', JSON.stringify(this.limit));
+      sessionStorage.setItem('skip', JSON.stringify(this.skip));
+      window.location.reload();
+    }
+      
   }
 
   promeniPrikaz(n){
+      
+      sessionStorage.setItem('limit', JSON.stringify(n));
+      sessionStorage.setItem('skip', JSON.stringify(0));
+      window.location.reload();
 
+    
   }
 }
