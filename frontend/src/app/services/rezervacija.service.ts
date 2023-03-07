@@ -12,7 +12,7 @@ export class RezervacijaService {
 
   dodajRezervaciju(rezervacija){
     const data={
-        naziv: rezervacija.naziv,
+        nazivAranzmana: rezervacija.nazivAranzmana,
         ime:rezervacija.ime,
         prezime: rezervacija.prezime,
         telefon: rezervacija.telefon,
@@ -21,7 +21,7 @@ export class RezervacijaService {
         brojOdraslih: rezervacija.brojOdraslih,
         brojDece: rezervacija.brojDece,
         komentar: rezervacija.komentar,
-        status: rezervacija.status,
+        status: "obrada",
     }
 
     return this.http.post(`${this.uri}/rezervacija/dodajRezervaciju`, data);

@@ -1,5 +1,5 @@
 export class Rezervaija{
-    aranzman: string;
+    nazivAranzmana: string;
     naziv: string;
     ime:string;
     prezime: string;

@@ -3,7 +3,7 @@ import { RezervacijaController } from '../controllers/rezervacija.controller';
 
 const rezervacijaRouter = express.Router();
 
-rezervacijaRouter.route('/dodajRezervaciju').get(
+rezervacijaRouter.route('/dodajRezervaciju').post(
     (req, res)=> new RezervacijaController().dodajRezervaciju(req, res)
 )
 

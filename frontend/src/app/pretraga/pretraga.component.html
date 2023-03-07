@@ -93,9 +93,12 @@
     
     
 
+    <div *ngIf="!filtriraniAranzmani">
+        <button mat-stroked-button color="primary">Inicijalizacije podataka u toku. Molimo sacekajte. Hvala</button>
+        <button mat-raised-button color="primary"  (click)="osvezi()">Osvezi</button>
+    </div>
 
-
-    <div>
+    <div *ngIf="filtriraniAranzmani">
         <div *ngFor="let aranzman of filtriraniAranzmani" class="prikazPretrage"  >
             <div class="rowDiv">
                 

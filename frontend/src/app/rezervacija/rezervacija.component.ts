@@ -13,7 +13,6 @@ export class RezervacijaComponent implements OnInit {
 
   constructor(private ruter : Router, private rezervacijaService: RezervacijaService) { }
 
-  naziv: string;
   ime:string;
   prezime: string;
   telefon: string;
@@ -41,7 +40,7 @@ export class RezervacijaComponent implements OnInit {
     novaRezervacija.brojDece = this.brojDece;;
     novaRezervacija.komentar =this.komentar;
     novaRezervacija.status = this.status;
-    novaRezervacija.aranzman = this.aranzman.naziv;
+    novaRezervacija.nazivAranzmana = this.aranzman.naziv;
 
     this.rezervacijaService.dodajRezervaciju(novaRezervacija).subscribe((resp)=>{
       if ( resp['message'] === 'ok') {

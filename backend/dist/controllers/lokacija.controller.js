@@ -18,6 +18,7 @@ class LokacijaController {
                 res.send(results);
             });
         };
+        // (б) naziv, претрагу по континенту, држави
         this.dodajLokaciju = (req, res) => {
             let naziv = req.body.naziv;
             let drzava = req.body.drzava;

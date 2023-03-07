@@ -5,6 +5,7 @@ const server_1 = require("../server");
 class RezervacijaController {
     constructor() {
         this.dodajRezervaciju = (req, res) => {
+            let nazivAranzmana = req.body.nazivAranzmana;
             let ime = req.body.ime;
             let prezime = req.body.prezime;
             let telefon = req.body.telefon;
@@ -24,6 +25,7 @@ class RezervacijaController {
                     }
                     server_1.db.collection('Rezervacije').insertOne({
                         id: id,
+                        nazivAranzmana: nazivAranzmana,
                         ime: ime,
                         prezime: prezime,
                         telefon: telefon,

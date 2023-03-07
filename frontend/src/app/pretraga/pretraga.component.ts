@@ -85,6 +85,10 @@ export class PretragaComponent implements OnInit {
     this.ruter.navigate(['rezervacije']);
   }
 
+  osvezi(){
+    window.location.reload();
+  }
+
   dodajAranzman(){
     this.ruter.navigate(['dodajAranzman'])
   }
