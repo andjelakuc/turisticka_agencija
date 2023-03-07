@@ -47,8 +47,7 @@ export class AranzmanController {
             //{'datumPovratka': {$cond: {if: bezDatumaPovratkailiPolaska, then:{$exists: true}, else:{$eq: datumPovratka}}}},
             //{'lokacije': {$cond: {if: bezLokacija, then:{$exists: true}, else: {$in: lokacije}}}}
         //]}
-        )//.skip(skip).limit(limit)
-        .toArray(function(err, results) {
+        ).skip(skip).limit(limit).toArray(function(err, results) {
             console.log(results);
             res.send(results);
         });

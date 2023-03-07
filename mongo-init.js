@@ -25918,7 +25918,7 @@ vremenaPovratka = ["jutarnjim", "prepodnevnim", "popodnevnim", "večernjim"];
 vremenaPolaska = ["6.00", "7.00", "8.00", "13.00", "14.00", "19.00", "18.00"];
 
 
-for (let index = 0; index < 500; index++) {
+for (let index = 0; index < 50000; index++) {
     locationIndex = generateRandom(lokacije.length);
     prevozIndex = generateRandom(prevoz.length);
     lokacija = lokacije[locationIndex];
@@ -25962,7 +25962,7 @@ for (let index = 0; index < 500; index++) {
     
 }
 
-for (let index = 50000; index < 50500; index++) {
+for (let index = 50000; index < 60000; index++) {
 
     locationIndex = generateRandom(lokacije.length);
     prevozIndex = generateRandom(prevoz.length);

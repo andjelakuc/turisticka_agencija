@@ -35,14 +35,12 @@ class AranzmanController {
             let bezDatumaPovratkailiPolaska = (datumPolaska == null || datumPovratka == null) ? true : false;
             let bezLokacija = lokacije == null ? true : false;
             server_1.db.collection('Aranzmani').find(//{$and: [
-            { 'naziv': { $regex: '(?i)' + naziv + '(?-i)' } }, // {$cond: { if: bezNaziva, then: {$exists:true}, else: {$regex: '(?i)'+naziv+'(?-i)'}}}}
-            { 'prevoz': { $regex: '^(?i)' + prevoz + '(?-i)$' } }
+            { 'naziv': { $regex: '(?i)' + naziv + '(?-i)' } }, { 'prevoz': { $regex: '^(?i)' + prevoz + '(?-i)$' } }
             //{'datumPolaska': {$cond: {if: bezDatumaPolaska ==null, then:{$exists: true}, else:{$eq: datumPolaska}}}},
             //{'datumPovratka': {$cond: {if: bezDatumaPovratkailiPolaska, then:{$exists: true}, else:{$eq: datumPovratka}}}},
             //{'lokacije': {$cond: {if: bezLokacija, then:{$exists: true}, else: {$in: lokacije}}}}
             //]}
-            ) //.skip(skip).limit(limit)
-                .toArray(function (err, results) {
+            ).skip(skip).limit(limit).toArray(function (err, results) {
                 console.log(results);
                 res.send(results);
             });
