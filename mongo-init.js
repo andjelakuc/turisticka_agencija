@@ -25919,16 +25919,22 @@ vremenaPolaska = ["6.00", "7.00", "8.00", "13.00", "14.00", "19.00", "18.00"];
 
 
 for (let index = 0; index < 50000; index++) {
+
+    tzoffset = (new Date()).getTimezoneOffset() * 60000;
     locationIndex = generateRandom(lokacije.length);
     prevozIndex = generateRandom(prevoz.length);
     lokacija = lokacije[locationIndex];
     smestajIndex = smestajIndex = generateRandom(2) == 1 ? locationIndex : locationIndex + lokacije.length;;
     naziv = lokacija.naziv + ", "+lokacija.drzava + " " + index;
     polazakDatum = randomDate(new Date(), new Date(2024,12,31));
+    polazakDatum.setDate(polazakDatum.getMilliseconds()-tzoffset);
+    polazakDatumString = polazakDatum.toISOString().substring(0,10);
     trajanje = generateRandom(9) + 3;
     cena = (10 + generateRandom(300))*10;
     povratakDatum = new Date(polazakDatum);
     povratakDatum.setDate(povratakDatum.getDate() + trajanje);
+    povratakDatum.setDate(povratakDatum.getMilliseconds()-tzoffset);
+    povratakDatumString = povratakDatum.toISOString().substring(0,10);
     polazakMesto = mestaPolaska[generateRandom(mestaPolaska.length)];
     povratakVreme = vremenaPovratka[generateRandom(vremenaPovratka.length)];
     polazakVreme = vremenaPolaska[generateRandom(vremenaPolaska.length)]
@@ -25949,8 +25955,8 @@ for (let index = 0; index < 50000; index++) {
             naziv: naziv,
             lokacije: [locationIndex],
             prevoz: prevoz[prevozIndex],
-            datumPolaska: polazakDatum,
-            datumPovratka: povratakDatum,
+            datumPolaska: polazakDatumString,
+            datumPovratka: povratakDatumString,
             trajanje: trajanje,
             opis: opis,
             cena:cena,
@@ -25964,16 +25970,21 @@ for (let index = 0; index < 50000; index++) {
 
 for (let index = 50000; index < 60000; index++) {
 
+    tzoffset = (new Date()).getTimezoneOffset() * 60000;
     locationIndex = generateRandom(lokacije.length);
     prevozIndex = generateRandom(prevoz.length);
     lokacija = lokacije[locationIndex];
     smestajIndex = generateRandom(2) == 1 ? locationIndex : locationIndex + lokacije.length;
     naziv = lokacija.naziv + ", "+lokacija.drzava + " " + index;
     polazakDatum = randomDate(new Date(2020,12,31), new Date());
+    polazakDatum.setDate(polazakDatum.getMilliseconds()-tzoffset);
+    polazakDatumString = polazakDatum.toISOString().substring(0,10);
     trajanje = generateRandom(9) + 3;
     cena = (10 + generateRandom(300))*10;
     povratakDatum = new Date(polazakDatum);
     povratakDatum.setDate(povratakDatum.getDate() + trajanje);
+    povratakDatum.setDate(povratakDatum.getMilliseconds()-tzoffset);
+    povratakDatumString = povratakDatum.toISOString().substring(0,10);
     polazakMesto = mestaPolaska[generateRandom(mestaPolaska.length)];
     povratakVreme = vremenaPovratka[generateRandom(vremenaPovratka.length)];
     polazakVreme = vremenaPolaska[generateRandom(vremenaPolaska.length)]
@@ -25994,8 +26005,8 @@ for (let index = 50000; index < 60000; index++) {
             naziv: naziv,
             lokacije: [locationIndex],
             prevoz: prevoz[prevozIndex],
-            datumPolaska: polazakDatum,
-            datumPovratka: povratakDatum,
+            datumPolaska: polazakDatumString,
+            datumPovratka: povratakDatumString,
             trajanje: trajanje,
             opis: opis,
             cena:cena,

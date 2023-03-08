@@ -34,16 +34,14 @@ export class AranzmanController {
         console.log("skip"+skip);
         console.log("limit"+limit)
 
-        let bezNaziva = naziv == null ? true:false;
-        let bezPrevoza = prevoz == null ? true:false;
         let bezDatumaPolaska = datumPolaska == null ? true:false;
         let bezDatumaPovratkailiPolaska = (datumPolaska == null || datumPovratka == null) ? true:false;
         let bezLokacija = lokacije == null ? true:false;
 
         db.collection('Aranzmani').find(//{$and: [
             {'naziv' : {$regex: '(?i)'+naziv+'(?-i)'}}, 
-            {'prevoz': {$regex: '^(?i)'+prevoz+'(?-i)$'}}
-            //{'datumPolaska': {$cond: {if: bezDatumaPolaska ==null, then:{$exists: true}, else:{$eq: datumPolaska}}}},
+            {'prevoz': {$regex: '^(?i)'+prevoz+'(?-i)$'}},
+            {'datumPolaska': {$regex: '^(?i)'+datumPolaska+'(?-i)$'}}//{$cond: {if: bezDatumaPolaska, then:{$exists: true}, else:{$eq: datumPolaska}}}}
             //{'datumPovratka': {$cond: {if: bezDatumaPovratkailiPolaska, then:{$exists: true}, else:{$eq: datumPovratka}}}},
             //{'lokacije': {$cond: {if: bezLokacija, then:{$exists: true}, else: {$in: lokacije}}}}
         //]}
@@ -64,12 +62,17 @@ export class AranzmanController {
 
     dodajAranzman = (req: express.Request, res: express.Response) => {
         
+        let tzoffset = (new Date()).getTimezoneOffset() * 60000;
         //let id = req.body.id;
         let naziv = req.body.naziv;
         let lokacije = req.body.lokacije;
         let prevoz = req.body.prevoz;
-        let datumPolaska = req.body.datumPolaska;
-        let datumPovratka = req.body.datumPovratka;
+        let datumPolaska = new Date(req.body.datumPolaska);
+        datumPolaska.setDate(datumPolaska.getMilliseconds()-tzoffset);
+        let datumPolaskaString = datumPolaska.toISOString().substring(0,10);
+        let datumPovratka = new Date(req.body.datumPovratka);
+        datumPovratka.setDate(datumPovratka.getMilliseconds()-tzoffset);
+        let datumPovratkaString = datumPovratka.toISOString().substring(0,10);
         let trajanje = req.body.trajanje;
         let opis = req.body.opis;
         let cena = req.body.cena;
@@ -78,7 +81,6 @@ export class AranzmanController {
         let slika = req.body.slika;
 
         //provera da li je naziv jedinstven
-
         db.collection('Aranzmani').findOne({'naziv': naziv}, (err, ar)=>{
             if(err) console.log(err);
             else if(ar) {
@@ -97,8 +99,8 @@ export class AranzmanController {
                                 naziv: naziv,
                                 lokacije: lokacije,
                                 prevoz: prevoz,
-                                datumPolaska: datumPolaska,
-                                datumPovratka: datumPovratka,
+                                datumPolaska: datumPolaskaString,
+                                datumPovratka: datumPovratkaString,
                                 trajanje: trajanje,
                                 opis: opis,
                                 cena: cena,
