@@ -27,4 +27,65 @@
         </div>
     </mat-toolbar>
 
+
+    <div class="centerItem">
+        <div class="pretragaBar">
+        
+            <div *ngFor="let rezervacija of sveRezervacije" class="prikazPretrage"  >
+                <div class="rowDiv">
+                    <div>
+                        <div class="divInList">
+                            <mat-label>Naziv aranzmana: </mat-label>
+                            <mat-label>{{rezervacija.nazivAranzmana}}</mat-label>
+                        </div>
+                        <div class="divInList">
+                            <mat-label>Kupac: </mat-label>
+                            <mat-label>{{rezervacija.ime}} {{rezervacija.prezime}}</mat-label>
+                        </div>
+                        <div class="divInList">
+                            <mat-label>Telefon: </mat-label>
+                            <mat-label>{{rezervacija.telefon}}</mat-label>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="divInList">
+                            <mat-label>Email: </mat-label>
+                            <mat-label>{{rezervacija.email}}</mat-label>
+                        </div>
+                        <div class="divInList">
+                            <mat-label>Ncin placanja: </mat-label>
+                            <mat-label>{{rezervacija.nacinPlacanja}} €</mat-label>
+                        </div>
+                        <div class="divInList">
+                            <mat-label>Komentar </mat-label>
+                            <mat-label>{{rezervacija.komentar}}</mat-label>
+                        </div>  
+                    </div>
+                    <div>
+                        <div class="divInList">
+                            <mat-label>Broj odraslih: </mat-label>
+                            <mat-label>{{rezervacija.brojOdraslih}}</mat-label>
+                        </div>
+                        <div class="divInList">
+                            <mat-label>>Broj dece: </mat-label>
+                            <mat-label>{{rezervacija.brojDece}} €</mat-label>
+                        </div>
+                        <div class="divInList">
+                            <mat-label>Status </mat-label>
+                            <mat-label>{{rezervacija.status}}</mat-label>
+                        </div>  
+                    </div>
+                    <div>
+                        <button mat-button color="green" (click)="prihvati(rezervacija.id)">
+                            <mat-icon>check</mat-icon>
+                        </button>
+                        <button mat-button color="red"  (click)="odbi(rezervacija.id)">
+                            <mat-icon>close</mat-icon>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        
+        </div>
+    </div>
 </body>

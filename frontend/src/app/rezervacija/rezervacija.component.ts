@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Aranzman } from 'src/models/aranzman';
-import { Rezervaija as Rezervacija } from 'src/models/rezervacija';
+import { Rezervacija as Rezervacija } from 'src/models/rezervacija';
 import { RezervacijaService } from '../services/rezervacija.service';
 
 @Component({

@@ -1,6 +1,6 @@
-export class Rezervaija{
+export class Rezervacija{
+    id:number;
     nazivAranzmana: string;
-    naziv: string;
     ime:string;
     prezime: string;
     telefon: string;

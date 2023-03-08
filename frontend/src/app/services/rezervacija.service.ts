@@ -27,4 +27,24 @@ export class RezervacijaService {
     return this.http.post(`${this.uri}/rezervacija/dodajRezervaciju`, data);
 
   }
+
+  dohvatiSveRezervacije(){
+    return this.http.get(`${this.uri}/rezervacija/dohvatiSveRezervacije`);
+  }
+
+  prihvatiRezervaciju(idx){
+    const data={
+      id: idx,
+      status: "prihvacena"
+    }
+    return this.http.post(`${this.uri}/rezervacija/azurirajRezervaciju`, data);
+  }
+
+  odbiRezervaciju(idx){
+    const data={
+      id: idx,
+      status: "odbijena"
+    }
+    return this.http.post(`${this.uri}/rezervacija/azurirajRezervaciju`, data);
+  }
 }

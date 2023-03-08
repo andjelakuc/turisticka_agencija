@@ -15,6 +15,7 @@ class RezervacijaController {
             let brojDece = req.body.brojDece;
             let komentar = req.body.komentar;
             let status = req.body.status;
+            console.log("usao17");
             server_1.db.collection('Rezervacije').find({}, (err, maxRez) => {
                 if (err)
                     console.log(err);
@@ -23,6 +24,7 @@ class RezervacijaController {
                     if (maxRez != null) {
                         id = maxRez[0].id + 1;
                     }
+                    console.log("id= " + id);
                     server_1.db.collection('Rezervacije').insertOne({
                         id: id,
                         nazivAranzmana: nazivAranzmana,
