@@ -67,7 +67,7 @@ export class PretragaComponent implements OnInit {
     console.log("zapoceo pretragu")
     console.log("prevoz je "+this.prevoz);
     console.log("datum polaska: "+this.datumPolaska);
-    this.AranzmanService.dohvatiAranzmanePretraga(this.skip, this.limit, this.naziv, this.prevoz, this.datumPolaska, this.datumPovratka, this.lokacijeZaPretragu).subscribe((data: Aranzman[])=>{
+    this.AranzmanService.dohvatiAranzmanePretraga(this.skip, this.limit, this.naziv, this.prevoz, "", "", [0]).subscribe((data: Aranzman[])=>{
       console.log("zavrsio pretragu")
       this.filtriraniAranzmani  = data;
     })
