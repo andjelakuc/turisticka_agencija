@@ -7,6 +7,7 @@ import { Lokacija } from 'src/models/lokacija';
 import { AranzmanService } from '../services/aranzman.service';
 import { LokacijaService } from '../services/lokacija.service';
 
+
 @Component({
   selector: 'app-pretraga',
   templateUrl: './pretraga.component.html',
@@ -59,34 +60,14 @@ export class PretragaComponent implements OnInit {
       this.sveLokacije  = data;
     })
 
-    window.scrollTo({
-      top: 0,
-      left: 0,
-      behavior: 'smooth'
-    });
+    
   }
 
   pretraga(){
     console.log("zapoceo pretragu")
     console.log("prevoz je "+this.prevoz);
-
-    var datumPolaskaString="";
-    if(this.datumPolaska != null){
-      datumPolaskaString = this.datumPolaska.getFullYear() + "-" + 
-      (this.datumPolaska.getMonth() + 1 <10 ? '0': '') + (this.datumPolaska.getMonth()+1)+ "-" + 
-      (this.datumPolaska.getDate() <10 ? '0': '') + this.datumPolaska.getDate() ;
-    } 
-    console.log("datum polaska: "+datumPolaskaString);
-
-    var datumPovratkaString ="";
-    if(this.datumPovratka != null){
-      datumPovratkaString = this.datumPovratka.getFullYear() + "-" + 
-      (this.datumPovratka.getMonth() + 1 <10 ? '0': '') + (this.datumPovratka.getMonth()+1)+ "-" + 
-      (this.datumPovratka.getDate() <10 ? '0': '') + this.datumPovratka.getDate() ;
-    } 
-    console.log("datum povraka: "+datumPovratkaString);
-
-    this.AranzmanService.dohvatiAranzmanePretraga(this.skip, this.limit, this.naziv, this.prevoz, datumPolaskaString, datumPovratkaString, this.lokacijeZaPretragu).subscribe((data: Aranzman[])=>{
+    console.log("datum polaska: "+this.datumPolaska);
+    this.AranzmanService.dohvatiAranzmanePretraga(this.skip, this.limit, this.naziv, this.prevoz, "", "", [0]).subscribe((data: Aranzman[])=>{
       console.log("zavrsio pretragu")
       this.filtriraniAranzmani  = data;
     })
@@ -99,7 +80,7 @@ export class PretragaComponent implements OnInit {
   kontinent: string = '';
   drzava: string = '';
   prevoz: string = ''
-  datumPolaska: Date ;
+  datumPolaska: Date;
   datumPovratka: Date;
   lokacijeZaPretragu: Array<number> = [];
 
@@ -136,6 +117,9 @@ export class PretragaComponent implements OnInit {
   }
 
   sledecaStranica(){
+    // if((this.skip+1)*this.limit < this.brojAranzmana ){
+
+    // }
     if( this.skip+this.limit < this.brojStranica*this.limit)
     this.skip = this.skip+this.limit; 
     sessionStorage.setItem('limit', JSON.stringify(this.limit));
@@ -157,7 +141,8 @@ export class PretragaComponent implements OnInit {
       
       sessionStorage.setItem('limit', JSON.stringify(n));
       sessionStorage.setItem('skip', JSON.stringify(0));
-      
       window.location.reload();
+
+    
   }
 }
