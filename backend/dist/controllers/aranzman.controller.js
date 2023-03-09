@@ -32,14 +32,27 @@ class AranzmanController {
             let bezDatumaPolaska = datumPolaska == null ? true : false;
             let bezDatumaPovratkailiPolaska = (datumPolaska == null || datumPovratka == null) ? true : false;
             let bezLokacija = lokacije == null ? true : false;
-            server_1.db.collection('Aranzmani').find({ 'naziv': { $regex: '(?i)' + naziv + '(?-i)' },
-                'prevoz': { $regex: '^(?i)' + prevoz + '(?-i)$' },
-                'datumPolaska': { $regex: '^(?i)' + datumPolaska + '(?-i)$' },
-                'datumPovratka': { $regex: '^(?i)' + datumPovratka + '(?-i)$' },
-            }).skip(skip).limit(limit).toArray(function (err, results) {
-                console.log(results);
-                res.send(results);
-            });
+            if (bezLokacija) {
+                server_1.db.collection('Aranzmani').find({ 'naziv': { $regex: '(?i)' + naziv + '(?-i)' },
+                    'prevoz': { $regex: '(?i)' + prevoz + '(?-i)' },
+                    'datumPolaska': { $regex: '(?i)' + datumPolaska + '(?-i)' },
+                    'datumPovratka': { $regex: '(?i)' + datumPovratka + '(?-i)' } }).skip(skip).limit(limit).toArray(function (err, results) {
+                    console.log(results);
+                    res.send(results);
+                });
+            }
+            else {
+                server_1.db.collection('Aranzmani').find({ 'naziv': { $regex: '(?i)' + naziv + '(?-i)' },
+                    'prevoz': { $regex: '(?i)' + prevoz + '(?-i)' },
+                    'datumPolaska': { $regex: '(?i)' + datumPolaska + '(?-i)' },
+                    'datumPovratka': { $regex: '(?i)' + datumPovratka + '(?-i)' },
+                    'lokacije': { $all: lokacije } }
+                // }
+                ).skip(skip).limit(limit).toArray(function (err, results) {
+                    console.log(results);
+                    res.send(results);
+                });
+            }
         };
         this.dohvatiVelicinu = (req, res) => {
             server_1.db.collection('Aranzmani').find().count((err, resp) => {

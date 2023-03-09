@@ -23,7 +23,6 @@ export class AranzmanService {
 
     console.log("naziv"+naziv);
         console.log("prevoz"+prevoz);
-        if(prevoz == "") prevoz = null;
         if(prevoz == null) console.log("racuna se kao null");
         console.log("datumPolaska"+datumPolaska);
         if(datumPolaska == null) console.log("i datum se racuna kao null")

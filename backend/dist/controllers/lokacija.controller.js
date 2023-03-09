@@ -26,9 +26,9 @@ class LokacijaController {
             let bezDrzave = drzava == null ? true : false;
             let bezKontinenta = kontinent == null ? true : false;
             server_1.db.collection('Lokacije').findOne({
-                'naziv': { $cond: { if: bezNaziva, then: { $exists: true }, else: { regex: '(?i)' + naziv + '(?-i)' } } },
-                'drzava': { $cond: { if: bezDrzave, then: { $exists: true }, else: { regex: '(?i)' + drzava + '(?-i)' } } },
-                'kontinent': { $cond: { if: bezKontinenta, then: { $exists: true }, else: { regex: '(?i)' + kontinent + '(?-i)' } } }
+                'naziv': { $regex: '(?i)' + naziv + '(?-i)' },
+                'drzava': { $regex: '(?i)' + drzava + '(?-i)' },
+                'kontinent': { regex: '(?i)' + kontinent + '(?-i)' }
             }, (err, smestaj) => {
                 if (err)
                     console.log(err);

@@ -25932,7 +25932,7 @@ for (let index = 0; index < 50000; index++) {
     trajanje = generateRandom(9) + 3;
     cena = (10 + generateRandom(300))*10;
     povratakDatum = new Date(polazakDatum);
-    povratakDatum.setDate(povratakDatum.getDate() + trajanje);
+    povratakDatum.setDate(polazakDatum.getDate() + trajanje);
     povratakDatum.setDate(povratakDatum.getMilliseconds()-tzoffset);
     povratakDatumString = povratakDatum.toISOString().substring(0,10);
     polazakMesto = mestaPolaska[generateRandom(mestaPolaska.length)];
@@ -25985,7 +25985,7 @@ for (let index = 50000; index < 60000; index++) {
     trajanje = generateRandom(9) + 3;
     cena = (10 + generateRandom(300))*10;
     povratakDatum = new Date(polazakDatum);
-    povratakDatum.setDate(povratakDatum.getDate() + trajanje);
+    povratakDatum.setDate(polazakDatum.getDate() + trajanje);
     povratakDatum.setDate(povratakDatum.getMilliseconds()-tzoffset);
     povratakDatumString = povratakDatum.toISOString().substring(0,10);
     polazakMesto = mestaPolaska[generateRandom(mestaPolaska.length)];

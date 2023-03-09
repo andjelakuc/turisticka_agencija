@@ -86,7 +86,7 @@ export class PretragaComponent implements OnInit {
       (this.datumPovratka.getDate() <10 ? '0': '') + this.datumPovratka.getDate() ;
     } 
 
-    this.AranzmanService.dohvatiAranzmanePretraga(this.skip, this.limit, this.naziv, this.prevoz, datumPolaskaString, datumPovratkaString, [0]).subscribe((data: Aranzman[])=>{
+    this.AranzmanService.dohvatiAranzmanePretraga(this.skip, this.limit, this.naziv, this.prevoz, datumPolaskaString, datumPovratkaString, this.lokacijeZaPretragu).subscribe((data: Aranzman[])=>{
       this.filtriraniAranzmani  = data;
     })
   }
