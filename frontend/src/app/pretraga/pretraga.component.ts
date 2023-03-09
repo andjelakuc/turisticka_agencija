@@ -62,19 +62,6 @@ export class PretragaComponent implements OnInit {
 
     
   }
-
-  pretraga(){
-    console.log("zapoceo pretragu")
-    console.log("prevoz je "+this.prevoz);
-    console.log("datum polaska: "+this.datumPolaska);
-    this.AranzmanService.dohvatiAranzmanePretraga(this.skip, this.limit, this.naziv, this.prevoz, "", "", [0]).subscribe((data: Aranzman[])=>{
-      console.log("zavrsio pretragu")
-      this.filtriraniAranzmani  = data;
-    })
-    console.log("ode ispod")
-  }
- 
-
   naziv: string = '';
   lokacija: string = '';
   kontinent: string = '';
@@ -83,6 +70,29 @@ export class PretragaComponent implements OnInit {
   datumPolaska: Date;
   datumPovratka: Date;
   lokacijeZaPretragu: Array<number> = [];
+
+  pretraga(){
+    var datumPolaskaString="";
+    if(this.datumPolaska != null){
+      datumPolaskaString = this.datumPolaska.getFullYear() + "-" + 
+      (this.datumPolaska.getMonth() + 1 <10 ? '0': '') + (this.datumPolaska.getMonth()+1)+ "-" + 
+      (this.datumPolaska.getDate() <10 ? '0': '') + this.datumPolaska.getDate() ;
+    } 
+
+    var datumPovratkaString ="";
+    if(this.datumPovratka != null){
+      datumPovratkaString = this.datumPovratka.getFullYear() + "-" + 
+      (this.datumPovratka.getMonth() + 1 <10 ? '0': '') + (this.datumPovratka.getMonth()+1)+ "-" + 
+      (this.datumPovratka.getDate() <10 ? '0': '') + this.datumPovratka.getDate() ;
+    } 
+
+    this.AranzmanService.dohvatiAranzmanePretraga(this.skip, this.limit, this.naziv, this.prevoz, datumPolaskaString, datumPovratkaString, [0]).subscribe((data: Aranzman[])=>{
+      this.filtriraniAranzmani  = data;
+    })
+  }
+ 
+
+
 
 
   prijava(){
