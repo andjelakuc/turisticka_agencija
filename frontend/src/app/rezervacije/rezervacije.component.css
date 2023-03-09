@@ -39,8 +39,7 @@
 .prikazPretrage{
     background-color: rgb(101, 122, 219);
     display: flex;
-    min-width: 400px;    
-    max-width: 35%;
+    min-width: 500px;    
     align-self: center;
     flex-direction: column;
     gap: 10px;
@@ -61,6 +60,7 @@
 .divInList{
     background-color: rgb(238, 238, 248);
     flex-direction: row;
+    margin: 3px;
     display: flex;
     padding: 10px;
     border-radius: 10px;

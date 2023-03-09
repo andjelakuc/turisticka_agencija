@@ -25965,8 +25965,11 @@ for (let index = 0; index < 50000; index++) {
             slika: lokacija.fotografija
         }
     );
+
     
 }
+
+
 
 for (let index = 50000; index < 60000; index++) {
 
@@ -26015,7 +26018,28 @@ for (let index = 50000; index < 60000; index++) {
             slika: lokacija.fotografija
         }
     );
+
+    
     
 }
+
+// db.Rezervacije.insertOne(
+//     {
+//         id: 0,
+//         nazivAranzmana : "sutomere",
+//         ime: "Ana",
+//         prezime: "Ivanovic",
+//         telefon: "+3816412345678",
+//         email: "anaivanovic@gmail.com",
+//         nacinPlacanja : "kes",
+//         brojOdraslih : "2",
+//         brojDece : "0",
+//         komentar : "",
+//         status : "obrada"
+//     }, (err, resp) => {
+//         if (err) console.log(err)
+//         else if (resp) res.json({ 'message': 'ok' })
+//     }
+// );
 
 console.log(db.getMongo());

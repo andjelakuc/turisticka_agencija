@@ -71,13 +71,13 @@
     <div  class="pretragaBar">
         <mat-form-field>
             <mat-label>Datum polaska</mat-label>
-            <input matInput [matDatepicker]="picker1" [ngModel]="datumPolaska">
+            <input matInput [matDatepicker]="picker1" [(ngModel)]="datumPolaska">
             <mat-datepicker-toggle matIconSuffix [for]="picker1"></mat-datepicker-toggle>
             <mat-datepicker #picker1></mat-datepicker>
         </mat-form-field>
         <mat-form-field>
             <mat-label>Datum povratka</mat-label>
-            <input matInput [matDatepicker]="picker2" [ngModel]="datumPovratka">
+            <input matInput [matDatepicker]="picker2" [(ngModel)]="datumPovratka">
             <mat-datepicker-toggle matIconSuffix [for]="picker2"></mat-datepicker-toggle>
             <mat-datepicker #picker2></mat-datepicker>
         </mat-form-field>
@@ -141,7 +141,7 @@
    </div>
 
 
-    <div class="centerItem">
+    <div class="centerItem" *ngIf="filtriraniAranzmani">
         <div class="pretragaBar">
             Broj aranzmana po stranici:       
             <mat-form-field  >

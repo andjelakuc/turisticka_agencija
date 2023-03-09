@@ -14,15 +14,14 @@ export class RezervacijaController {
         let brojDece = req.body.brojDece;
         let komentar = req.body.komentar;
         let status = req.body.status;
-        console.log("usao17");
-        db.collection('Rezervacije').find( {}, (err, maxRez)=>{
+        db.collection('Rezervacije').find().sort({'id': -1}).limit(1).toArray( function(err, maxRez){
             if(err) console.log(err);
             else{
                 let id = 0
-                if(maxRez != null){
+                if(maxRez.length != 0){
+                    console.log(maxRez);
                     id = maxRez[0].id + 1;
                 }
-                console.log("id= " + id);
                 db.collection('Rezervacije').insertOne(
                     {
                         id: id,
@@ -42,15 +41,13 @@ export class RezervacijaController {
                     }
                 );
             }
-        }).sort({'id': -1}).limit(1)
+        });
     }
 
     dohvatiSveRezervacije = (req: express.Request, res: express.Response) => {
-        
-        db.collection('Rezervacije').find({}, (err, rezervacije) => {
-            if (err) console.log(err);
-            else res.json(rezervacije);
-        }).sort({'id': -1})
+        db.collection('Rezervacije').find().toArray(function(err, results) {
+            res.send(results);
+        });
     }
 
     

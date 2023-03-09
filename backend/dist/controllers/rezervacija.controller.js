@@ -15,16 +15,15 @@ class RezervacijaController {
             let brojDece = req.body.brojDece;
             let komentar = req.body.komentar;
             let status = req.body.status;
-            console.log("usao17");
-            server_1.db.collection('Rezervacije').find({}, (err, maxRez) => {
+            server_1.db.collection('Rezervacije').find().sort({ 'id': -1 }).limit(1).toArray(function (err, maxRez) {
                 if (err)
                     console.log(err);
                 else {
                     let id = 0;
-                    if (maxRez != null) {
+                    if (maxRez.length != 0) {
+                        console.log(maxRez);
                         id = maxRez[0].id + 1;
                     }
-                    console.log("id= " + id);
                     server_1.db.collection('Rezervacije').insertOne({
                         id: id,
                         nazivAranzmana: nazivAranzmana,
@@ -44,14 +43,11 @@ class RezervacijaController {
                             res.json({ 'message': 'ok' });
                     });
                 }
-            }).sort({ 'id': -1 }).limit(1);
+            });
         };
         this.dohvatiSveRezervacije = (req, res) => {
-            server_1.db.collection('Rezervacije').find({}, (err, rezervacije) => {
-                if (err)
-                    console.log(err);
-                else
-                    res.json(rezervacije);
+            server_1.db.collection('Rezervacije').find().toArray(function (err, results) {
+                res.send(results);
             });
         };
         this.azurirajRezervaciju = (req, res) => {
