@@ -30,6 +30,17 @@ export class PretragaComponent implements OnInit {
   selected = '50';
   brojStranica: number=0;
   stranica:number;
+  naziv: string = '';
+  lokacija: string = '';
+  kontinent: string = '';
+  drzava: string = '';
+  prevoz: string = ''
+  datumPolaska: Date;
+  datumPolaskaString:string='';
+  datumPovratka: Date;
+  datumPovratkaString: string='';
+  lokacijeZaPretragu: Array<number> =new Array();
+  prevozi = new FormControl('');
 
 
   ngOnInit(): void {  
@@ -42,10 +53,28 @@ export class PretragaComponent implements OnInit {
       this.limit= JSON.parse(sessionStorage.getItem('limit'));
       this.selected = this.limit.toString();
     }
+    if ( JSON.parse(sessionStorage.getItem('naziv')))
+      this.naziv= JSON.parse(sessionStorage.getItem('naziv'));
+    if ( JSON.parse(sessionStorage.getItem('prevoz')))
+      this.prevoz= JSON.parse(sessionStorage.getItem('prevoz'));
+    if ( JSON.parse(sessionStorage.getItem('datumPolaskaString'))){
+      this.datumPolaskaString= JSON.parse(sessionStorage.getItem('datumPolaskaString'));
+      this.datumPolaska=new Date(this.datumPolaskaString);
+    }
       
+    if ( JSON.parse(sessionStorage.getItem('datumPovratkaString')))
+      this.datumPovratkaString= JSON.parse(sessionStorage.getItem('datumPovratkaString'));
+    if ( JSON.parse(sessionStorage.getItem('lokacijeZaPretragu')))
+      this.lokacijeZaPretragu= JSON.parse(sessionStorage.getItem('lokacijeZaPretragu'));
+    if ( JSON.parse(sessionStorage.getItem('lokacija')))
+      this.lokacija= JSON.parse(sessionStorage.getItem('lokacija'));
+    if ( JSON.parse(sessionStorage.getItem('kontinent')))
+      this.kontinent= JSON.parse(sessionStorage.getItem('kontinent'));
+    if ( JSON.parse(sessionStorage.getItem('drzava')))
+      this.drzava= JSON.parse(sessionStorage.getItem('drzava'));
 
-    this.AranzmanService.dohvatiSveAranzmane(this.skip, this.limit).subscribe((data: Aranzman[])=>{
-      this.sviAranzmani = this.filtriraniAranzmani = data
+    this.LokacijaService.dohvatiSveLokacije().subscribe((data: Lokacija[])=>{
+      this.sveLokacije  = data;
     })
 
     this.AranzmanService.dohvaiBrojAranzmana().subscribe((broj: number)=>{
@@ -56,45 +85,56 @@ export class PretragaComponent implements OnInit {
       this.stranica = this.skip/this.limit;
     })
 
-    this.LokacijaService.dohvatiSveLokacije().subscribe((data: Lokacija[])=>{
-      this.sveLokacije  = data;
+    this.LokacijaService.dohvatiLokacijePretraga(this.lokacija, this.drzava ,this.kontinent).subscribe((data: Lokacija[])=>{
+      let lokacije  = data;
+      var numbers = new Array(); 
+      lokacije.forEach(function(lokacija){
+        numbers.push(lokacija.id);
+      });
+      this.lokacijeZaPretragu = numbers;
+      if( numbers.length > 0 ){
+        this.AranzmanService.dohvatiAranzmanePretraga(this.skip, this.limit, this.naziv, this.prevoz, this.datumPolaskaString, this.datumPovratkaString, this.lokacijeZaPretragu).subscribe((data: Aranzman[])=>{
+          this.filtriraniAranzmani  = data;
+        })
+      } else{
+        this.filtriraniAranzmani= [];
+      }
     })
-
     
+    window.scroll({ 
+      top: 0, 
+      left: 0, 
+      behavior: 'smooth' 
+    });
   }
-  naziv: string = '';
-  lokacija: string = '';
-  kontinent: string = '';
-  drzava: string = '';
-  prevoz: string = ''
-  datumPolaska: Date;
-  datumPovratka: Date;
-  lokacijeZaPretragu: Array<number> = [];
 
   pretraga(){
-    var datumPolaskaString="";
+    this.datumPolaskaString="";
     if(this.datumPolaska != null){
-      datumPolaskaString = this.datumPolaska.getFullYear() + "-" + 
+      this.datumPolaskaString = this.datumPolaska.getFullYear() + "-" + 
       (this.datumPolaska.getMonth() + 1 <10 ? '0': '') + (this.datumPolaska.getMonth()+1)+ "-" + 
       (this.datumPolaska.getDate() <10 ? '0': '') + this.datumPolaska.getDate() ;
     } 
 
-    var datumPovratkaString ="";
+    this.datumPovratkaString ="";
     if(this.datumPovratka != null){
-      datumPovratkaString = this.datumPovratka.getFullYear() + "-" + 
+      this.datumPovratkaString = this.datumPovratka.getFullYear() + "-" + 
       (this.datumPovratka.getMonth() + 1 <10 ? '0': '') + (this.datumPovratka.getMonth()+1)+ "-" + 
       (this.datumPovratka.getDate() <10 ? '0': '') + this.datumPovratka.getDate() ;
     } 
 
-    this.AranzmanService.dohvatiAranzmanePretraga(this.skip, this.limit, this.naziv, this.prevoz, datumPolaskaString, datumPovratkaString, this.lokacijeZaPretragu).subscribe((data: Aranzman[])=>{
-      this.filtriraniAranzmani  = data;
-    })
+    sessionStorage.setItem('naziv', JSON.stringify(this.naziv));
+    sessionStorage.setItem('prevoz', JSON.stringify(this.prevoz));
+    sessionStorage.setItem('datumPolaskaString', JSON.stringify(this.datumPolaskaString));
+    sessionStorage.setItem('datumPovratkaString', JSON.stringify(this.datumPovratkaString));
+    sessionStorage.setItem('lokacijeZaPretragu', JSON.stringify(this.lokacijeZaPretragu));
+    sessionStorage.setItem('lokacija', JSON.stringify(this.lokacija));
+    sessionStorage.setItem('kontinent', JSON.stringify(this.kontinent));
+    sessionStorage.setItem('drzava', JSON.stringify(this.drzava));
+
+    window.location.reload();
   }
  
-
-
-
-
   prijava(){
     this.ruter.navigate(['logovanje']);
   }
@@ -115,21 +155,12 @@ export class PretragaComponent implements OnInit {
     this.ruter.navigate(['dodajAranzman'])
   }
 
-  prevozi = new FormControl('');
-
-  prevozList: string[] = ['Autobus', 'Avion', 'Krstarenje', 'Voz', 'Samostalni Prevoz'];
-
-
-
   stranicaAranzmana(aranzman){
-      sessionStorage.setItem('aranzman', JSON.stringify(aranzman));
-      this.ruter.navigate(['aranzman']);
+    sessionStorage.setItem('aranzman', JSON.stringify(aranzman));
+    this.ruter.navigate(['aranzman']);
   }
 
   sledecaStranica(){
-    // if((this.skip+1)*this.limit < this.brojAranzmana ){
-
-    // }
     if( this.skip+this.limit < this.brojStranica*this.limit)
     this.skip = this.skip+this.limit; 
     sessionStorage.setItem('limit', JSON.stringify(this.limit));
@@ -144,15 +175,11 @@ export class PretragaComponent implements OnInit {
       sessionStorage.setItem('skip', JSON.stringify(this.skip));
       window.location.reload();
     }
-      
   }
 
   promeniPrikaz(n){
-      
       sessionStorage.setItem('limit', JSON.stringify(n));
       sessionStorage.setItem('skip', JSON.stringify(0));
       window.location.reload();
-
-    
   }
 }

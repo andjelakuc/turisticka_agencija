@@ -29,14 +29,14 @@ export class LokacijaController {
         let bezDrzave = drzava == null? true:false;
         let bezKontinenta = kontinent == null? true:false;
 
-        db.collection('Lokacije').findOne({
-             'naziv':  {$regex: '(?i)'+naziv+'(?-i)'},
-             'drzava': {$regex: '(?i)'+drzava+'(?-i)'},
-             'kontinent' : {regex: '(?i)'+kontinent+'(?-i)'}
-            }, (err, smestaj) => {
-            if (err) console.log(err);
-            else res.json(smestaj);
-        })
+        
+        db.collection('Lokacije').find(
+            { 'naziv' : { $regex: '(?i)'+naziv+'(?-i)'},
+                'drzava' : { $regex: '(?i)'+drzava+'(?-i)'},
+                'kontinent': {$regex: '(?i)'+kontinent+'(?-i)'}}
+        ).toArray(function(err, results) {
+            res.send(results);
+        });
     }
 
     // (б) naziv, претрагу по континенту, држави

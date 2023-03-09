@@ -11,7 +11,7 @@ lokacijaRouter.route('/dohvatiSveLokacije').get(
     (req, res)=> new LokacijaController().dohvatiSveLokacije(req, res)
 )
 
-lokacijaRouter.route('/dohvatiLokacijePretraga').get(
+lokacijaRouter.route('/dohvatiLokacijePretraga').post(
     (req, res)=> new LokacijaController().dohvatiLokacijePretraga(req, res)
 )
 

@@ -23,7 +23,7 @@ export class LokacijaService {
   }
 
 
-  dodajSmestaj(lokacija){
+  dodajLokaciju(lokacija){
     const data={
       naziv: lokacija.naziv,
       drzava: lokacija.drzava,
@@ -33,5 +33,16 @@ export class LokacijaService {
 
     return this.http.post(`${this.uri}/lokacija/dodajLokaciju`, data);
 
+  }
+
+
+  dohvatiLokacijePretraga(Naziv, Drzava, Kontinent){
+    const data={
+      naziv: Naziv,
+      drzava: Drzava,
+      kontinent: Kontinent
+    }
+
+    return this.http.post(`${this.uri}/lokacija/dohvatiLokacijePretraga`, data);
   }
 }

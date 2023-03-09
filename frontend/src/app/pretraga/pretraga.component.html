@@ -55,7 +55,7 @@
         <mat-form-field>
             <mat-label>Prevozi</mat-label>
             <mat-select [(value)]="prevoz">
-                <mat-option>None</mat-option>
+                <mat-option value="">None</mat-option>
                 <mat-option value="Autobus">Autobus</mat-option>
                 <mat-option value="Avion">Avion</mat-option>
                 <mat-option value="Krstarenje">Krstarenje</mat-option>
@@ -152,7 +152,7 @@
                 </mat-select>
             </mat-form-field>
 
-            Stranica {{stranica + 1}} od {{brojStranica}}
+            Stranica {{stranica + 1}} od {{brojStranica}} promeni broj stanica kad se azurira pretraga
             <mat-icon (click)="prethodnaStranica()">keyboard_arrow_left</mat-icon>
             <mat-icon (click)="sledecaStranica()">keyboard_arrow_right</mat-icon>
             

@@ -45,7 +45,6 @@ export class AranzmanController {
                  'datumPolaska': {$regex: '(?i)'+datumPolaska+'(?-i)'},
                 'datumPovratka': {$regex: '(?i)'+datumPovratka+'(?-i)'}}
             ).skip(skip).limit(limit).toArray(function(err, results) {
-                console.log(results);
                 res.send(results);
             });
         }else{
@@ -54,10 +53,9 @@ export class AranzmanController {
                  'prevoz' : { $regex: '(?i)'+prevoz+'(?-i)'},
                  'datumPolaska': {$regex: '(?i)'+datumPolaska+'(?-i)'},
                 'datumPovratka': {$regex: '(?i)'+datumPovratka+'(?-i)'},
-                'lokacije':{$all: lokacije}} 
+                'lokacije':{$in: lokacije}} 
                 // }
             ).skip(skip).limit(limit).toArray(function(err, results) {
-                console.log(results);
                 res.send(results);
             });
         }
