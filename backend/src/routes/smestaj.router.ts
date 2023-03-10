@@ -7,6 +7,10 @@ smestajRouter.route('/dohvatiSmestaj').post(
     (req, res)=> new SmestajController().dohvatiSmestaj(req, res)
 )
 
+smestajRouter.route('/dohvatiSveSmestaje').get(
+    (req, res)=> new SmestajController().dohvatiSveSmestaje(req, res)
+)
+
 smestajRouter.route('/dodajSmestaj').post(
     (req, res)=> new SmestajController().dodajSmestaj(req, res)
 )

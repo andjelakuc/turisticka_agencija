@@ -28,6 +28,136 @@
     </mat-toolbar>
 
 
+    <div class="centerItem">
+        <div class="centerItem" >
+            <img  class="image" src="{{aranzman.slika}}" >
+        </div>
+        <div class="centerItem">
+            <button type="button" mat-raised-button (click)="fileInput.click()">Promeni sliku</button>
+            <input hidden (change)="onFileSelected()" accept=".png,.jpg,.jpeg" #fileInput type="file" id="file"> 
+        </div>
+        <mat-form-field appearance="fill"  >
+            <mat-label>Naziv aranzmana:</mat-label>
+            <input matInput  value="{{this.aranzman.naziv}}" [(ngModel)]="this.aranzman.naziv">
+        </mat-form-field>
+        <mat-form-field appearance="fill"  >
+            <mat-label>Cena:</mat-label>
+            <input matInput  value="{{this.aranzman.cena}}" [(ngModel)]="this.aranzman.cena">
+        </mat-form-field>
+        <mat-form-field appearance="fill" >
+            <mat-label>Datum polaska</mat-label>
+            <input matInput [matDatepicker]="picker1" [(ngModel)]="datumPolaska">
+            <mat-datepicker-toggle matIconSuffix [for]="picker1"></mat-datepicker-toggle>
+            <mat-datepicker #picker1></mat-datepicker>
+        </mat-form-field>
+        <mat-form-field appearance="fill" >
+            <mat-label>Datum povratka</mat-label>
+            <input matInput [matDatepicker]="picker2" [(ngModel)]="datumPovratka">
+            <mat-datepicker-toggle matIconSuffix [for]="picker2"></mat-datepicker-toggle>
+            <mat-datepicker #picker2></mat-datepicker>
+        </mat-form-field>
 
+        <mat-form-field appearance="fill"  >
+            <mat-label>Opis:</mat-label>
+            <textarea   matInput  value="{{this.aranzman.opis}}" [(ngModel)]="this.aranzman.opis"></textarea>
+        </mat-form-field>
 
+        <mat-form-field appearance="fill" >
+            <mat-label>Prevozi</mat-label>
+            <mat-select [(value)]="aranzman.prevoz">
+                <mat-option value="">None</mat-option>
+                <mat-option value="Autobus">Autobus</mat-option>
+                <mat-option value="Avion">Avion</mat-option>
+                <mat-option value="Krstarenje">Krstarenje</mat-option>
+                <mat-option value="Voz">Voz</mat-option>
+                <mat-option value="Samostalni Prevoz">Samostalni Prevoz</mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <div appearance="fill">
+            <mat-label>Lokacije: </mat-label>
+            <div *ngFor="let lokacija of aranzman.lokacije">
+                <mat-label>{{sveLokacije[lokacija].naziv}} </mat-label>
+            </div>
+        </div>
+        <mat-form-field appearance="fill">
+            <mat-label>Promenjene lokacije:</mat-label>
+            <mat-select [formControl]="lokacije" [(value)]="nizLokacija" multiple>
+              <mat-option *ngFor="let lokacija of sveLokacije" [value]="lokacija.id">{{lokacija.naziv}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-label>Biranjem novih lokacija brisete sve prethodne:</mat-label>
+
+        <div class="divInList">
+            <mat-label>Smestaj: </mat-label>
+            <div class="columnDiv">   
+                <mat-label> {{smestaj.ime}}</mat-label>
+                <mat-label>
+                    <mat-icon *ngIf="smestaj.kategorija >= 1">star</mat-icon>
+                    <mat-icon *ngIf="smestaj.kategorija >= 2">star</mat-icon>
+                    <mat-icon *ngIf="smestaj.kategorija >= 3">star</mat-icon>
+                    <mat-icon *ngIf="smestaj.kategorija >= 4">star</mat-icon>
+                    <mat-icon *ngIf="smestaj.kategorija >= 5">star</mat-icon>
+                    <mat-icon *ngIf="smestaj.kategorija < 2">star_border</mat-icon>
+                    <mat-icon *ngIf="smestaj.kategorija < 3">star_border</mat-icon>
+                    <mat-icon *ngIf="smestaj.kategorija < 4">star_border</mat-icon>
+                    <mat-icon *ngIf="smestaj.kategorija < 5">star_border</mat-icon>
+                </mat-label>
+                <mat-label>Tip: {{smestaj.tip}}</mat-label>
+                <mat-label>Internet: <mat-icon *ngIf="smestaj.internet" class="checkIcon">check</mat-icon></mat-label>
+                <mat-label>TV: <mat-icon *ngIf="smestaj.tv" class="checkIcon">check</mat-icon></mat-label>
+                <mat-label>AC: <mat-icon *ngIf="smestaj.ac" class="checkIcon">check</mat-icon></mat-label>
+                <mat-label>Frizider: <mat-icon *ngIf="smestaj.frizider" class="checkIcon">check</mat-icon></mat-label>
+                <mat-label>Sef: <mat-icon *ngIf="smestaj.sef" class="checkIcon">check</mat-icon></mat-label>
+            </div>
+            
+            <div class="spacer"></div>
+            <div class="slikeSmestaja">
+                <ngb-carousel>
+                    <ng-template ngbSlide *ngIf="smestaj.fotografije[0]">
+                      <div class="picsum-img-wrapper">
+                        <img [src]="smestaj.fotografije[0]" alt="Random first slide" height="250px">
+                      </div>
+                    </ng-template>
+                    <ng-template ngbSlide *ngIf="smestaj.fotografije[1]">
+                      <div class="picsum-img-wrapper">
+                        <img [src]="smestaj.fotografije[1]" alt="Random first slide" height="250px">
+                      </div>
+                    </ng-template>
+                    <ng-template ngbSlide *ngIf="smestaj.fotografije[2]">
+                        <div class="picsum-img-wrapper">
+                          <img [src]="smestaj.fotografije[2]" alt="Random first slide" height="250px">
+                        </div>
+                      </ng-template>
+                      <ng-template ngbSlide *ngIf="smestaj.fotografije[3]">
+                        <div class="picsum-img-wrapper">
+                          <img [src]="smestaj.fotografije[3]" alt="Random first slide" height="250px">
+                        </div>
+                      </ng-template>
+                      <ng-template ngbSlide *ngIf="smestaj.fotografije[4]">
+                        <div class="picsum-img-wrapper">
+                          <img [src]="smestaj.fotografije[4]" alt="Random first slide" height="250px">
+                        </div>
+                      </ng-template>
+                      <ng-template ngbSlide *ngIf="smestaj.fotografije[5]">
+                        <div class="picsum-img-wrapper">
+                          <img [src]="smestaj.fotografije[5]" alt="Random first slide" height="250px">
+                        </div>
+                      </ng-template>
+                </ngb-carousel>
+            </div>
+        </div>
+            
+        <mat-form-field appearance="fill">
+            <mat-label>Promenenjen smestaj:</mat-label>
+            <mat-select [formControl]="novSmesaj">
+              <mat-option *ngFor="let smestaj of sviSmestaji" [value]="smestaj.id"  (click)="promeniSmestaj(smestaj.id)">{{smestaj.ime}} : {{sveLokacije[smestaj.idLokacije].naziv}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <button mat-button class="rezervisi" (click)="sacuvaj()">Sacuvaj izmene</button> 
+        <button mat-button class="rezervisi" (click)="otkazi()">Otkazi</button> 
+    </div>
+    
+    
 </body>

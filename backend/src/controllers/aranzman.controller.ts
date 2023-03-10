@@ -63,16 +63,45 @@ export class AranzmanController {
     }
 
     dohvatiVelicinu =(req: express.Request, res: express.Response) => {
-       db.collection('Aranzmani').find().count((err, resp) => {
-        if (err) console.log(err)
-        else res.json(resp)
-    });
+        let naziv = req.body.naziv;
+        let prevoz = req.body.prevoz;
+        let datumPolaska = req.body.datumPolaska;
+        let datumPovratka = req.body.datumPovratka;
+        let lokacije = req.body.lokacije;
+        
+
+
+        let bezLokacija = lokacije == null ? true:false;
+
+        if(bezLokacija){
+            db.collection('Aranzmani').find(
+                { 'naziv' : { $regex: '(?i)'+naziv+'(?-i)'},
+                 'prevoz' : { $regex: '(?i)'+prevoz+'(?-i)'},
+                 'datumPolaska': {$regex: '(?i)'+datumPolaska+'(?-i)'},
+                'datumPovratka': {$regex: '(?i)'+datumPovratka+'(?-i)'}}
+            ).count((err, resp) => {
+                if (err) console.log(err)
+                else res.json(resp)
+            });
+        }else{
+            db.collection('Aranzmani').find(
+                { 'naziv' : { $regex: '(?i)'+naziv+'(?-i)'},
+                 'prevoz' : { $regex: '(?i)'+prevoz+'(?-i)'},
+                 'datumPolaska': {$regex: '(?i)'+datumPolaska+'(?-i)'},
+                'datumPovratka': {$regex: '(?i)'+datumPovratka+'(?-i)'},
+                'lokacije':{$in: lokacije}} 
+                // }
+            ).count((err, resp) => {
+                if (err) console.log(err)
+                else res.json(resp)
+            });
+        }
     }
 
     
 
     dodajAranzman = (req: express.Request, res: express.Response) => {
-        
+
         let tzoffset = (new Date()).getTimezoneOffset() * 60000;
         //let id = req.body.id;
         let naziv = req.body.naziv;
@@ -127,5 +156,44 @@ export class AranzmanController {
                 }).sort({'id': -1}).limit(1)
             }
         })
+    }
+
+
+
+    azurirajAranzman = (req: express.Request, res: express.Response) => {
+        let id = req.body.id;
+        let tzoffset = (new Date()).getTimezoneOffset() * 60000;
+        let naziv = req.body.naziv;
+        let lokacije = req.body.lokacije;
+        let prevoz = req.body.prevoz;
+        let datumPolaskaString = req.body.datumPolaska;
+        let datumPovratkaString = req.body.datumPovratka;
+        let trajanje = req.body.trajanje;
+        let opis = req.body.opis;
+        let cena = req.body.cena;
+        let smestaj = req.body.smestaj;
+        let napomena = req.body.napomena;
+        let slika = req.body.slika;
+
+        
+        db.collection('Aranzmani').updateOne({ 'id': id },
+            {
+                $set: {
+                    naziv : naziv,
+                    lokacije: lokacije,
+                    prevoz: prevoz,
+                    datumPolaskaString: datumPolaskaString,
+                    datumPovratkaString: datumPovratkaString,
+                    trajanje: trajanje,
+                    opis: opis,
+                    cena: cena,
+                    smestaj: smestaj,
+                    napomena: napomena,
+                    slika: slika
+                }
+            }, (err, resp) => {
+                if (err) console.log(err)
+                else if (resp) res.json({ 'message': 'ok' })
+        });
     }
 }

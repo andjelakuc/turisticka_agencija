@@ -44,7 +44,6 @@ export class PretragaComponent implements OnInit {
 
 
   ngOnInit(): void {  
-
     this.ulogovanKorisnik = JSON.parse(sessionStorage.getItem('ulogovan'));
 
     if ( JSON.parse(sessionStorage.getItem('skip')))
@@ -61,9 +60,10 @@ export class PretragaComponent implements OnInit {
       this.datumPolaskaString= JSON.parse(sessionStorage.getItem('datumPolaskaString'));
       this.datumPolaska=new Date(this.datumPolaskaString);
     }
-      
-    if ( JSON.parse(sessionStorage.getItem('datumPovratkaString')))
+    if ( JSON.parse(sessionStorage.getItem('datumPovratkaString'))){
       this.datumPovratkaString= JSON.parse(sessionStorage.getItem('datumPovratkaString'));
+      this.datumPovratka=new Date(this.datumPovratkaString);
+    }  
     if ( JSON.parse(sessionStorage.getItem('lokacijeZaPretragu')))
       this.lokacijeZaPretragu= JSON.parse(sessionStorage.getItem('lokacijeZaPretragu'));
     if ( JSON.parse(sessionStorage.getItem('lokacija')))
@@ -77,12 +77,12 @@ export class PretragaComponent implements OnInit {
       this.sveLokacije  = data;
     })
 
-    this.AranzmanService.dohvaiBrojAranzmana().subscribe((broj: number)=>{
+    this.AranzmanService.dohvaiBrojAranzmana( this.naziv, this.prevoz, this.datumPolaskaString, this.datumPovratkaString, this.lokacijeZaPretragu).subscribe((broj: number)=>{
       this.brojStranica = broj ;
-      this.brojStranica = this.brojStranica /  this.limit; 
+      this.brojStranica = Math.floor(this.brojStranica /  this.limit); 
       if(this.brojStranica *  this.limit < broj) 
-      this.brojStranica = this.brojStranica +1;
-      this.stranica = this.skip/this.limit;
+        this.brojStranica  = this.brojStranica +1;
+      this.stranica = this.skip/this.limit +1;
     })
 
     this.LokacijaService.dohvatiLokacijePretraga(this.lokacija, this.drzava ,this.kontinent).subscribe((data: Lokacija[])=>{
@@ -123,14 +123,7 @@ export class PretragaComponent implements OnInit {
       (this.datumPovratka.getDate() <10 ? '0': '') + this.datumPovratka.getDate() ;
     } 
 
-    sessionStorage.setItem('naziv', JSON.stringify(this.naziv));
-    sessionStorage.setItem('prevoz', JSON.stringify(this.prevoz));
-    sessionStorage.setItem('datumPolaskaString', JSON.stringify(this.datumPolaskaString));
-    sessionStorage.setItem('datumPovratkaString', JSON.stringify(this.datumPovratkaString));
-    sessionStorage.setItem('lokacijeZaPretragu', JSON.stringify(this.lokacijeZaPretragu));
-    sessionStorage.setItem('lokacija', JSON.stringify(this.lokacija));
-    sessionStorage.setItem('kontinent', JSON.stringify(this.kontinent));
-    sessionStorage.setItem('drzava', JSON.stringify(this.drzava));
+    this.sacuvajParametrePretrage();
 
     window.location.reload();
   }
@@ -156,20 +149,24 @@ export class PretragaComponent implements OnInit {
   }
 
   stranicaAranzmana(aranzman){
+    this.sacuvajParametrePretrage();
     sessionStorage.setItem('aranzman', JSON.stringify(aranzman));
     this.ruter.navigate(['aranzman']);
   }
 
   sledecaStranica(){
-    if( this.skip+this.limit < this.brojStranica*this.limit)
-    this.skip = this.skip+this.limit; 
-    sessionStorage.setItem('limit', JSON.stringify(this.limit));
-    sessionStorage.setItem('skip', JSON.stringify(this.skip));
-    window.location.reload();
+    if( this.skip+this.limit < this.brojStranica*this.limit){
+      this.sacuvajParametrePretrage();
+      this.skip = this.skip+this.limit; 
+      sessionStorage.setItem('limit', JSON.stringify(this.limit));
+      sessionStorage.setItem('skip', JSON.stringify(this.skip));
+      window.location.reload();
+    }
   }
 
   prethodnaStranica(){
     if ( this.skip > 0 ){
+      this.sacuvajParametrePretrage();
       this.skip = this.skip-this.limit; 
       sessionStorage.setItem('limit', JSON.stringify(this.limit));
       sessionStorage.setItem('skip', JSON.stringify(this.skip));
@@ -178,8 +175,22 @@ export class PretragaComponent implements OnInit {
   }
 
   promeniPrikaz(n){
+      this.sacuvajParametrePretrage();
       sessionStorage.setItem('limit', JSON.stringify(n));
       sessionStorage.setItem('skip', JSON.stringify(0));
       window.location.reload();
   }
+
+  sacuvajParametrePretrage(){
+    sessionStorage.setItem('naziv', JSON.stringify(this.naziv));
+    sessionStorage.setItem('prevoz', JSON.stringify(this.prevoz));
+    sessionStorage.setItem('datumPolaskaString', JSON.stringify(this.datumPolaskaString));
+    sessionStorage.setItem('datumPovratkaString', JSON.stringify(this.datumPovratkaString));
+    sessionStorage.setItem('lokacijeZaPretragu', JSON.stringify(this.lokacijeZaPretragu));
+    sessionStorage.setItem('lokacija', JSON.stringify(this.lokacija));
+    sessionStorage.setItem('kontinent', JSON.stringify(this.kontinent));
+    sessionStorage.setItem('drzava', JSON.stringify(this.drzava));
+  }
+
+
 }

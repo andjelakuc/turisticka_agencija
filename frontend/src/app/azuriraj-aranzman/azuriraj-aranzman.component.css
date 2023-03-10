@@ -56,12 +56,11 @@
 
 .divInList{
     background-color: rgb(238, 238, 248);
-    flex-direction: row;
+    flex-direction: column;
     display: flex;
     padding: 10px;
     border-radius: 10px;
     gap: 10px;
-    width: 90%;
 }
 
 .polje{

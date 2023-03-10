@@ -11,12 +11,17 @@ aranzmanRouter.route('/dohvatiAranzmanePretraga').post(
     (req, res)=> new AranzmanController().dohvatiAranzmanePretraga(req, res)
 )
 
-aranzmanRouter.route('/dohvatiBrojAranzmana').get(
+aranzmanRouter.route('/dohvatiBrojAranzmana').post(
     (req, res)=> new AranzmanController().dohvatiVelicinu(req, res)
 )
 
 aranzmanRouter.route('/dodajAranzman').post(
     (req, res)=> new AranzmanController().dodajAranzman(req, res)
+)
+
+
+aranzmanRouter.route('/azurirajAranzman').post(
+    (req, res)=> new AranzmanController().azurirajAranzman(req, res)
 )
 
 

@@ -13,6 +13,11 @@ class SmestajController {
                     res.json(smestaj);
             });
         };
+        this.dohvatiSveSmestaje = (req, res) => {
+            server_1.db.collection('Smestaji').find().toArray(function (err, results) {
+                res.send(results);
+            });
+        };
         this.dodajSmestaj = (req, res) => {
             //let id = req.body.id;
             let idLokacije = req.body.idLokacije;

@@ -19,6 +19,10 @@ export class SmestajService {
     return this.http.post(`${this.uri}/smestaj/dohvatiSmestaj`, podaci);
   }
 
+  dohvatiSveSmestaje(){
+    return this.http.get(`${this.uri}/smestaj/dohvatiSveSmestaje`);
+  }
+
 
   dodajSmestaj(smestaj){
     const data={

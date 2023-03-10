@@ -7,6 +7,7 @@ const express_1 = __importDefault(require("express"));
 const smestaj_controller_1 = require("../controllers/smestaj.controller");
 const smestajRouter = express_1.default.Router();
 smestajRouter.route('/dohvatiSmestaj').post((req, res) => new smestaj_controller_1.SmestajController().dohvatiSmestaj(req, res));
+smestajRouter.route('/dohvatiSveSmestaje').get((req, res) => new smestaj_controller_1.SmestajController().dohvatiSveSmestaje(req, res));
 smestajRouter.route('/dodajSmestaj').post((req, res) => new smestaj_controller_1.SmestajController().dodajSmestaj(req, res));
 exports.default = smestajRouter;
 //# sourceMappingURL=smestaj.router.js.map

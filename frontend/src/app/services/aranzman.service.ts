@@ -48,7 +48,32 @@ export class AranzmanService {
     return this.http.post(`${this.uri}/aranzman/dohvatiAranzmanePretraga`, podaci)
   }
 
-  dohvaiBrojAranzmana(){
-    return this.http.get(`${this.uri}/aranzman/dohvatiBrojAranzmana`)
+  dohvaiBrojAranzmana(naziv, prevoz, datumPolaska, datumPovratka, lokacije){
+    const podaci={
+      naziv: naziv,
+      prevoz: prevoz,
+      datumPolaska: datumPolaska,
+      datumPovratka: datumPovratka,
+      lokacije:lokacije
+    }
+    return this.http.post(`${this.uri}/aranzman/dohvatiBrojAranzmana`,podaci)
+  }
+
+  azurirajAranzman(aranzman, datumPolaskaString, datumPovratkaString){
+    const podaci={
+      id: aranzman.id,
+      naziv: aranzman.naziv,
+      lokacije: aranzman.lokacije,
+      prevoz: aranzman.prevoz,
+      datumPolaska: datumPolaskaString,
+      datumPovratka: datumPovratkaString,
+      trajanje: aranzman.trajanje,
+      opis: aranzman.opis,
+      cena: aranzman.cena,
+      smestaj:aranzman.smestaj,
+      napomena: aranzman.napomena, 
+      slika: aranzman.fotografija
+    }
+    return this.http.post(`${this.uri}/aranzman/azurirajAranzman`,podaci)
   }
 }

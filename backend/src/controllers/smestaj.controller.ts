@@ -11,6 +11,13 @@ export class SmestajController {
         });
     }
 
+    dohvatiSveSmestaje = (req: express.Request, res: express.Response) => {
+        db.collection('Smestaji').find().toArray(function(err, results) {
+            res.send(results);
+        });
+    }
+
+
     dodajSmestaj = (req: express.Request, res: express.Response) => {
         
         //let id = req.body.id;
