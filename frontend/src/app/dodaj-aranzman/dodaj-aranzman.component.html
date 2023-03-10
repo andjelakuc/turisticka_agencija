@@ -10,7 +10,7 @@
         <button mat-icon-button (click)="pretraga()">
             <mat-icon>home</mat-icon>
         </button>
-        <div class="buttonsPosition" *ngIf="ulogovanKorisnik">
+        <div class="buttonsPosition" *ngIf="ulogovanKorisnik" (click)="odjava()">
             <button mat-button  >Odjavi se </button> 
         </div>
     </mat-toolbar>

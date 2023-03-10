@@ -192,5 +192,10 @@ export class PretragaComponent implements OnInit {
     sessionStorage.setItem('drzava', JSON.stringify(this.drzava));
   }
 
+  odjava(){
+    sessionStorage.clear();
+    this.ruter.navigate(['']);
+    window.location.reload();
+  }
 
 }

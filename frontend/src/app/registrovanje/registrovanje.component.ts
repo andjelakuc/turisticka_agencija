@@ -54,6 +54,11 @@ export class RegistrovanjeComponent implements OnInit {
     }
   }
   
+  odjava(){
+    sessionStorage.clear();
+    this.ruter.navigate(['']);
+  }
+  
   registrovanje(){
     this.ruter.navigate(['registrovanje']);
   }

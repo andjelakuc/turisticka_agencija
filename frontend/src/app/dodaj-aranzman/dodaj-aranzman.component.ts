@@ -79,6 +79,11 @@ export class DodajAranzmanComponent implements OnInit {
     });
   }
 
+  odjava(){
+    sessionStorage.clear();
+    this.ruter.navigate(['']);
+  }
+
   promeniSmestaj(id){
     this.SmestajService.dohvatiSmestaj(id).subscribe((data: Smestaj)=>{
       this.smestaj = data;

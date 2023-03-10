@@ -90,6 +90,12 @@ export class AzurirajAranzmanComponent implements OnInit {
     })
   }
 
+  odjava(){
+    sessionStorage.clear();
+    this.ruter.navigate(['']);
+  }
+  
+
   sacuvaj(){  
     var datumPolaskaString="";
     if(this.datumPolaska != null){

@@ -25,6 +25,11 @@ export class RezervacijeComponent implements OnInit {
     })
   }
 
+  odjava(){
+    sessionStorage.clear();
+    this.ruter.navigate(['']);
+  }
+  
   prihvati(id){
     this.rezervacijaService.prihvatiRezervaciju(id).subscribe((resp)=>{
       if ( resp['message'] === 'ok') {
