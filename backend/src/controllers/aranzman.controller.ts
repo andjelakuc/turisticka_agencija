@@ -174,7 +174,6 @@ export class AranzmanController {
         let smestaj = req.body.smestaj;
         let napomena = req.body.napomena;
         let slika = req.body.slika;
-
         
         db.collection('Aranzmani').updateOne({ 'id': id },
             {
@@ -193,7 +192,9 @@ export class AranzmanController {
                 }
             }, (err, resp) => {
                 if (err) console.log(err)
-                else if (resp) res.json({ 'message': 'ok' })
+                else if (resp) {
+                    res.json({ 'message': 'ok' })
+                }
         });
     }
 }

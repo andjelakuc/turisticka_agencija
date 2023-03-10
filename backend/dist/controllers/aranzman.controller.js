@@ -174,8 +174,10 @@ class AranzmanController {
             }, (err, resp) => {
                 if (err)
                     console.log(err);
-                else if (resp)
+                else if (resp) {
+                    console.log(resp);
                     res.json({ 'message': 'ok' });
+                }
             });
         };
     }
