@@ -110,8 +110,10 @@ export class AzurirajAranzmanComponent implements OnInit {
       numbers.forEach(lokacija => {
         numbers.push(lokacija.id);
       });
-      this.aranzman.lokacije = numbers;
+      if(numbers.length != 0)
+        this.aranzman.lokacije = numbers;
     this.AranzmanService.azurirajAranzman(this.aranzman, datumPolaskaString, datumPovratkaString).subscribe((resp)=>{
+      console.log(this.aranzman);
       if ( resp['message'] === 'ok') {
           alert("Uspesno ste azurirali aranzam");
           this.ruter.navigate(['']);

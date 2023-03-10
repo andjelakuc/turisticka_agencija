@@ -19,21 +19,8 @@ export class AranzmanService {
   }
 
   dohvatiAranzmanePretraga(skip, limit, naziv, prevoz, datumPolaska, datumPovratka, lokacije){
-    console.log("usao u servis");
 
-    console.log("naziv"+naziv);
-        console.log("prevoz"+prevoz);
-        if(prevoz == null) console.log("racuna se kao null");
-        console.log("datumPolaska"+datumPolaska);
-        if(datumPolaska == null) console.log("i datum se racuna kao null")
-        console.log("datumPovratka"+datumPovratka);
-        console.log("lokacije"+lokacije);
-        if(lokacije.length == 0) lokacije = null;
-        if(lokacije == null) console.log("lokacije su null");
-        
-
-        console.log("skip"+skip);
-        console.log("limit"+limit)
+    if(lokacije.length == 0) lokacije = null;
 
     //lokacije slati kao niz
     const podaci={
@@ -60,6 +47,18 @@ export class AranzmanService {
   }
 
   azurirajAranzman(aranzman, datumPolaskaString, datumPovratkaString){
+    console.log("id"+aranzman.id)
+        console.log("naziv"+aranzman.naziv);
+        console.log("lokacije"+aranzman.lokacije);
+        console.log("prevoz"+aranzman.prevoz);
+        console.log("datumPolaska"+datumPolaskaString);
+        console.log("datumPovratka"+datumPovratkaString);
+        console.log("trajanje"+aranzman.trajanje);
+        console.log("opis"+aranzman.opis);
+        console.log("cena"+aranzman.cena);
+        console.log("smestaj"+aranzman.smestaj);
+        console.log("napomena"+aranzman.napomena);
+        console.log("slika"+aranzman.slika)
     const podaci={
       id: aranzman.id,
       naziv: aranzman.naziv,
@@ -72,7 +71,7 @@ export class AranzmanService {
       cena: aranzman.cena,
       smestaj:aranzman.smestaj,
       napomena: aranzman.napomena, 
-      slika: aranzman.fotografija
+      slika: aranzman.slika
     }
     return this.http.post(`${this.uri}/aranzman/azurirajAranzman`,podaci)
   }
