@@ -30,7 +30,6 @@ export class AranzmanComponent implements OnInit {
 
     this.SmestajService.dohvatiSmestaj(this.aranzman.smestaj[0]).subscribe((data: Smestaj)=>{
       this.smestaj = data;
-      console.log(data);
     })
     var datumPolaska = new Date(this.aranzman.datumPolaska);
     if(this.danasnjiDatum > datumPolaska){

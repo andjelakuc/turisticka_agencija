@@ -1,7 +1,13 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Aranzman } from 'src/models/aranzman';
 import { Korisnik } from 'src/models/korisnik';
+import { Lokacija } from 'src/models/lokacija';
+import { Smestaj } from 'src/models/smestaj';
 import { AranzmanService } from '../services/aranzman.service';
+import { LokacijaService } from '../services/lokacija.service';
+import { SmestajService } from '../services/smestaj.service';
 
 @Component({
   selector: 'app-dodaj-aranzman',
@@ -10,13 +16,43 @@ import { AranzmanService } from '../services/aranzman.service';
 })
 export class DodajAranzmanComponent implements OnInit {
 
-  constructor(private ruter : Router, private AranzmanService:AranzmanService) { }
-
+  constructor(private ruter : Router, private SmestajService :SmestajService, private LokacijaService:LokacijaService, private AranzmanService:AranzmanService) { }
   ulogovanKorisnik: Korisnik;
+  aranzman: Aranzman = new Aranzman();
+  smestaj: Smestaj= new Smestaj();
+  sveLokacije: Array<Lokacija>;
+  lokacije =  new FormControl('');
+  sviSmestaji: Array<Smestaj>;
+  novSmesaj =  new FormControl('');
+  nizLokacija:  Array<Lokacija>;
+  datumPolaska: Date;
+  datumPovratka: Date;
 
-  ngOnInit(): void { 
+  ngOnInit(): void {
     this.ulogovanKorisnik = JSON.parse(sessionStorage.getItem('ulogovan'));
+    this.datumPolaska= new Date(this.aranzman.datumPolaska);
+    this.datumPovratka= new Date(this.aranzman.datumPovratka);
+    
+    this.LokacijaService.dohvatiSveLokacije().subscribe((data: Lokacija[])=>{
+      this.sveLokacije  = data;
+    })
 
+    this.SmestajService.dohvatiSveSmestaje().subscribe((data: Smestaj[])=>{
+      this.sviSmestaji  = data;
+      this.smestaj = this.sviSmestaji[0];
+    })
+  }
+
+  onFileSelected() {
+    const inputNode: any = document.querySelector('#file');
+    if (typeof (FileReader) !== 'undefined') {
+      const reader = new FileReader();
+  
+      reader.onload = (e: any) => {
+        this.aranzman.slika = e.target.result;
+      };
+      reader.readAsDataURL(inputNode.files[0]);
+    }
   }
 
 
@@ -32,5 +68,20 @@ export class DodajAranzmanComponent implements OnInit {
   }
   dodajAranzman(){
     this.ruter.navigate(['dodajAranzman'])
+  }
+
+  dodaj(){
+    this.AranzmanService.dodajAranzman(this.aranzman, this.datumPolaska, this.datumPovratka).subscribe((resp)=>{
+      if ( resp['message'] === 'ok') {
+          alert("Uspesno ste azurirali aranzam");
+          this.ruter.navigate(['']);
+      }
+    });
+  }
+
+  promeniSmestaj(id){
+    this.SmestajService.dohvatiSmestaj(id).subscribe((data: Smestaj)=>{
+      this.smestaj = data;
+    })
   }
 }

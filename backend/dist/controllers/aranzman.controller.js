@@ -157,13 +157,13 @@ class AranzmanController {
             let smestaj = req.body.smestaj;
             let napomena = req.body.napomena;
             let slika = req.body.slika;
-            server_1.db.collection('Aranzmani').update({ 'id': id }, {
+            server_1.db.collection('Aranzmani').updateOne({ 'id': id }, {
                 $set: {
                     naziv: naziv,
                     lokacije: lokacije,
                     prevoz: prevoz,
-                    datumPolaskaString: datumPolaskaString,
-                    datumPovratkaString: datumPovratkaString,
+                    datumPolaska: datumPolaskaString,
+                    datumPovratka: datumPovratkaString,
                     trajanje: trajanje,
                     opis: opis,
                     cena: cena,
