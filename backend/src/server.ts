@@ -31,7 +31,7 @@ MongoClient.connect(url, function(err, client) {
 
     //Here you can define your Express routes that use the database connection
     app.get('/', function(req: Request, res: Response) {
-      db.collection('Lokacije').find().toArray(function(err, results) {
+      db.collection('Aranzmani').find().toArray(function(err, results) {
         res.send(results);
       });
     }); 

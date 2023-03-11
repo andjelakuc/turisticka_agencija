@@ -14,7 +14,6 @@ class AranzmanController {
         };
         this.dohvatiAranzmanePretraga = (req, res) => {
             //obavezno sa frontenda slati lokacije kao niz!
-            console.log("pozvan");
             let naziv = req.body.naziv;
             let prevoz = req.body.prevoz;
             let datumPolaska = req.body.datumPolaska;
@@ -22,13 +21,6 @@ class AranzmanController {
             let lokacije = req.body.lokacije;
             let skip = req.body.skip;
             let limit = req.body.limit;
-            console.log("naziv" + naziv);
-            console.log("prevoz" + prevoz);
-            console.log("datumPolaska" + datumPolaska);
-            console.log("datumPovratka" + datumPovratka);
-            console.log("lokacije" + lokacije);
-            console.log("skip" + skip);
-            console.log("limit" + limit);
             let bezDatumaPolaska = datumPolaska == null ? true : false;
             let bezDatumaPovratkailiPolaska = (datumPolaska == null || datumPovratka == null) ? true : false;
             let bezLokacija = lokacije == null ? true : false;
@@ -103,45 +95,53 @@ class AranzmanController {
             let smestaj = req.body.smestaj;
             let napomena = req.body.napomena;
             let slika = req.body.slika;
+            console.log("naziv" + naziv);
+            console.log("prevoz" + prevoz);
+            console.log("datumPolaska" + datumPolaska);
+            console.log("datumPovratka" + datumPovratka);
+            console.log("lokacije" + lokacije);
+            console.log("trajanje" + trajanje);
+            console.log("opis" + opis);
+            console.log("cena" + cena);
+            console.log("smestaj" + smestaj);
+            console.log("slika" + slika);
             //provera da li je naziv jedinstven
-            server_1.db.collection('Aranzmani').findOne({ 'naziv': naziv }, (err, ar) => {
+            // db.collection('Aranzmani').findOne({'naziv': naziv}, (err, ar)=>{
+            // if(err) console.log(err);
+            // else if(ar) {
+            // res.json({'message':'Ime nije jedinstveno!'});
+            // }else {
+            server_1.db.collection('Aranzmani').find({}, (err, maxAr) => {
                 if (err)
                     console.log(err);
-                else if (ar) {
-                    res.json({ 'message': 'Ime nije jedinstveno!' });
-                }
                 else {
-                    server_1.db.collection('Aranzmani').find({}, (err, maxAr) => {
+                    let id = 0;
+                    if (maxAr != null) {
+                        id = maxAr[0].id + 1;
+                    }
+                    server_1.db.collection('Aranzmani').insertOne({
+                        id: id,
+                        naziv: naziv,
+                        lokacije: lokacije,
+                        prevoz: prevoz,
+                        datumPolaska: datumPolaskaString,
+                        datumPovratka: datumPovratkaString,
+                        trajanje: trajanje,
+                        opis: opis,
+                        cena: cena,
+                        smestaj: smestaj,
+                        napomena: napomena,
+                        slika: slika
+                    }, (err, resp) => {
                         if (err)
                             console.log(err);
-                        else {
-                            let id = 0;
-                            if (maxAr != null) {
-                                id = maxAr[0].id + 1;
-                            }
-                            server_1.db.collection('Aranzmani').insertOne({
-                                id: id,
-                                naziv: naziv,
-                                lokacije: lokacije,
-                                prevoz: prevoz,
-                                datumPolaska: datumPolaskaString,
-                                datumPovratka: datumPovratkaString,
-                                trajanje: trajanje,
-                                opis: opis,
-                                cena: cena,
-                                smestaj: smestaj,
-                                napomena: napomena,
-                                slika: slika
-                            }, (err, resp) => {
-                                if (err)
-                                    console.log(err);
-                                else if (resp)
-                                    res.json({ 'message': 'ok' });
-                            });
-                        }
-                    }).sort({ 'id': -1 }).limit(1);
+                        else if (resp)
+                            res.json({ 'message': 'ok' });
+                    });
                 }
-            });
+            }).sort({ 'id': -1 }).limit(1);
+            // }
+            // })
         };
         this.azurirajAranzman = (req, res) => {
             let id = req.body.id;
@@ -175,7 +175,6 @@ class AranzmanController {
                 if (err)
                     console.log(err);
                 else if (resp) {
-                    console.log(resp);
                     res.json({ 'message': 'ok' });
                 }
             });
