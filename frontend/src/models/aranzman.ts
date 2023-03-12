@@ -11,8 +11,5 @@ export class Aranzman{
     smestaj: Array<number>;
     napomena: string;
     slika: string;
-    vremePolaska:  Date = new Date();
-    mestoPolaska: string;
-    vremePovratka:string;
 }
 
