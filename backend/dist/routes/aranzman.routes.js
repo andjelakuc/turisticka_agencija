@@ -11,5 +11,6 @@ aranzmanRouter.route('/dohvatiAranzmanePretraga').post((req, res) => new aranzma
 aranzmanRouter.route('/dohvatiBrojAranzmana').post((req, res) => new aranzman_controller_1.AranzmanController().dohvatiVelicinu(req, res));
 aranzmanRouter.route('/dodajAranzman').post((req, res) => new aranzman_controller_1.AranzmanController().dodajAranzman(req, res));
 aranzmanRouter.route('/azurirajAranzman').post((req, res) => new aranzman_controller_1.AranzmanController().azurirajAranzman(req, res));
+aranzmanRouter.route('/obrisiAranzman').post((req, res) => new aranzman_controller_1.AranzmanController().obrisiAranzman(req, res));
 exports.default = aranzmanRouter;
 //# sourceMappingURL=aranzman.routes.js.map

@@ -127,6 +127,17 @@ export class AzurirajAranzmanComponent implements OnInit {
     });
   }
 
+  obrisi(){
+    this.AranzmanService.obrisiAranzman(this.aranzman.id).subscribe((resp)=>{
+      if ( resp['message'] === 'ok') {
+          alert("Uspesno ste obrisali aranzam");
+          this.ruter.navigate(['']);
+        }else{
+          console.log(resp['message']);
+        }
+      });
+  }
+
   otkazi(){
     this.ruter.navigate(['aranzman']);
   }

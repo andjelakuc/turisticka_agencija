@@ -77,13 +77,7 @@ export class PretragaComponent implements OnInit {
       this.sveLokacije  = data;
     })
 
-    this.AranzmanService.dohvaiBrojAranzmana( this.naziv, this.prevoz, this.datumPolaskaString, this.datumPovratkaString, this.lokacijeZaPretragu).subscribe((broj: number)=>{
-      this.brojStranica = broj ;
-      this.brojStranica = Math.floor(this.brojStranica /  this.limit); 
-      if(this.brojStranica *  this.limit < broj) 
-        this.brojStranica  = this.brojStranica +1;
-      this.stranica = this.skip/this.limit +1;
-    })
+    
 
     this.LokacijaService.dohvatiLokacijePretraga(this.lokacija, this.drzava ,this.kontinent).subscribe((data: Lokacija[])=>{
       let lokacije  = data;
@@ -93,6 +87,14 @@ export class PretragaComponent implements OnInit {
       });
       this.lokacijeZaPretragu = numbers;
       if( numbers.length > 0 ){
+        this.AranzmanService.dohvaiBrojAranzmana( this.naziv, this.prevoz, this.datumPolaskaString, this.datumPovratkaString, this.lokacijeZaPretragu).subscribe((broj: number)=>{
+          this.brojStranica = broj ;
+          this.brojStranica = Math.floor(this.brojStranica /  this.limit); 
+          if(this.brojStranica *  this.limit < broj) 
+            this.brojStranica  = this.brojStranica +1;
+          this.stranica = this.skip/this.limit +1;
+        })
+        
         this.AranzmanService.dohvatiAranzmanePretraga(this.skip, this.limit, this.naziv, this.prevoz, this.datumPolaskaString, this.datumPovratkaString, this.lokacijeZaPretragu).subscribe((data: Aranzman[])=>{
           this.filtriraniAranzmani  = data;
         })
@@ -190,6 +192,12 @@ export class PretragaComponent implements OnInit {
     sessionStorage.setItem('lokacija', JSON.stringify(this.lokacija));
     sessionStorage.setItem('kontinent', JSON.stringify(this.kontinent));
     sessionStorage.setItem('drzava', JSON.stringify(this.drzava));
+  }
+
+  ukloniFiltere(){
+    sessionStorage.clear();
+    sessionStorage.setItem('limit', JSON.stringify(this.limit));
+    window.location.reload();
   }
 
   odjava(){

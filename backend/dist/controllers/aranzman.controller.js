@@ -91,12 +91,8 @@ class AranzmanController {
             let naziv = req.body.naziv;
             let lokacije = req.body.lokacije;
             let prevoz = req.body.prevoz;
-            let datumPolaska = new Date(req.body.datumPolaska);
-            datumPolaska.setDate(datumPolaska.getMilliseconds() - tzoffset);
-            let datumPolaskaString = datumPolaska.toISOString().substring(0, 10);
-            let datumPovratka = new Date(req.body.datumPovratka);
-            datumPovratka.setDate(datumPovratka.getMilliseconds() - tzoffset);
-            let datumPovratkaString = datumPovratka.toISOString().substring(0, 10);
+            let datumPolaskaString = req.body.datumPolaska;
+            let datumPovratkaString = req.body.datumPovratka;
             let trajanje = req.body.trajanje;
             let opis = req.body.opis;
             let cena = req.body.cena;
@@ -172,6 +168,17 @@ class AranzmanController {
                     slika: slika
                 }
             }, (err, resp) => {
+                if (err)
+                    console.log(err);
+                else if (resp) {
+                    res.json({ 'message': 'ok' });
+                }
+            });
+        };
+        this.obrisiAranzman = (req, res) => {
+            let id = req.body.id;
+            console.log(id);
+            server_1.db.collection('Aranzmani').deleteOne({ 'id': id }, (err, resp) => {
                 if (err)
                     console.log(err);
                 else if (resp) {

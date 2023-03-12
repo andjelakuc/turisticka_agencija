@@ -24,6 +24,10 @@ aranzmanRouter.route('/azurirajAranzman').post(
     (req, res)=> new AranzmanController().azurirajAranzman(req, res)
 )
 
+aranzmanRouter.route('/obrisiAranzman').post(
+    (req, res)=> new AranzmanController().obrisiAranzman(req, res)
+)
+
 
 
 export default aranzmanRouter;

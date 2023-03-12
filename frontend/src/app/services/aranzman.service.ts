@@ -93,4 +93,13 @@ export class AranzmanService {
     }
     return this.http.post(`${this.uri}/aranzman/dodajAranzman`,podaci)
   }
+
+
+  obrisiAranzman(idAranzmana){
+    const podaci={
+      id: idAranzmana
+    }
+
+    return this.http.post(`${this.uri}/aranzman/obrisiAranzman`,podaci)
+  }
 }

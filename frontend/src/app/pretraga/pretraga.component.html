@@ -84,7 +84,7 @@
         <div class="buttonTabsPosition">
             <button mat-raised-button color="primary" (click)="pretraga()" >Pretrazi</button>
         </div><div class="buttonTabsPosition">
-            <button mat-raised-button color="primary">Ukloni filtere</button>
+            <button mat-raised-button color="primary" (click)="ukloniFiltere()" >Ukloni filtere</button>
         </div>
         
     </div>
@@ -152,7 +152,7 @@
                 </mat-select>
             </mat-form-field>
 
-            Stranica {{stranica}} od {{brojStranica}} promeni broj stanica kad se azurira pretraga
+            Stranica {{stranica}} od {{brojStranica}}
             <mat-icon (click)="prethodnaStranica()">keyboard_arrow_left</mat-icon>
             <mat-icon (click)="sledecaStranica()">keyboard_arrow_right</mat-icon>
             
