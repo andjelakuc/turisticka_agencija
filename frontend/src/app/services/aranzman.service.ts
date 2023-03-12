@@ -47,6 +47,24 @@ export class AranzmanService {
   }
 
   azurirajAranzman(aranzman, datumPolaskaString, datumPovratkaString){
+    const podaci={
+      id: aranzman.id,
+      naziv: aranzman.naziv,
+      lokacije: aranzman.lokacije,
+      prevoz: aranzman.prevoz,
+      datumPolaska: datumPolaskaString,
+      datumPovratka: datumPovratkaString,
+      trajanje: aranzman.trajanje,
+      opis: aranzman.opis,
+      cena: aranzman.cena,
+      smestaj:aranzman.smestaj,
+      napomena: aranzman.napomena, 
+      slika: aranzman.slika
+    }
+    return this.http.post(`${this.uri}/aranzman/azurirajAranzman`,podaci)
+  }
+
+  dodajAranzman(aranzman, datumPolaskaString, datumPovratkaString){
     console.log("id"+aranzman.id)
         console.log("naziv"+aranzman.naziv);
         console.log("lokacije"+aranzman.lokacije);
@@ -72,24 +90,6 @@ export class AranzmanService {
       smestaj:aranzman.smestaj,
       napomena: aranzman.napomena, 
       slika: aranzman.slika
-    }
-    return this.http.post(`${this.uri}/aranzman/azurirajAranzman`,podaci)
-  }
-
-  dodajAranzman(aranzman, datumPolaskaString, datumPovratkaString){
-    const podaci={
-      id: aranzman.id,
-      naziv: aranzman.naziv,
-      lokacije: aranzman.lokacije,
-      prevoz: aranzman.prevoz,
-      datumPolaska: datumPolaskaString,
-      datumPovratka: datumPovratkaString,
-      trajanje: aranzman.trajanje,
-      opis: aranzman.opis,
-      cena: aranzman.cena,
-      smestaj:aranzman.smestaj,
-      napomena: aranzman.napomena, 
-      slika: aranzman.fotografija
     }
     return this.http.post(`${this.uri}/aranzman/dodajAranzman`,podaci)
   }

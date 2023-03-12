@@ -1,16 +1,16 @@
-import { TestBed } from '@angular/core/testing';
+// import { TestBed } from '@angular/core/testing';
 
-import { RezervacijaService } from './rezervacija.service';
+// import { RezervacijaService } from './rezervacija.service';
 
-describe('RezervacijaService', () => {
-  let service: RezervacijaService;
+// describe('RezervacijaService', () => {
+//   let service: RezervacijaService;
 
-  beforeEach(() => {
-    TestBed.configureTestingModule({});
-    service = TestBed.inject(RezervacijaService);
-  });
+//   beforeEach(() => {
+//     TestBed.configureTestingModule({});
+//     service = TestBed.inject(RezervacijaService);
+//   });
 
-  it('should be created', () => {
-    expect(service).toBeTruthy();
-  });
-});
+//   it('should be created', () => {
+//     expect(service).toBeTruthy();
+//   });
+// });

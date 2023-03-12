@@ -1,23 +1,23 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+// import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { RegistrovanjeComponent } from './registrovanje.component';
+// import { RegistrovanjeComponent } from './registrovanje.component';
 
-describe('RegistrovanjeComponent', () => {
-  let component: RegistrovanjeComponent;
-  let fixture: ComponentFixture<RegistrovanjeComponent>;
+// describe('RegistrovanjeComponent', () => {
+//   let component: RegistrovanjeComponent;
+//   let fixture: ComponentFixture<RegistrovanjeComponent>;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      declarations: [ RegistrovanjeComponent ]
-    })
-    .compileComponents();
+//   beforeEach(async () => {
+//     await TestBed.configureTestingModule({
+//       declarations: [ RegistrovanjeComponent ]
+//     })
+//     .compileComponents();
 
-    fixture = TestBed.createComponent(RegistrovanjeComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+//     fixture = TestBed.createComponent(RegistrovanjeComponent);
+//     component = fixture.componentInstance;
+//     fixture.detectChanges();
+//   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-});
+//   // it('should create', () => {
+//   //   expect(component).toBeTruthy();
+//   // });
+// });

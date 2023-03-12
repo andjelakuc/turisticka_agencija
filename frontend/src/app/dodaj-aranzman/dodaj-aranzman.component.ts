@@ -71,12 +71,19 @@ export class DodajAranzmanComponent implements OnInit {
   }
 
   dodaj(){
-    this.AranzmanService.dodajAranzman(this.aranzman, this.datumPolaska, this.datumPovratka).subscribe((resp)=>{
-      if ( resp['message'] === 'ok') {
-          alert("Uspesno ste azurirali aranzam");
-          this.ruter.navigate(['']);
-      }
+    var numbers = new Array(); 
+      numbers.forEach(lokacija => {
+        numbers.push(lokacija.id);
+      });
+      if(numbers.length != 0){
+        this.aranzman.lokacije = numbers;
+        this.AranzmanService.dodajAranzman(this.aranzman, this.datumPolaska, this.datumPovratka).subscribe((resp)=>{
+          if ( resp['message'] === 'ok') {
+            alert("Uspesno ste dodali aranzman");
+            this.ruter.navigate(['']);
+        }
     });
+  }
   }
 
   odjava(){
