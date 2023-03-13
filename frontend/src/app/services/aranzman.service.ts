@@ -65,17 +65,7 @@ export class AranzmanService {
   }
 
   dodajAranzman(aranzman, datumPolaskaString, datumPovratkaString){
-    console.log("id"+aranzman.id)
-        console.log("naziv"+aranzman.naziv);
-        console.log("lokacije"+aranzman.lokacije);
-        console.log("prevoz"+aranzman.prevoz);
-        console.log("datumPolaska"+datumPolaskaString);
-        console.log("datumPovratka"+datumPovratkaString);
-        console.log("trajanje"+aranzman.trajanje);
-        console.log("opis"+aranzman.opis);
-        console.log("cena"+aranzman.cena);
-        console.log("smestaj"+aranzman.smestaj);
-        console.log("napomena"+aranzman.napomena);
+
     const podaci={
       id: aranzman.id,
       naziv: aranzman.naziv,

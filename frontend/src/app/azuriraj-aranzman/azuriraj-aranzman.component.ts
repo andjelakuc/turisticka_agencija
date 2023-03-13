@@ -24,7 +24,7 @@ export class AzurirajAranzmanComponent implements OnInit {
   lokacije =  new FormControl('');
   sviSmestaji: Array<Smestaj>;
   novSmesaj =  new FormControl('');
-  nizLokacija:  Array<Lokacija>;
+  nizLokacija:  Array<Lokacija> = new Array<Lokacija>();
   datumPolaska: Date;
   datumPovratka: Date;
 
@@ -112,12 +112,12 @@ export class AzurirajAranzmanComponent implements OnInit {
     } 
 
     this.aranzman.smestaj[0] = this.smestaj.id;
-    var numbers = new Array(); 
-      numbers.forEach(lokacija => {
-        numbers.push(lokacija.id);
-      });
-      if(numbers.length != 0)
-        this.aranzman.lokacije = numbers;
+    var numbers = new Array();
+    this.nizLokacija.forEach(lokacija => {
+      numbers.push(lokacija);
+    });
+    if(numbers.length != 0)
+      this.aranzman.lokacije = numbers;
     this.AranzmanService.azurirajAranzman(this.aranzman, datumPolaskaString, datumPovratkaString).subscribe((resp)=>{
       console.log(this.aranzman);
       if ( resp['message'] === 'ok') {

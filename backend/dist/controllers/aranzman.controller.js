@@ -97,14 +97,28 @@ class AranzmanController {
             // else if(ar) {
             // res.json({'message':'Ime nije jedinstveno!'});
             // }else {
-            server_1.db.collection('Aranzmani').find({}, (err, maxAr) => {
+            //TODO
+            // }
+            // })
+            server_1.db.collection('Aranzmani').find().sort({ 'id': -1 }).limit(1).toArray(function (err, maxRez) {
                 if (err)
                     console.log(err);
                 else {
                     let id = 0;
-                    if (maxAr != null) {
-                        id = maxAr[0].id + 1;
+                    if (maxRez.length != 0) {
+                        id = maxRez[0].id + 1;
                     }
+                    console.log(id);
+                    console.log(naziv);
+                    console.log(lokacije);
+                    console.log(prevoz);
+                    console.log(datumPolaskaString);
+                    console.log(datumPovratkaString);
+                    console.log(trajanje);
+                    console.log(opis);
+                    console.log(cena);
+                    console.log(smestaj);
+                    console.log(napomena);
                     server_1.db.collection('Aranzmani').insertOne({
                         id: id,
                         naziv: naziv,
@@ -121,13 +135,13 @@ class AranzmanController {
                     }, (err, resp) => {
                         if (err)
                             console.log(err);
-                        else if (resp)
+                        else if (resp) {
+                            console.log(resp);
                             res.json({ 'message': 'ok' });
+                        }
                     });
                 }
-            }).sort({ 'id': -1 }).limit(1);
-            // }
-            // })
+            });
         };
         this.azurirajAranzman = (req, res) => {
             let id = req.body.id;
@@ -167,12 +181,10 @@ class AranzmanController {
         };
         this.obrisiAranzman = (req, res) => {
             let id = req.body.id;
-            console.log(id);
             server_1.db.collection('Aranzmani').deleteOne({ 'id': id }, (err, resp) => {
                 if (err)
                     console.log(err);
                 else if (resp) {
-                    console.log(resp);
                     res.json({ 'message': 'ok' });
                 }
             });

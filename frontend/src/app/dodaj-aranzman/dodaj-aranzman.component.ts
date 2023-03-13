@@ -24,7 +24,7 @@ export class DodajAranzmanComponent implements OnInit {
   lokacije =  new FormControl('');
   sviSmestaji: Array<Smestaj>;
   novSmesaj =  new FormControl('');
-  nizLokacija:  Array<Lokacija>;
+  nizLokacija:  Array<Lokacija> = new Array<Lokacija>();
   datumPolaska: Date;
   datumPovratka: Date;
 
@@ -71,19 +71,22 @@ export class DodajAranzmanComponent implements OnInit {
   }
 
   dodaj(){
-    var numbers = new Array(); 
+    var numbers = new Array();
     this.nizLokacija.forEach(lokacija => {
-      numbers.push(lokacija.id);
+      numbers.push(lokacija);
     });
-    if(numbers.length != 0){
+    if(numbers.length != 0)
       this.aranzman.lokacije = numbers;
 
-    var tzoffset = (new Date()).getTimezoneOffset() * 60000; //offset in milliseconds
+    this.aranzman.smestaj =new Array<number>();
+    this.aranzman.smestaj[0] = this.smestaj.id;  
+
+    
+    this.datumPolaska.setHours(1);
+    this.datumPovratka.setHours(1);
       
-    this.aranzman.trajanje = Math.floor(this.datumPovratka.getTime()/ (1000 * 60 * 60 * 24)) -  Math.floor(this.datumPolaska.getTime() / (1000 * 60 * 60 * 24));
-    console.log(this.aranzman.trajanje);
-    console.log(this.datumPovratka);
-    console.log(this.datumPovratka.setHours(1));
+    this.aranzman.trajanje = Math.floor((this.datumPovratka.getTime() - this.datumPolaska.getTime()) / (1000 * 60 * 60 * 24));
+
     this.AranzmanService.dodajAranzman(this.aranzman, this.datumPolaska.toISOString().substring(0,10), this.datumPovratka.toISOString().substring(0,10)).subscribe((resp)=>{
       if ( resp['message'] === 'ok') {
         alert("Uspesno ste dodali aranzman");
@@ -91,7 +94,7 @@ export class DodajAranzmanComponent implements OnInit {
       }
     });
   }
-  }
+  
 
   odjava(){
     sessionStorage.clear();
@@ -99,8 +102,6 @@ export class DodajAranzmanComponent implements OnInit {
   }
 
   promeniSmestaj(id){
-    this.SmestajService.dohvatiSmestaj(id).subscribe((data: Smestaj)=>{
-      this.smestaj = data;
-    })
+    this.smestaj = this.sviSmestaji[id];
   }
 }

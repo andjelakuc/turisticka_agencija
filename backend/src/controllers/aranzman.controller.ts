@@ -115,36 +115,53 @@ export class AranzmanController {
             // else if(ar) {
                 // res.json({'message':'Ime nije jedinstveno!'});
             // }else {
-                db.collection('Aranzmani').find({}, (err, maxAr)=>{
-                    if(err) console.log(err);
-                    else{
-                        let id = 0
-                        if(maxAr != null){
-                            id = maxAr[0].id + 1;
-                        }
-                        db.collection('Aranzmani').insertOne(
-                            {
-                                id: id,
-                                naziv: naziv,
-                                lokacije: lokacije,
-                                prevoz: prevoz,
-                                datumPolaska: datumPolaskaString,
-                                datumPovratka: datumPovratkaString,
-                                trajanje: trajanje,
-                                opis: opis,
-                                cena: cena,
-                                smestaj: smestaj,
-                                napomena: napomena,
-                                slika: slika
-                            }, (err, resp) => {
-                                if (err) console.log(err)
-                                else if (resp) res.json({ 'message': 'ok' })
-                            }
-                        );
-                    }
-                }).sort({'id': -1}).limit(1)
+                //TODO
             // }
         // })
+        db.collection('Aranzmani').find().sort({'id': -1}).limit(1).toArray( function(err, maxRez){
+            if(err) console.log(err);
+            else{
+                let id = 0
+                if(maxRez.length != 0){
+                    id = maxRez[0].id + 1;
+                }
+                console.log(id);
+                console.log(naziv);
+                console.log(lokacije);
+                console.log(prevoz);
+                console.log(datumPolaskaString);
+                console.log(datumPovratkaString);
+                console.log(trajanje);
+                console.log(opis);
+                console.log(cena);
+                console.log(smestaj);
+                console.log(napomena);
+
+                db.collection('Aranzmani').insertOne(
+                    {
+                        id: id,
+                        naziv : naziv,
+                        lokacije: lokacije,
+                        prevoz: prevoz,
+                        datumPolaska: datumPolaskaString,
+                        datumPovratka: datumPovratkaString,
+                        trajanje: trajanje,
+                        opis: opis,
+                        cena: cena,
+                        smestaj: smestaj,
+                        napomena: napomena,
+                        slika: slika
+                    }, (err, resp) => {
+                        if (err) console.log(err)
+                        else if (resp) 
+                        {
+                            console.log(resp);
+                            res.json({ 'message': 'ok' });
+                        }
+                    }
+                );
+            }
+        });
     }
 
 
@@ -163,7 +180,6 @@ export class AranzmanController {
         let smestaj = req.body.smestaj;
         let napomena = req.body.napomena;
         let slika = req.body.slika;
-        
         db.collection('Aranzmani').updateOne({ 'id': id },
             {
                 $set: {
@@ -189,11 +205,9 @@ export class AranzmanController {
 
     obrisiAranzman = (req: express.Request, res: express.Response) => {
         let id = req.body.id;
-        console.log(id);
         db.collection('Aranzmani').deleteOne( { 'id': id }, (err, resp) => {
             if (err) console.log(err)
             else if (resp) {
-                console.log(resp);
                 res.json({ 'message': 'ok' })
             } });
 
