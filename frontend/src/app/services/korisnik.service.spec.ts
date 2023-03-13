@@ -36,6 +36,9 @@ describe('KorisnikService', () => {
     const testRequest = httpTestingController.expectOne({method: "POST"});
  
     testRequest.flush(expectedData);
+
+    expect(testRequest.request.body.lozinka).toEqual(expectedData.lozinka);
+    expect(testRequest.request.body.korisnickoIme).toEqual(expectedData.korisnickoIme);
   });
 
   it('#dodajKorisnika pravi odgovarajuc zahtev', (done) => {
@@ -55,5 +58,6 @@ describe('KorisnikService', () => {
     const testRequest = httpTestingController.expectOne({method: "POST"});
  
     testRequest.flush(expectedData);
+    expect(testRequest.request.body).toEqual(dataToSend);
   });
 });

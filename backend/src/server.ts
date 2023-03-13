@@ -7,13 +7,16 @@ import korisnikRouter from './routes/korisnik.routes';
 import smestajRouter from './routes/smestaj.router';
 import lokacijaRouter from './routes/lokacija.routes';
 import rezervacijaRouter from './routes/rezervacija.routes';
+import { Test } from './test';
 
 const app: Application = express();
 app.use(cors())
 app.use(cors({
     origin: 'http://localhost:4200' // Allow requests from this origin
   }));
-app.use(express.json())
+//app.use(express.json())
+app.use(express.json(({limit: '50mb'})))
+app.use(express.urlencoded({limit: '50mb', parameterLimit: 100000,extended: true }));
 
 const url: string = process.env.MONGODB_URI || 'mongodb://localhost:27017';
 const dbName: string = 'turisticka_agencija';
@@ -31,9 +34,10 @@ MongoClient.connect(url, function(err, client) {
 
     //Here you can define your Express routes that use the database connection
     app.get('/', function(req: Request, res: Response) {
-      db.collection('Aranzmani').find().toArray(function(err, results) {
-        res.send(results);
-      });
+      new Test().testiraj(req, res);
+      // db.collection('Aranzmani').find().toArray(function(err, results) {
+      //   res.send(results);
+      // });
     }); 
 
     // Start the Express app
@@ -49,9 +53,5 @@ MongoClient.connect(url, function(err, client) {
     router.use('/rezervacija', rezervacijaRouter);
     app.use('/', router);
   }
-
-   
-
-
 
 });

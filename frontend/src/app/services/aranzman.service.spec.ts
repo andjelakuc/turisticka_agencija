@@ -69,6 +69,9 @@ describe('AranzmanService', () => {
         expect(testRequest.request.method).toEqual('POST');
     
         testRequest.flush('POST');
+
+        expect(testRequest.request.body.skip).toEqual(skip);
+        expect(testRequest.request.body.limit).toEqual(limit);
     });
 
     it('#dohvaiBrojAranzmana pravi zahtev za dohvatanje broja aranzmana', (done) => {
@@ -90,13 +93,20 @@ describe('AranzmanService', () => {
         const expectedData: Number = 1;
     
         service.dohvaiBrojAranzmana(dataToSend.naziv, dataToSend.prevoz, dataToSend.datumPolaska, dataToSend.datumPovratka, dataToSend.lokacije).subscribe(data => {
-        expect(data).toEqual(1);
-        done();
+            expect(data).toEqual(1);
+            done();
         });
 
         const testRequest = httpTestingController.expectOne({method: "POST"});
     
         testRequest.flush(1);
+
+        expect(testRequest.request.body.naziv).toEqual(dataToSend.naziv);
+        expect(testRequest.request.body.lokacije).toEqual(dataToSend.lokacije);
+        expect(testRequest.request.body.prevoz).toEqual(dataToSend.prevoz);
+        expect(testRequest.request.body.datumPolaska).toEqual(dataToSend.datumPolaska);
+        expect(testRequest.request.body.datumPovratka).toEqual(dataToSend.datumPovratka);
+        
     });
 
     it('#azurirajAranzman pravi odgovarajuci zahtev', (done) => {
@@ -125,6 +135,19 @@ describe('AranzmanService', () => {
         const testRequest = httpTestingController.expectOne({method: "POST"});
     
         testRequest.flush(expectedData);
+
+        expect(testRequest.request.body.id).toEqual(dataToSend.id);
+        expect(testRequest.request.body.naziv).toEqual(dataToSend.naziv);
+        expect(testRequest.request.body.lokacije).toEqual(dataToSend.lokacije);
+        expect(testRequest.request.body.prevoz).toEqual(dataToSend.prevoz);
+        expect(testRequest.request.body.datumPolaska).toEqual(dataToSend.datumPolaska.toISOString().substring(0,10));
+        expect(testRequest.request.body.datumPovratka).toEqual(dataToSend.datumPovratka.toISOString().substring(0,10));
+        expect(testRequest.request.body.trajanje).toEqual(dataToSend.trajanje);
+        expect(testRequest.request.body.opis).toEqual(dataToSend.opis);
+        expect(testRequest.request.body.cena).toEqual(dataToSend.cena);
+        expect(testRequest.request.body.smestaj).toEqual(dataToSend.smestaj);
+        expect(testRequest.request.body.napomena).toEqual(dataToSend.napomena);
+        expect(testRequest.request.body.slika).toEqual(dataToSend.slika);
     });
 
     it('#dodajAranzman pravi odgovarajuci zahtev', (done) => {
@@ -153,6 +176,21 @@ describe('AranzmanService', () => {
         const testRequest = httpTestingController.expectOne({method: "POST"});
     
         testRequest.flush(expectedData);
+
+        expect(testRequest.request.body.id).toEqual(dataToSend.id);
+        expect(testRequest.request.body.naziv).toEqual(dataToSend.naziv);
+        expect(testRequest.request.body.lokacije).toEqual(dataToSend.lokacije);
+        expect(testRequest.request.body.prevoz).toEqual(dataToSend.prevoz);
+        expect(testRequest.request.body.datumPolaska).toEqual(dataToSend.datumPolaska.toISOString().substring(0,10));
+        expect(testRequest.request.body.datumPovratka).toEqual(dataToSend.datumPovratka.toISOString().substring(0,10));
+        expect(testRequest.request.body.trajanje).toEqual(dataToSend.trajanje);
+        expect(testRequest.request.body.opis).toEqual(dataToSend.opis);
+        expect(testRequest.request.body.cena).toEqual(dataToSend.cena);
+        expect(testRequest.request.body.smestaj).toEqual(dataToSend.smestaj);
+        expect(testRequest.request.body.napomena).toEqual(dataToSend.napomena);
+        expect(testRequest.request.body.slika).toEqual(dataToSend.slika);
+
+
     });
-    
+
 });

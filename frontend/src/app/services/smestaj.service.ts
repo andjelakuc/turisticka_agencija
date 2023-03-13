@@ -26,7 +26,7 @@ export class SmestajService {
 
   dodajSmestaj(smestaj){
     const data={
-      id: smestaj.id,
+      idLokacije: smestaj.idLokacije,
       ime: smestaj.ime,
       tip: smestaj.tip,
       kategorija:smestaj.kategorija,

@@ -85,7 +85,7 @@ export class DodajAranzmanComponent implements OnInit {
     this.datumPolaska.setHours(1);
     this.datumPovratka.setHours(1);
       
-    this.aranzman.trajanje = Math.floor((this.datumPovratka.getTime() - this.datumPolaska.getTime()) / (1000 * 60 * 60 * 24));
+    this.aranzman.trajanje = Math.floor((this.datumPovratka.getTime() - this.datumPolaska.getTime()) / (1000 * 60 * 60 * 24)) + 1;
 
     this.AranzmanService.dodajAranzman(this.aranzman, this.datumPolaska.toISOString().substring(0,10), this.datumPovratka.toISOString().substring(0,10)).subscribe((resp)=>{
       if ( resp['message'] === 'ok') {
