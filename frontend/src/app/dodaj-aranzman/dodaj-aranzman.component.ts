@@ -72,19 +72,26 @@ export class DodajAranzmanComponent implements OnInit {
 
   dodaj(){
     var numbers = new Array(); 
-      numbers.forEach(lokacija => {
-        numbers.push(lokacija.id);
-      });
-      if(numbers.length != 0){
-        this.aranzman.lokacije = numbers;
-        this.AranzmanService.dodajAranzman(this.aranzman, this.datumPolaska, this.datumPovratka).subscribe((resp)=>{
-          if ( resp['message'] === 'ok') {
-            alert("Uspesno ste dodali aranzman");
-            this.ruter.navigate(['']);
-        }
+    this.nizLokacija.forEach(lokacija => {
+      numbers.push(lokacija.id);
     });
-  }
-  }
+    if(numbers.length != 0){
+      this.aranzman.lokacije = numbers;
+
+    var tzoffset = (new Date()).getTimezoneOffset() * 60000; //offset in milliseconds
+      
+    this.aranzman.trajanje = Math.floor(this.datumPovratka.getTime()/ (1000 * 60 * 60 * 24)) -  Math.floor(this.datumPolaska.getTime() / (1000 * 60 * 60 * 24));
+    console.log(this.aranzman.trajanje);
+    console.log(this.datumPovratka);
+    console.log(this.datumPovratka.setHours(1));
+    this.AranzmanService.dodajAranzman(this.aranzman, this.datumPolaska.toISOString().substring(0,10), this.datumPovratka.toISOString().substring(0,10)).subscribe((resp)=>{
+      if ( resp['message'] === 'ok') {
+        alert("Uspesno ste dodali aranzman");
+        this.ruter.navigate(['']);
+      }
+    });
+  }
+  }
 
   odjava(){
     sessionStorage.clear();

@@ -62,6 +62,11 @@
             <textarea   matInput  value="{{this.aranzman.opis}}" [(ngModel)]="this.aranzman.opis"></textarea>
         </mat-form-field>
 
+        <mat-form-field appearance="fill"  >
+          <mat-label>Napomena:</mat-label>
+          <textarea   matInput  value="{{this.aranzman.napomena}}" [(ngModel)]="this.aranzman.napomena"></textarea>
+      </mat-form-field>
+
         <mat-form-field appearance="fill" >
             <mat-label>Prevozi</mat-label>
             <mat-select [(value)]="aranzman.prevoz">

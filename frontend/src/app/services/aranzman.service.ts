@@ -76,7 +76,6 @@ export class AranzmanService {
         console.log("cena"+aranzman.cena);
         console.log("smestaj"+aranzman.smestaj);
         console.log("napomena"+aranzman.napomena);
-        console.log("slika"+aranzman.slika)
     const podaci={
       id: aranzman.id,
       naziv: aranzman.naziv,

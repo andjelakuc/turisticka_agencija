@@ -36,4 +36,7 @@ export class LogovanjeComponent implements OnInit {
     })
   }
 
+  pretraga(){
+    this.ruter.navigate(['']);
+  }
 }

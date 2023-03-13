@@ -107,16 +107,7 @@ export class AranzmanController {
         let napomena = req.body.napomena;
         let slika = req.body.slika;
 
-        console.log("naziv"+naziv);
-        console.log("prevoz"+prevoz);
-        console.log("datumPolaska"+datumPolaska);
-        console.log("datumPovratka"+datumPovratka);
-        console.log("lokacije"+lokacije);
-        console.log("trajanje"+trajanje);
-        console.log("opis"+opis);
-        console.log("cena"+cena);
-        console.log("smestaj"+smestaj);
-        console.log("slika"+slika);
+
 
         //provera da li je naziv jedinstven
         // db.collection('Aranzmani').findOne({'naziv': naziv}, (err, ar)=>{
