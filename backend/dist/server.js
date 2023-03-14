@@ -17,7 +17,9 @@ app.use((0, cors_1.default)());
 app.use((0, cors_1.default)({
     origin: 'http://localhost:4200' // Allow requests from this origin
 }));
-app.use(express_1.default.json());
+//app.use(express.json())
+app.use(express_1.default.json(({ limit: '50mb' })));
+app.use(express_1.default.urlencoded({ limit: '50mb', parameterLimit: 100000, extended: true }));
 const url = process.env.MONGODB_URI || 'mongodb://localhost:27017';
 const dbName = 'turisticka_agencija';
 mongodb_1.MongoClient.connect(url, function (err, client) {

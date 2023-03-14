@@ -45,8 +45,6 @@ export class RegistrovanjeComponent implements OnInit {
         }
         else if ( resp['message'] === 'Korisnicko ime je zauzeto.') 
           this.message = 'Korisnicko ime je zauzeto.';
-        else 
-          this.message = 'E-mail adresa je vec iskoriscena.';
       })
     }
     else{
