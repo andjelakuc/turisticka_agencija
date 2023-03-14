@@ -7,7 +7,6 @@ import korisnikRouter from './routes/korisnik.routes';
 import smestajRouter from './routes/smestaj.router';
 import lokacijaRouter from './routes/lokacija.routes';
 import rezervacijaRouter from './routes/rezervacija.routes';
-import { Test } from './test';
 
 const app: Application = express();
 app.use(cors())
@@ -34,10 +33,9 @@ MongoClient.connect(url, function(err, client) {
 
     //Here you can define your Express routes that use the database connection
     app.get('/', function(req: Request, res: Response) {
-      new Test().testiraj(req, res);
-      // db.collection('Aranzmani').find().toArray(function(err, results) {
-      //   res.send(results);
-      // });
+      db.collection('Aranzmani').find().toArray(function(err, results) {
+        res.send(results);
+      });
     }); 
 
     // Start the Express app

@@ -30,6 +30,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { RezervacijaComponent } from './rezervacija/rezervacija.component';
 import { AzurirajAranzmanComponent } from './azuriraj-aranzman/azuriraj-aranzman.component';
 import {MatPaginatorModule} from '@angular/material/paginator';
+import { TestComponent } from './test/test.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import {MatPaginatorModule} from '@angular/material/paginator';
     DodajAranzmanComponent,
     AranzmanComponent,
     RezervacijaComponent,
-    AzurirajAranzmanComponent
+    AzurirajAranzmanComponent,
+    TestComponent
   ],
   imports: [
     BrowserModule,

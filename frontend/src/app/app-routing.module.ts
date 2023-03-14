@@ -8,6 +8,7 @@ import { PretragaComponent } from './pretraga/pretraga.component';
 import { RegistrovanjeComponent } from './registrovanje/registrovanje.component';
 import { RezervacijaComponent } from './rezervacija/rezervacija.component';
 import { RezervacijeComponent } from './rezervacije/rezervacije.component';
+import { TestComponent } from './test/test.component';
 
 const routes: Routes = [
   {path: '', component:PretragaComponent, title: "Turisticka agencija"},
@@ -17,7 +18,8 @@ const routes: Routes = [
   {path: 'registrovanje', component:RegistrovanjeComponent, title: "Turisticka agencija"},
   {path: 'dodajAranzman', component:DodajAranzmanComponent, title: "Turisticka agencija"},
   {path: 'aranzman', component:AranzmanComponent, title: "Turisticka agencija"},
-  {path: 'azurirajAranzman', component:AzurirajAranzmanComponent, title: "Turisticka agencija"}
+  {path: 'azurirajAranzman', component:AzurirajAranzmanComponent, title: "Turisticka agencija"},
+  {path: 'test', component:TestComponent, title: "Turisticka agencija"}
 ];
 
 @NgModule({
